@@ -22,7 +22,7 @@ public class Task06 {
 
 //		계산
 		int tPrice = coffee * cup; // 할인 전 금액
-		int free = (cup / 7); // 무료 커피
+		int free = (cup / 8); // 무료 커피
 		int dPrice = tPrice - (free * coffee); // 할인 후 금액
 
 //		결과값 출력

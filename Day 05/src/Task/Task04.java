@@ -23,6 +23,7 @@ public class Task04 {
 		boolean a = (year % 400 == 0); // 400의 배수인가
 		boolean b = (year % 100 != 0); // 100의 배수가 아닌가
 		boolean c = (a || b) && (year % 4 == 0); // a 와 b 둘 다 아닐 경우 4의 배수
+//		boolean c = ((year % 400 == 0) == (year % 100 == 0)) && (year % 4 == 0);	// 100의 배수가 참인지 거짓인지 위의 문제와 반대로 해석하면 풀리긴 풀림	
 
 //		결과 출력				
 		System.out.println("400의 배수인가? : 		" + a);
