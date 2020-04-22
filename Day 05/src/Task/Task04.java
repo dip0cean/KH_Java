@@ -28,7 +28,7 @@ public class Task04 {
 //		결과 출력				
 		System.out.println("400의 배수인가? : 		" + a);
 		System.out.println("100의 배수가 아닌가? : 	" + b);
-		System.out.println("두 경우 다 아니면 4의 배수인가? : 	" + c);
+//		System.out.println("두 경우 다 아니면 4의 배수인가? : 	" + c); 100의 배수가 참인지 거짓인지 위의 문제와 반대로 해석하면 풀리긴 풀림
 		System.out.println("입력한 값은 윤년인가요? :	" + c);
 
 		sc.close();
