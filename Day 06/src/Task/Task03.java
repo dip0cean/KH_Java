@@ -6,35 +6,59 @@ import java.util.Scanner;
 public class Task03 {
 
 	public static void main(String[] args) {
-//		주차장 요금 정산 프로그램
-//		사용자에게 진입시간, 진출시간을 입력받아 다음 규칙에 따라 요금을 계산하여 출력하시오.
-//		1) 30분까지는 주차요금 무료
-//		2) 31분 부터 10분에 1000원
-//		3) 아무리 오래 주차해도 일 최대 요금은 만원
-		
-		Scanner sc = new Scanner(System.in);
-		
-		int inHour = sc.nextInt(); // 진입 시
-		int inMinute = sc.nextInt(); // 진입 분
-		int outHour = sc.nextInt(); // 진출 시
-		int outMinute = sc.nextInt();; // 진출 분
-		sc.close();
 
-		int inTime = (inHour * 60) + inMinute; // 진입한 시간
-		int outTime = (outHour * 60) + outMinute; // 진출한 시간
-		int sumTime = outTime - inTime; // 할인 전 총 사용 시간
+			Scanner sc = new Scanner(System.in);
 
-		int price;
+//			입차 시간과 분		
+			int inHM = sc.nextInt();
+			int inH = inHM / 100; // 입차 시간
+			int inM = inHM % 100; // 입차 분
 
-		if (sumTime > 30 && sumTime < 130) { 
-			price = ((sumTime / 10 - 2) * 1000); // 30분 이후 출차
-		} else if (sumTime <= 30) {
-			price = 0; // 30분 이전 출차
-		} else {
-			price = 10000; // 결제 금액 10000원 넘으면
-		}
-		System.out.println("주차 시간 : " + sumTime + "분 입니다.");
-		System.out.println("결제 금액은 "+ price + "원 입니다.");
+//			출차 시간과 분		
+			int outHM = sc.nextInt();
+			int outH = outHM / 100; // 출차 시간
+			int outM = outHM % 100; // 출차 분
+			sc.close();
+
+//			이용 요금표
+			int price = 1000; // freeTime+1부터 priceTime 당 요금
+			int priceTime = 10; // 분 당
+			int freeTime = 30; // freeTime분 만큼 무료
+			int limitTime = 130; // limitTime분 이후 부터 무조건 10000원
+
+//			출차 시간 - 입차 시간
+			int inTime = (inH * 60) + inM; // 입차 시간
+			int outTime = (outH * 60) + outM; // 출차 시간
+			int sumTime = outTime - inTime; // 주차 시간
+
+//			최종 요금		
+			int tPrice;
+
+			if (sumTime > freeTime && sumTime < limitTime && sumTime % priceTime != 0) {
+				// 이용 시간 31분 부터 129분까지 그리고 이용시간의 10 나머지 값이 0이 아닐 경우 > 나머지 값이
+
+				tPrice = ((sumTime / priceTime) - (freeTime / priceTime - 1)) * price;
+
+			} else if (sumTime > freeTime && sumTime < limitTime && sumTime % priceTime == 0) {
+				// 이용 시간 31분 부터 129분까지 그리고 이용시간의 10 나머지 값이 0일 경우
+
+				tPrice = (sumTime / priceTime - (freeTime / priceTime)) * price;
+
+			} else if (sumTime <= freeTime) {
+				// 이용 시간 30분 이하부터 무료
+
+				tPrice = 0;
+
+			} else {
+				// 이용 요금이 10000원이 넘을 경우 요금은 10000원
+
+				tPrice = 10000;
+
+			}
+			System.out.println("입차 시간 : " + inH + "시 " + inM + "분");
+			System.out.println("출차 시간 : " + outH + "시 " + outM + "분");
+			System.out.println("주차 시간 : " + sumTime + "분");
+			System.out.println("결제 금액 : " + tPrice + "원");
 	}
 
 }
