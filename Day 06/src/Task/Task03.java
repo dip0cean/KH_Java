@@ -1,6 +1,7 @@
 package Task;
 
 import java.lang.*;
+import java.util.Scanner;
 
 public class Task03 {
 
@@ -14,9 +15,10 @@ public class Task03 {
 		Scanner sc = new Scanner(System.in);
 		
 		int inHour = sc.nextInt(); // 진입 시
-		int inMinute = sc.nextInt();; // 진입 분
-		int outHour = 10; // 진출 시
-		int outMinute = 30; // 진출 분
+		int inMinute = sc.nextInt(); // 진입 분
+		int outHour = sc.nextInt(); // 진출 시
+		int outMinute = sc.nextInt();; // 진출 분
+		sc.close();
 
 		int inTime = (inHour * 60) + inMinute; // 진입한 시간
 		int outTime = (outHour * 60) + outMinute; // 진출한 시간
