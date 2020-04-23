@@ -12,12 +12,12 @@ public class Task04 {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("파이썬 점수를 입력하세요.");
-		double pathonScore = sc.nextDouble();
+		double pythonScore = sc.nextDouble();
 		System.out.println("자바 점수를 입력하세요.");
 		double javaScore = sc.nextDouble();
 		sc.close();
 
-		double avg = (pathonScore + javaScore) / 2;
+		double avg = (pythonScore + javaScore) / 2;
 
 		String grad;
 
