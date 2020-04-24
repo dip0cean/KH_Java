@@ -35,7 +35,7 @@ public class Task03 {
 			int tPrice;
 
 			if (sumTime > freeTime && sumTime < limitTime && sumTime % priceTime != 0) {
-				// 이용 시간 31분 부터 129분까지 그리고 이용시간의 10 나머지 값이 0이 아닐 경우 > 나머지 값이
+				// 이용 시간 31분 부터 129분까지 그리고 이용시간의 10 나머지 값이 0이 아닐 경우
 
 				tPrice = ((sumTime / priceTime) - (freeTime / priceTime - 1)) * price;
 
