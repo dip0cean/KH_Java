@@ -7,8 +7,7 @@ public class Task04 {
 
 	public static void main(String[] args) {
 //		시험 점수 관리 프로그램
-//		우리반 학생들의 시험 성적이 다음과 같습니다.
-//		70 85 92 66 72 88 92 70 81 93
+
 //		1) 우리반 학생들의 시험 성적 평균
 //		2) 90점을 맞은 학생의 예상 등수를 구하여 출력(사용자가 입력해도 괜찮다.)
 
@@ -34,7 +33,6 @@ public class Task04 {
 
 //		등수 확인 > 공동 등수는 상관 없이 "내 점수"가 전체에서 몇등인지가 중요. > 내 위에 몇명이 있는지가 중요하다.
 		int count = 0;
-		int a = 0;
 		for (int i = 0; i < score.length; i++) {
 			if (myScore < score[i]) {
 				count++;
