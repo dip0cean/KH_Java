@@ -11,7 +11,7 @@ public class Task06_1 {
 
 		String[] name = new String[] { "Java", "JavaScript", "Python", "Ruby", "C#", "TypeScript", "React", "Kotlin" };
 
-		int length = name.length-1; // String 인덱스를 역순으로 돌리기 위해
+		int length = name.length - 1; // String 인덱스를 역순으로 돌리기 위해
 
 		for (int i = 0; i < length / 2; i++) {
 			String a = name[i];

@@ -23,7 +23,7 @@ public class Task06_2 {
 				a = name[i];
 				name[i] = name[k];
 				name[k] = a;
-				
+
 // 				i 와 k 가 같으면 중복이니 while의 처음으로 돌아가 반복하고, i 와 k 가 다르면 while 문을 멈춰라
 				if (i != k) {
 					break;
@@ -34,7 +34,7 @@ public class Task06_2 {
 		for (int i = 0; i < name.length; i++) {
 			System.out.println("name[" + i + "] = " + name[i]);
 		}
-		
+
 	}
 
 }
