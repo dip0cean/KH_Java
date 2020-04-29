@@ -1,6 +1,7 @@
 package For;
 
 import java.lang.*;
+import java.util.Scanner;
 
 public class Test05_1 {
 
@@ -16,23 +17,24 @@ public class Test05_1 {
 
 //		> 사용자가 입력한 숫자가 "소수" 인지 "합성수" 인지 판정하는 프로그램을 구현
 
-		int count;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("숫자를 입력해주세요.");
+		int user = sc.nextInt();
+		sc.close();
+
+		int count = 0;
 		int avg;
-		for (int i = 1; i <= 1000; i++) {
-			count = 0;
-			for (int k = 1; k <= i; k++) {
-				avg = i % k;
-				if (avg == 0) {
-					count++;
-				}
+		for (int i = 1; i <= user; i++) {
+			avg = user % i;
+			if (avg == 0) {
+				count++;
 			}
-			if (i == 1) {
-				System.out.println(i + "\t > 분류되지 않음.");
-			} else if (count == 2 && i > 1) {
-				System.out.println(i + "\t > 소수");
-			} else {
-				System.out.println(i + "\t > 합성수");
-			}
+		}
+		if (count == 2) {
+			System.out.println(user + " > 소수");
+		} else {
+			System.out.println(user + " > 합성수");
 		}
 	}
 }
