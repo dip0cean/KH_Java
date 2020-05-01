@@ -1,9 +1,9 @@
-package Array;
+package Array_1;
 
 import java.lang.*;
 import java.util.*;
 
-public class Test02 {
+public class Test03 {
 
 	public static void main(String[] args) {
 //		배열 : 변수가 줄줄이 모여 있는 것
@@ -19,14 +19,19 @@ public class Test02 {
 		d[2] = r.nextInt(6) + 1;
 		System.out.println(d[0] + " + " + d[1] + " + " + d[2] + " = " + (d[0] + d[1] + d[2]) );
 		
-//		배열 생성 : 여러개라고 생각하지만 실제로는 n 개
-//		n개의 변수를 합쳐서 사용
+//		반복문을 이용한 배열 생성
+		Scanner sc = new Scanner(System.in);
+		int f = sc.nextInt();
+		sc.close();
+		int[] e = new int[f];
 		
-		int x = 3;
-		int[] y = new int[x];
-		for(int i = 0; i < x; i++) {
-			y[i] = r.nextInt(6) + 1;
-			System.out.println((i + 1) + "번째 : " + y[i]);
+		//	인덱스에 숫자 집어 넣기
+		for(int i = 0; i < f; i++) {
+			e[i] = r.nextInt(6) + 1;
+		}
+		//	인덱스 개수만큼 출력
+		for(int i = 0; i < f; i++) {
+			System.out.println((i+1) + "번째 : " + e[i]);
 		}
 	
 	}
