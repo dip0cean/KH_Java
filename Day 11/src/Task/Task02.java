@@ -10,16 +10,15 @@ public class Task02 {
 
 		// 입력
 		Random r = new Random();
-		int gameLevel = 4;
+		int gameLevel = 5;
 		int num = 1;
 		int[][] bingo = new int[gameLevel][gameLevel];
-		int[][] save = new int[gameLevel][gameLevel];
+		int save;
 
 		// [0][0] ~ [5][5]의 인덱스에 1 ~ 25까지의 숫자 넣기
 		for (int i = 0; i < bingo.length; i++) {
 			for (int k = 0; k < bingo[i].length; k++) {
 				bingo[i][k] = num++;
-				save[i][k] = bingo[i][k];
 			}
 		}
 
@@ -29,8 +28,9 @@ public class Task02 {
 				int a = r.nextInt(bingo.length - bingo.length / 2) + bingo.length / 2;
 				int b = r.nextInt(bingo[i].length);
 
+				save = bingo[i][k];
 				bingo[i][k] = bingo[a][b];
-				bingo[a][b] = save[i][k];
+				bingo[a][b] = save;
 			}
 		}
 
