@@ -30,9 +30,10 @@ public class Task04 {
 				count = 0;
 				for (int x = i - 1; x <= i + 1; x++) {
 					for (int y = k - 1; y <= k + 1; y++) {
-						if (x < 0 || y < 0 || mineGame.length == x || mineGame[i].length == y) {
-						} else if (mineGame[i][k] != 9 && mineGame[x][y] == 9) {
-							count++;
+						if (x > -1 && y > -1 && mineGame.length > x && mineGame[i].length > y) {
+							if (mineGame[i][k] != 9 && mineGame[x][y] == 9) {
+								count++;
+							}
 						}
 					}
 				}
