@@ -31,12 +31,13 @@ public class Score {
 		this.kor = kor;
 		this.eng = eng;
 		this.math = math;
-		this.sum = kor + eng + math;
-		this.avg = ((int) (((this.sum) / 3.0) * 10)) / 10.0;
 	}
 
 //	출력 메소드	
 	void output() {
+		this.sum = this.kor + this.eng + this.math;
+		this.avg = ((int) (((this.sum) / 3.0) * 10)) / 10.0;
+		
 		System.out.println("이름 : " + this.name);
 		System.out.println("총점 : " + this.sum + "점");
 		System.out.println("평균 : " + this.avg + "점");
