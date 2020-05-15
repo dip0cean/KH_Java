@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-public class Test06 {
-	@SuppressWarnings({ "resource" })
+public class Test06_0 {
+	// @SuppressWarnings({ "resource" })
 	public static void main(String[] args) {
 //		사용자에게 자장면과 짬뽕 그릇 수를 입력받아 합계 금액을 계산하는 프로그램을 구현
 //		-	최소 입력 가능 수량은 1개
@@ -18,17 +18,15 @@ public class Test06 {
 
 			System.out.println("자장면 주문 개수 : ");
 			int cWant = sc.nextInt();
-			if (cWant <= 0) {
-				throw new Exception("1개 이상 입력해주세요.");
-			}
 
 			System.out.println("짬뽕 주문 개수 : ");
 			int jWant = sc.nextInt();
-			if (jWant <= 0) {
+			sc.close();
+			
+			if (jWant <= 0 && cWant <= 0) {
 
 				throw new Exception("1개 이상 입력해주세요.");
 			}
-			sc.close();
 
 			int result1 = chinaNoddle * cWant;
 			int result2 = jjambbong * jWant;
