@@ -18,12 +18,14 @@ public class Test02 {
 			int b = r.nextInt(a.secretNumSize());
 			if (!randomNum.contains(b)) {
 				randomNum.add(b);
+			} else {
+				i--;
 			}
 		}
 		
 		//	pw 에 secretNum 데이터 넣기
 		for (int i = 0; i < randomNum.size(); i++) {
-			pw.append(a.secretNumGet((randomNum.get(i))));
+			pw.append(a.secretNumGet(randomNum.get(i)));
 		}
 		System.out.println("임시 비밀번호 : " + pw);
 
