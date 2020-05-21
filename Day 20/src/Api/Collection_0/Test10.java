@@ -1,4 +1,4 @@
-package Api.Collection;
+package Api.Collection_0;
 
 import java.util.Collections;
 import java.util.LinkedList;
