@@ -5,29 +5,33 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class Test {
+public class Test01 {
 
 	public static void main(String[] args) throws IOException {
 //		파일 복사 붙여넣기
 
-		File readFile = new File("C:\\Users\\user1\\Desktop\\sqldeveloper-18.4.0-376.1900-x64.zip");
+		File readFile = new File("C:\\Users\\user\\Desktop\\15차후기.zip");
 		FileInputStream in = new FileInputStream(readFile);
 
-		byte[] buffer = new byte[1000000];
-
-		File writeFile = new File("C:\\Users\\user1\\Desktop\\test.zip");
+		File writeFile = new File("C:\\Users\\user\\Desktop\\copy2.zip");
 		FileOutputStream out = new FileOutputStream(writeFile);
 
-		long count = 0L;
+		// 배열 길이
+		int bufferLength = 1000000;
+
+		byte[] buffer = new byte[bufferLength];
+
 		while (true) {
 			int n = in.read(buffer);
-			count++;
-			if (n == -1) {
+
+			if (n == bufferLength) {
+				out.write(buffer);
+			} else if (n < bufferLength && n > -1) {
+				out.write(buffer, 0, n);
+			} else {
 				break;
 			}
-			out.write(buffer);
 		}
-		System.out.println(count);
 		in.close();
 		out.close();
 
