@@ -58,6 +58,7 @@ public class ClientDAO {
 		return list;
 	}
 
+	// [4] 아이디 검색 조회
 	public List<ClientDTO> getList(String id) throws Exception {
 		Connection con = this.getconConnection();
 
@@ -86,4 +87,58 @@ public class ClientDAO {
 		return list;
 	}
 
+	// [5] 검색어 / 분류 조회
+	public List<ClientDTO> getList(String keyword, String column) throws Exception {
+		Connection con = this.getconConnection();
+		String sql = "SELECT * FROM CLIENT WHERE INSTR(#1,?) > 0 ORDER BY #1 ASC";
+		sql = sql.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, keyword);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<ClientDTO> list = new ArrayList<ClientDTO>();
+
+		while (rs.next()) {
+			ClientDTO cdto = new ClientDTO();
+			cdto.setNumber(rs.getInt("CLIENT_NO"));
+			cdto.setId(rs.getString("CLIENT_ID"));
+			cdto.setPw(rs.getString("CLIENT_PW"));
+			cdto.setAuth(rs.getString("CLIENT_AUTH"));
+			cdto.setJoin(rs.getString("CLIENT_JOIN"));
+			cdto.setPoint(rs.getInt("CLIENT_POINT"));
+
+			list.add(cdto);
+		}
+		con.close();
+		return list;
+	}
+
+	// [6] 검색어 / 분류 / 시간 조회
+	public List<ClientDTO> getList(String keyword, String column, int duration) throws Exception {
+		Connection con = this.getconConnection();
+
+		String sql = "SELECT * FROM CLIENT WHERE CLIENT_JOIN BETWEEN SYSDATE - ? AND SYSDATE AND INSTR(#1,?) > 0 ORDER BY #1 ASC";
+		sql = sql.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, duration);
+		ps.setString(2, keyword);
+		ResultSet rs = ps.executeQuery();
+
+		List<ClientDTO> list = new ArrayList<ClientDTO>();
+
+		while (rs.next()) {
+			ClientDTO cdto = new ClientDTO();
+			cdto.setNumber(rs.getInt("CLIENT_NO"));
+			cdto.setId(rs.getString("CLIENT_ID"));
+			cdto.setPw(rs.getString("CLIENT_PW"));
+			cdto.setAuth(rs.getString("CLIENT_AUTH"));
+			cdto.setJoin(rs.getString("CLIENT_JOIN"));
+			cdto.setPoint(rs.getInt("CLIENT_POINT"));
+
+			list.add(cdto);
+		}
+		con.close();
+		return list;
+	}
 }
