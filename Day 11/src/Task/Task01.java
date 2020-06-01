@@ -16,12 +16,10 @@ public class Task01 {
 				}
 
 			}
-
+			
 		}
 		for (int i = 0; i < data.length; i++) {
 			System.out.println("data[" + i + "] = " + data[i]);
 		}
-
 	}
-
 }
