@@ -1,6 +1,5 @@
 package Basic;
 
-import java.lang.*;
 import java.util.*;
 
 public class Test02 {
@@ -16,5 +15,6 @@ public class Test02 {
 		int k = 6000;
 		int result = (i * x) + (k * y);
 		System.out.println("총 합계 : " + result + "원");
+		sc.close();
 	}
 }

@@ -1,12 +1,9 @@
 package Basic;
 
-import java.lang.*;
-
 public class Test05 {
 	public static void main(String[] args) {
 		/*
-		 * 전체 결제 금액과 1인당 얼마인지 출력
-		 * 소주 4000원 / 맥주 5000원 / 회식 인원 7명
+		 * 전체 결제 금액과 1인당 얼마인지 출력 소주 4000원 / 맥주 5000원 / 회식 인원 7명
 		 */
 
 //		준비		
@@ -18,7 +15,7 @@ public class Test05 {
 
 //		계산
 		int totalPrice = (soju * sojuCount) + (beer * beerCount); // 총 금액
-		double personPrice = (double)totalPrice / person; // 1인당 지출 금액
+		double personPrice = (double) totalPrice / person; // 1인당 지출 금액
 
 //		출력		
 		System.out.println("총 금액 : " + totalPrice + "원"); // 총 금액

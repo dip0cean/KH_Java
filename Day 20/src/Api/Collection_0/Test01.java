@@ -14,8 +14,8 @@ public class Test01 {
 		// Set / List 생성자 선언 불가능 > 인터페이스이기 때문이다.
 //		Set a = new Set();
 //		List b = new List();
-		Set a = new TreeSet(); // ex) 전화번호부 > 차순대로 정렬 > 입력 순서 무시 > 중복 X
-		List b = new ArrayList(); // ex) 통화목록 > 입력 순서대로 > 중복 O
+		Set<String> a = new TreeSet<String>(); // ex) 전화번호부 > 차순대로 정렬 > 입력 순서 무시 > 중복 X
+		List<String> b = new ArrayList<String>(); // ex) 통화목록 > 입력 순서대로 > 중복 O
 
 		//	a  / b 저장소에 "이 름" 을 추가하라.
 		a.add("심성헌"); 

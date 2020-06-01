@@ -1,7 +1,6 @@
 package Input;
 
 import java.util.*;
-import java.lang.*;
 
 public class InputTest02 {
 

@@ -1,6 +1,5 @@
 package Output;
 
-import java.lang.*;
 
 public class OutputTest01 {
 

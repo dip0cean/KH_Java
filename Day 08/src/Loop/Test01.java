@@ -1,6 +1,5 @@
 package Loop;
 
-import java.lang.*;
 
 public class Test01 {
 

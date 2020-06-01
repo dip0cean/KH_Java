@@ -1,6 +1,5 @@
 package DoWhile;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class Test01 {

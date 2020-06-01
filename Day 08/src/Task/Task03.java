@@ -1,6 +1,5 @@
 package Task;
 
-import java.lang.*;
 
 public class Task03 {
 

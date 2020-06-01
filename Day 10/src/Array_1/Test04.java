@@ -1,6 +1,5 @@
 package Array_1;
 
-import java.lang.*;
 
 public class Test04 {
 

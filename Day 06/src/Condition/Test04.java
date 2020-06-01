@@ -1,6 +1,5 @@
 package Condition;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class Test04 {
@@ -19,6 +18,7 @@ public class Test04 {
 //			월 입력			
 			System.out.println("날짜를 입력해주세요. > ");
 			int month = sc.nextInt();
+			sc.close();
 
 //		월 별 계절 비교		
 			boolean spring = 3 <= month && 5 >= month; // 봄(3~5월)

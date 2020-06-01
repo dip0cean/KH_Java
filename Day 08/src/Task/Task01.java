@@ -24,8 +24,8 @@ public class Task01 {
 				System.out.println("오답입니다.");
 			}
 
+			sc.close();
 		}
-
 	}
 
 }

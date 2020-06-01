@@ -1,7 +1,5 @@
 package Task;
 
-import java.lang.*;
-
 public class Task04 {
 	public static void main(String[] args) {
 //		30일 동안 다이어트를 위해서 푸시업을 할 계획입니다.

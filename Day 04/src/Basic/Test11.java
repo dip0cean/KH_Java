@@ -1,7 +1,5 @@
 package Basic;
 
-import java.lang.*;
-
 public class Test11 {
 	public static void main(String[] args) {
 //		정수 전체
@@ -27,6 +25,7 @@ public class Test11 {
 		int x = 2100000000;
 		int y = 1234567 * 1234567;
 		System.out.println("int type : " + y + "\n");
+		System.out.println("x : " + x);
 
 // 		long - int 보다 더 큰 정수 자료형
 		long z = 210000000L;

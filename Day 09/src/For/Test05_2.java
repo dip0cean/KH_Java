@@ -1,6 +1,5 @@
 package For;
 
-import java.lang.*;
 
 public class Test05_2 {
 

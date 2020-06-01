@@ -1,6 +1,5 @@
 package Condition;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class Test05 {
@@ -21,9 +20,9 @@ public class Test05 {
 		} else {
 			str = "홀수";
 		}
-		
+
 		System.out.println(str);
-		
+
 	}
 
 }

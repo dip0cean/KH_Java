@@ -1,6 +1,5 @@
 package SwitchCase;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class SwitchTest02 {

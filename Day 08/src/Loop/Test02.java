@@ -1,9 +1,5 @@
 package Loop;
 
-import java.lang.*;
-import java.util.Random;
-import java.util.Scanner;
-
 public class Test02 {
 
 	public static void main(String[] args) {
@@ -15,16 +11,15 @@ public class Test02 {
 
 		while (n < 10) {
 			System.out.println("Hello!" + n);
-			n++;					// n += 1;		//n = n + 1;
+			n++; // n += 1; //n = n + 1;
 
-			
-									// 예외 처리 문장
+			// 예외 처리 문장
 			try {
 				Thread.sleep(500);
 			} catch (Exception e) {
 
 			}
-			
+
 		}
 
 	}

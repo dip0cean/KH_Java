@@ -1,6 +1,5 @@
 package Task;
 
-import java.lang.*;
 import java.util.Random;
 
 public class Task02 {

@@ -1,6 +1,5 @@
 package Random;
 
-import java.lang.*;
 import java.util.Random;
 
 public class Test04 {

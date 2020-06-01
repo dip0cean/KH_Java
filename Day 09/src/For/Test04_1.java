@@ -1,7 +1,5 @@
 package For;
 
-import java.lang.*;
-import java.util.Scanner;
 
 public class Test04_1 {
 
@@ -10,8 +8,7 @@ public class Test04_1 {
 //		1) 3 6 9 게임은 수자에 3, 6, 9가 포함되면 숫자를 말하지 않고 박수를 치는 게임
 //		2) 박수는 3, 6, 9의 개수대로 칩니다.
 //		3) 1 부터 99까지 3 6 9 게임을 한다고 치면 예상되는 패턴을 출력
-		
-		
+
 		for (int i = 1; i < 99; i++) {
 			int n = i;
 

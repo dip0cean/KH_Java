@@ -1,6 +1,5 @@
 package For;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class Test05_1 {

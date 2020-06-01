@@ -1,7 +1,5 @@
 package Basic;
 
-import java.lang.*;
-
 public class Test17 {
 	public static void main(String[] args) {
 //		논리형 자료형 > boolean

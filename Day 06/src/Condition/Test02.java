@@ -1,6 +1,5 @@
 package Condition;
 
-import java.lang.*;
 import java.util.Scanner;
 
 public class Test02 {

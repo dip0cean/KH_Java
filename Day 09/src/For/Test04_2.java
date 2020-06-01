@@ -1,6 +1,5 @@
 package For;
 
-import java.lang.*;
 
 public class Test04_2 {
 	public static void main(String[] args) {

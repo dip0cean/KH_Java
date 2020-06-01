@@ -1,6 +1,5 @@
 package Basic;
 
-import java.lang.*;
 
 public class Test10 {
 
