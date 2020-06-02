@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Tomcat.beans.StudentDAO;
-import Tomcat.beans.StudentDTO;
+import Tomcat.Beans.StudentDAO;
+import Tomcat.Beans.StudentDTO;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/student/list.do")

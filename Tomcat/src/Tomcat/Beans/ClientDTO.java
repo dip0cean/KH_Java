@@ -1,4 +1,4 @@
-package Tomcat.beans;
+package Tomcat.Beans;
 
 public class ClientDTO {
 	private int client_no;

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Tomcat.beans.ClientDAO;
-import Tomcat.beans.ClientDTO;
+import Tomcat.Beans.ClientDAO;
+import Tomcat.Beans.ClientDTO;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/client/regist.do")

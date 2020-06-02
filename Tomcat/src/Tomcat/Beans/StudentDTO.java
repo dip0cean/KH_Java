@@ -1,4 +1,4 @@
-package Tomcat.beans;
+package Tomcat.Beans;
 
 public class StudentDTO {
 	private int student_no;

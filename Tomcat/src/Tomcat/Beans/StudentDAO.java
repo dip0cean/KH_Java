@@ -1,4 +1,4 @@
-package Tomcat.beans;
+package Tomcat.Beans;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
