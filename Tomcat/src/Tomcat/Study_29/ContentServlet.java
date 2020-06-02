@@ -1,7 +1,6 @@
-package Study_28;
+package Tomcat.Study_29;
 
 import java.io.IOException;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/random")
-// 상속을 통한 자격 획득(extends HttpServlet)
-public class RandomServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/content")
+public class ContentServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Random r = new Random();
-		int dice = r.nextInt(6) + 1;
 
-		resp.setCharacterEncoding("UTF-8");
+//		// 컨텐츠 유형 설정
+		resp.setContentType("test/plain"); // 기본 텍스트
+		resp.setContentType("image/gif"); // 이미지
+		resp.setContentType("audio/midi"); // 오디오
 
-		resp.getWriter().println("주사위 : " + dice);
+		// 컨텐츠 유형 + 인코딩
+		resp.setContentType("text/plain; charset=UTF-8");
 	}
 }

@@ -1,4 +1,4 @@
-package Study_28;
+package Tomcat.Study_28;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/score")
 public class ScoreServlet extends HttpServlet {
 	@Override
