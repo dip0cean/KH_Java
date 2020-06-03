@@ -13,7 +13,7 @@ import Tomcat.Beans.StudentDAO;
 import Tomcat.Beans.StudentDTO;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/student/search")
+@WebServlet(urlPatterns = "/student/search.do")
 public class StudentSearchServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class StudentSearchServlet extends HttpServlet {
 			StudentDTO sdto = new StudentDTO();
 			StudentDAO sdao = new StudentDAO();
 
-			sdto.setStudent_name(req.getParameter("name"));
+			sdto.setStudent_name(req.getParameter("no"));
 
 			List<StudentDTO> list = sdao.getSearch(sdto);
 

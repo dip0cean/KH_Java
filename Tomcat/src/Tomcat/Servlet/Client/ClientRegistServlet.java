@@ -24,7 +24,7 @@ public class ClientRegistServlet extends HttpServlet {
 			cdto.setClient_pw(req.getParameter("pw"));
 
 			cdao.regist(cdto);
-			resp.setCharacterEncoding("EUC-KR");
+			resp.setContentType("text/plain; charset=UTF-8");
 			resp.getWriter().println("회원가입이 완료되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();

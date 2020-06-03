@@ -64,10 +64,10 @@ public class StudentDAO {
 	public List<StudentDTO> getSearch(StudentDTO sdto) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM STUDENT WHERE INSTR(STUDENT_NAME, ?) > 0 ORDER BY STUDENT_NO ASC";
+		String sql = "SELECT * FROM STUDENT WHERE STUDENT_NO = ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, sdto.getStudent_name());
+		ps.setInt(1, sdto.getStudent_no());
 
 		ResultSet rs = ps.executeQuery();
 
@@ -115,5 +115,34 @@ public class StudentDAO {
 		con.close();
 
 		return list;
+	}
+
+	// [6] 단일 조회 기능
+	public StudentDTO get(int student_no) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM STUDENT S WHERE S.STUDENT_NO = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setInt(1, student_no);
+
+		ResultSet rs = ps.executeQuery();
+
+		StudentDTO sdto;
+		if (rs.next()) {
+			sdto = new StudentDTO();
+			sdto.setStudent_no(rs.getInt("STUDENT_NO"));
+			sdto.setStudent_name(rs.getString("STUDENT_NAME"));
+			sdto.setStudent_score(rs.getInt("STUDENT_SCORE"));
+			sdto.setStudent_create(rs.getString("STUDENT_CREATE"));
+		} else {
+			sdto = null;
+		}
+
+		con.close();
+
+		return sdto;
+
 	}
 }
