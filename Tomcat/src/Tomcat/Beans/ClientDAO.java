@@ -92,6 +92,7 @@ public class ClientDAO {
 
 	}
 
+	// [5] 단일 조회
 	public ClientDTO get(int client_no) throws Exception {
 		Connection con = getConnection();
 
