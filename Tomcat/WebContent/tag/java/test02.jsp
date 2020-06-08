@@ -15,7 +15,9 @@
 				<%for(int i = 2; i <= 9; i++) { %>
 					<th><%=i %>단</th>
 			<%} %>	
-			
+				</tr>
+			</thead>
+			<tbody>
 			<%for(int k = 1; k <= 9; k++) { %>
 				<%int sum = 0; %>
 					<tr>

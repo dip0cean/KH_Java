@@ -33,7 +33,7 @@ public class StudentDAO {
 		con.close();
 	}
 
-	// [3] 학생 리스트 메소드
+	// [3] 학생 리스트 메소드 (전체)
 	public List<StudentDTO> getList() throws Exception {
 		Connection con = getConnection();
 
@@ -60,7 +60,7 @@ public class StudentDAO {
 		return list;
 	}
 
-	// [4] 학생 검색 메소드
+	// [4-1] 학생 검색 메소드 (번호)
 	public List<StudentDTO> getSearch(StudentDTO sdto) throws Exception {
 		Connection con = getConnection();
 
@@ -75,6 +75,35 @@ public class StudentDAO {
 
 		while (rs.next()) {
 			sdto = new StudentDTO();
+			sdto.setStudent_no(rs.getInt("STUDENT_NO"));
+			sdto.setStudent_name(rs.getString("STUDENT_NAME"));
+			sdto.setStudent_score(rs.getInt("STUDENT_SCORE"));
+			sdto.setStudent_create(rs.getString("STUDENT_CREATE"));
+
+			list.add(sdto);
+		}
+
+		con.close();
+
+		return list;
+
+	}
+
+	// [4-2] 학생 검색 메소드 (이름)
+	public List<StudentDTO> getSearch(String student_name) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM STUDENT WHERE INSTR(STUDENT_NAME, ?) > 0";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, student_name);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<StudentDTO> list = new ArrayList<StudentDTO>();
+
+		while (rs.next()) {
+			StudentDTO sdto = new StudentDTO();
 			sdto.setStudent_no(rs.getInt("STUDENT_NO"));
 			sdto.setStudent_name(rs.getString("STUDENT_NAME"));
 			sdto.setStudent_score(rs.getInt("STUDENT_SCORE"));

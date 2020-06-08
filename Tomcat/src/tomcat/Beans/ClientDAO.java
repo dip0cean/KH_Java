@@ -48,7 +48,9 @@ public class ClientDAO {
 			ClientDTO cdto = new ClientDTO();
 			cdto.setClient_no(rs.getInt("CLIENT_NO"));
 			cdto.setClient_id(rs.getString("CLIENT_ID"));
+			cdto.setClient_pw(rs.getString("CLIENT_PW"));
 			cdto.setClient_auth(rs.getString("CLIENT_AUTH"));
+			cdto.setClient_join(rs.getString("CLIENT_JOIN"));
 			cdto.setClient_point(rs.getInt("CLIENT_POINT"));
 
 			list.add(cdto);
@@ -63,7 +65,7 @@ public class ClientDAO {
 	public List<ClientDTO> getSearch(String search) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM CLIENT WHERE INSTR(CLIENT_ID,?) > 0 OR INSTR(CLIENT_AUTH,?) > 0ORDER BY CLIENT_NO ASC";
+		String sql = "SELECT * FROM CLIENT WHERE INSTR(CLIENT_ID,?) > 0 OR INSTR(CLIENT_AUTH,?) > 0 ORDER BY CLIENT_NO ASC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
