@@ -22,15 +22,8 @@
 				<!-- navigation -->
 				<tr>
 					<td align="center">
-						<a href="#">Home</a>
-						<a href="#">Join</a>
-						<a href="#">Login</a>
-						<a href="#">Logout</a>
-						<a href="#">My page</a>
-						<a href="#">Edit</a>
-						<a href="#">Setting</a>
-						<a href="#">Board</a>
-						
+				<jsp:include page="/template/navi.jsp"></jsp:include>
+									
 					</td>
 				</tr>
 				
