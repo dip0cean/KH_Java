@@ -3,6 +3,7 @@ package homepage.beans.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import homepage.beans.dto.MemberDTO;
 
@@ -18,7 +19,7 @@ public class MemberDAO {
 	// [2] 회원 가입
 	public void join(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
-		
+
 		// 회원가입 SQL문 전송
 		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?,?,?)";
 
@@ -35,17 +36,46 @@ public class MemberDAO {
 		ps.setString(9, mdto.getMember_intro());
 
 		ps.execute();
-		
+
 		// 회원가입 시간 SQL문 전송
 		sql = "INSERT INTO MEMBER_ACCESS(MEMBER_ID, ACCESS_AUTH) VALUES(?,'일반회원')";
-		
+
 		ps = con.prepareStatement(sql);
 		ps.setString(1, mdto.getMember_id());
-		
+
 		ps.execute();
-		
+
 		con.close();
-		
+
+	}
+
+	// [3] 로그인
+	public boolean login(MemberDTO mdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PW = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_id());
+		ps.setString(2, mdto.getMember_pw());
+
+		ResultSet rs = ps.executeQuery();
+
+		boolean result = rs.next();
+
+		if (result) {
+
+			sql = "UPDATE MEMBER_ACCESS SET ACCESS_LOGIN = SYSDATE WHERE MEMBER_ID = ?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+		}
+
+		con.close();
+
+		return result;
 
 	}
 }

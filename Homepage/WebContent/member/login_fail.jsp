@@ -5,20 +5,21 @@
 
 <div align="center">
 	<h1>로그인</h1>
+	<h3><font color="red">아이디와 비밀번호를 확인해주세요.</font></h3>
 	<form action="login.do">
 		<table>
 			<tbody>
 				<!-- 아이디 -->
 				<tr>
 					<th>아이디</th>
-					<td><input type="text" name="member_id" placeholder="ID" required>
+					<td><input type="text" name="MEMBER_ID" placeholder="ID" required>
 					</td>
 				</tr>
 	
 				<!-- 패스워드 -->
 				<tr>
 					<th>패스워드</th>
-					<td><input type="password" name="member_pw" placeholder="PW" required>
+					<td><input type="password" name="MEMBER_PW" placeholder="PW" required>
 					</td>
 				</tr>
 				
