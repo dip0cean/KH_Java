@@ -18,7 +18,7 @@
 <body>
 	<div align="center">
 		<h1>
-			<a href="client.jsp">회원 상세 정보</a>
+			<a href="list.jsp">회원 상세 정보</a>
 		</h1>
 		<table border="1">
 			<thead>

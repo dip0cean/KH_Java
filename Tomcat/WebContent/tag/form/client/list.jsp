@@ -37,10 +37,10 @@ h1 {
 <body>
 	<div align="center">
 		<h1>
-			<a href="client.jsp">회원 정보 검색</a>
+			<a href="list.jsp">회원 정보 검색</a>
 		</h1>
 
-		<form action="client.jsp">
+		<form action="list.jsp">
 			<input type="search" name="search" placeholder="검색어 입력" value=<%=key%>> 
 			<input type="submit" value="검색">
 		</form>
