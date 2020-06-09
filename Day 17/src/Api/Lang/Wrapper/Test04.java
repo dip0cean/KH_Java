@@ -1,6 +1,7 @@
 package Api.Lang.Wrapper;
 
 public class Test04 {
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 //		주의사항 > 데이터의 값은 같을 수 있지만, 메모리에 저장된 주소가 다르다.
 		Integer a = new Integer(10);

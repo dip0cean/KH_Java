@@ -1,6 +1,7 @@
 package Api.Lang.Wrapper;
 
 public class Test02 {
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 //		Interger 를 이용해서 문제를 풀어보자!
 		String str = Integer.toBinaryString(63);

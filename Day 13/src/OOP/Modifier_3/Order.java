@@ -7,6 +7,7 @@ public class Order {
 		UserData a = new UserData("test04");
 		UserData b = new UserData("test02");
 		UserData c = new UserData("test05");
+		System.out.println(a + " " + b + " " + c);
 	
 	}
 
