@@ -10,6 +10,34 @@ public class MemberDTO {
 	private String member_birth;
 	private String member_phone;
 	private String member_intro;
+	private String access_auth;
+	private String access_join;
+
+	public String getAccess_auth() {
+		return access_auth;
+	}
+
+	public void setAccess_auth(String access_auth) {
+		this.access_auth = access_auth;
+	}
+
+	public String getAccess_join() {
+		return access_join;
+	}
+
+	public void setAccess_join(String access_join) {
+		this.access_join = access_join;
+	}
+
+	public String getAccess_login() {
+		return access_login;
+	}
+
+	public void setAccess_login(String access_login) {
+		this.access_login = access_login;
+	}
+
+	private String access_login;
 
 	public MemberDTO() {
 		super();

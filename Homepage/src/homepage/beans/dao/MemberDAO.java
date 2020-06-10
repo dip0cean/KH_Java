@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import homepage.beans.dto.MemberDTO;
 
 public class MemberDAO {
@@ -76,6 +75,18 @@ public class MemberDAO {
 			mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
 			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
 			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+
+			sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+
+			rs = ps.executeQuery();
+			rs.next();
+			mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
+			mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
+			mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
 
 		} else if (!result) {
 
