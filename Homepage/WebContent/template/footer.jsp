@@ -12,9 +12,16 @@
 						</h5>
 						<!-- 사용자의 로그인 정보를 분석하는 코드 작성(연습용) -->
 						<h6>
-							세션 ID : <%=session.getId() %> <br>
+							세션 ID : <%=session.getId() %> <br><br>
+							
 							UserInfo : <%=session.getAttribute("userinfo") %> <br>
-							state : <%=session.getAttribute("userinfo") != null %>
+							states : <%=session.getAttribute("userinfo") != null %> <br><br>
+							
+							find_id : <%=session.getAttribute("find_id") %> <br>
+							states : <%=session.getAttribute("find_id") != null %> <br><br>
+							
+							find_pw : <%=session.getAttribute("find_pw") %> <br>
+							states : <%=session.getAttribute("find_pw") != null %> <br>
 						</h6>
 					</td>
 				</tr>

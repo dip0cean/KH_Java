@@ -40,9 +40,9 @@
 			<tfoot>
 				<tr align="center">
 					<td colspan="2">
-					<a href="#">아이디 찾기</a>
+					<a href="find_id.jsp">아이디 찾기</a>
 					<br>
-					<a href="#">비밀번호 찾기</a>
+					<a href="find_pw.jsp">비밀번호 찾기</a>
 					</td>
 				</tr>
 			</tfoot>

@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -9,12 +10,20 @@
 
 <!-- - 동적 include 란 "컴파일 이후의 코드를 임의로 합쳐서 적용시키는 효과" 를 주는 코드이다. -->
 
+<%
+	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+%>
+
 
 <%-- <%@ include file="/template/header.jsp" %> --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
 	<h3>
+	
+	<%if(session.getAttribute("userinfo") != null) {%>
+	<%=mdto.getMember_nick() %>님, 
+	<%} %>
 	환영합니다!
 	<br>
 	행복이 가득한 성헌의 숲에 오신 것을요!

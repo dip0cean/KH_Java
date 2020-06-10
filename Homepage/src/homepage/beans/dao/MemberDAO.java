@@ -111,4 +111,103 @@ public class MemberDAO {
 
 		ps.execute();
 	}
+
+	// [5] 아이디 찾기
+	public MemberDTO findId(MemberDTO mdto) throws Exception {
+
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_PHONE = ? AND MEMBER_BIRTH = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_phone());
+		ps.setString(2, mdto.getMember_birth());
+
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+
+			mdto = new MemberDTO();
+			mdto.setMember_id(rs.getString("MEMBER_ID"));
+			mdto.setMember_pw(rs.getString("MEMBER_PW"));
+			mdto.setMember_nick(rs.getString("MEMBER_NICK"));
+			mdto.setMember_post(rs.getString("MEMBER_POST"));
+			mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+			mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+			mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
+			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
+			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+
+			sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+
+			rs = ps.executeQuery();
+			
+			rs.next();
+			mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
+			mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
+			mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+
+		} else {
+
+			mdto = null;
+
+		}
+		con.close();
+
+		return mdto;
+	}
+
+	// [6] 비밀번호 찾기
+	public MemberDTO findPw(MemberDTO mdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PHONE = ? AND MEMBER_BIRTH = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_id());
+		ps.setString(2, mdto.getMember_phone());
+		ps.setString(3, mdto.getMember_birth());
+
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+
+			mdto = new MemberDTO();
+			mdto.setMember_id(rs.getString("MEMBER_ID"));
+			mdto.setMember_pw(rs.getString("MEMBER_PW"));
+			mdto.setMember_nick(rs.getString("MEMBER_NICK"));
+			mdto.setMember_post(rs.getString("MEMBER_POST"));
+			mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+			mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+			mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
+			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
+			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+
+			sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+
+			rs = ps.executeQuery();
+			
+			rs.next();
+			mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
+			mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
+			mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+
+		} else {
+			mdto = null;
+		}
+
+		con.close();
+
+		return mdto;
+	}
 }
