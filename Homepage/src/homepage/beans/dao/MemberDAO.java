@@ -50,7 +50,7 @@ public class MemberDAO {
 	}
 
 	// [3] 로그인
-	public boolean login(MemberDTO mdto) throws Exception {
+	public MemberDTO login(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
 
 		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PW = ?";
@@ -66,16 +66,30 @@ public class MemberDAO {
 
 		if (result) {
 
+			mdto = new MemberDTO();
+			mdto.setMember_id(rs.getString("MEMBER_ID"));
+			mdto.setMember_pw(rs.getString("MEMBER_PW"));
+			mdto.setMember_nick(rs.getString("MEMBER_NICK"));
+			mdto.setMember_post(rs.getString("MEMBER_POST"));
+			mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+			mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+			mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
+			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
+			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+
 			sql = "UPDATE MEMBER_ACCESS SET ACCESS_LOGIN = SYSDATE WHERE MEMBER_ID = ?";
 
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, mdto.getMember_id());
+		} else if (!result) {
+
+			mdto = null;
 		}
 
 		con.close();
 
-		return result;
+		return mdto;
 
 	}
 }

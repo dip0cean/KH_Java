@@ -21,14 +21,16 @@ public class MemberLoginServlet extends HttpServlet {
 			MemberDAO mdao = new MemberDAO();
 			MemberDTO mdto = new MemberDTO();
 
+			req.setCharacterEncoding("UTF-8");
+
 			mdto.setMember_id(req.getParameter("member_id"));
 			mdto.setMember_pw(req.getParameter("member_pw"));
 
-			boolean result = mdao.login(mdto);
+			mdto = mdao.login(mdto);
 
-			if (result) {
-				resp.sendRedirect("login_access.jsp");
-			} else if (!result) {
+			if (mdto != null) {
+				resp.sendRedirect(req.getContextPath());
+			} else if (mdto == null) {
 				resp.sendRedirect("login_fail.jsp");
 			}
 

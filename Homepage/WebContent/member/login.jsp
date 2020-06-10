@@ -5,7 +5,7 @@
 
 <div align="center">
 	<h1>로그인</h1>
-	<form action="login.do">
+	<form action="login.do" method="post">
 		<table>
 			<tbody>
 				<!-- 아이디 -->

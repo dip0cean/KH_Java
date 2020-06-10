@@ -21,7 +21,9 @@ public class MemberJoinServlet extends HttpServlet {
 			// 입력 > join.jsp 의 9개 데이터 > MemberDTO 수신
 			MemberDAO mdao = new MemberDAO();
 			MemberDTO mdto = new MemberDTO();
-
+			
+			req.setCharacterEncoding("UTF-8");
+			
 			// 처리 > MemberDAO
 			mdto.setMember_id(req.getParameter("member_id"));
 			mdto.setMember_pw(req.getParameter("member_pw"));

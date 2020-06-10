@@ -3,10 +3,11 @@
 	pageEncoding="UTF-8"%>
 	
 <jsp:include page="/template/header.jsp"></jsp:include>
-
 <div align="center">
 	<h2>회원가입 페이지</h2>
-	<form action="join.do">
+	
+<!-- FORM 을 만들 때에는 전송 방식을 설정할 수 있다. -->
+	<form action="join.do" method="get">
 		<table>
 			<!-- 아이디 -->
 			<tr>
