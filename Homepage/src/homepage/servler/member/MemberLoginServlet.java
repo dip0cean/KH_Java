@@ -29,9 +29,10 @@ public class MemberLoginServlet extends HttpServlet {
 			mdto = mdao.login(mdto);
 
 			if (mdto != null) {
+				mdao.updateLoginTime(mdto);
 				resp.sendRedirect(req.getContextPath());
 			} else if (mdto == null) {
-				resp.sendRedirect("login_fail.jsp");
+				resp.sendRedirect("login.jsp?error");
 			}
 
 		} catch (Exception e) {

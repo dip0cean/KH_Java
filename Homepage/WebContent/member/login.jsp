@@ -5,6 +5,14 @@
 
 <div align="center">
 	<h1>로그인</h1>
+	
+	<!-- 오류 메세지는 주소에 error 라는 파라미터가 있을 경우에만 출력 -->
+	<%if(request.getParameter("error") != null) {%>
+	
+	<h3><font color="red">아이디와 비밀번호를 확인해주세요.</font></h3>
+			
+		<%} %>
+	
 	<form action="login.do" method="post">
 		<table>
 			<tbody>

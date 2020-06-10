@@ -77,11 +77,6 @@ public class MemberDAO {
 			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
 			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
 
-			sql = "UPDATE MEMBER_ACCESS SET ACCESS_LOGIN = SYSDATE WHERE MEMBER_ID = ?";
-
-			ps = con.prepareStatement(sql);
-
-			ps.setString(1, mdto.getMember_id());
 		} else if (!result) {
 
 			mdto = null;
@@ -91,5 +86,18 @@ public class MemberDAO {
 
 		return mdto;
 
+	}
+
+	// [4] 접속 시간 갱신
+	public void updateLoginTime(MemberDTO mdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "UPDATE MEMBER_ACCESS SET ACCESS_LOGIN = SYSDATE WHERE MEMBER_ID = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_id());
+
+		ps.execute();
 	}
 }
