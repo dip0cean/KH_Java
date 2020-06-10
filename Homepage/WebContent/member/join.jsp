@@ -47,20 +47,7 @@
 				
 			<!-- 우편번호 -->
 				<td>
-					<select name="member_base_addr" required>
-						<option>선택</option>
-						<option>서울</option>
-						<option>경기</option>
-						<option>강원</option>
-						<option>충북</option>
-						<option>충남</option>
-						<option>전북</option>
-						<option>전남</option>
-						<option>경북</option>
-						<option>경남</option>
-						<option>제주</option>
-					</select>
-					<input type="text" name="member_post" placeholder="우편번호" size="6" maxlength="6" required>
+					<input type="text" name="member_post" placeholder="우편번호" size="30" maxlength="6" required>
 				</td>
 			</tr>
 			

@@ -1,8 +1,8 @@
-<%@page import="homepage.beans.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	MemberDTO mdto = (MemberDTO) session.getAttribute("find_id");
+	String find_id = (String) session.getAttribute("find_id");
+	
 	session.invalidate();
 %>
 
@@ -10,7 +10,7 @@
 
 <div align="center">
 	<h3>찾으시는 아이디는</h3>
-	<h3><font color="red"><%=mdto.getMember_id() %></font></h3>
+	<h3><font color="red"><%=find_id %></font></h3>
 	<h3>입니다. </h3>
 	
 	<form>

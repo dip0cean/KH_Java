@@ -4,7 +4,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h1>로그인</h1>
+	<h2>로그인</h2>
 	
 	<!-- 오류 메세지는 주소에 error 라는 파라미터가 있을 경우에만 출력 -->
 	<%if(request.getParameter("error") != null) {%>
