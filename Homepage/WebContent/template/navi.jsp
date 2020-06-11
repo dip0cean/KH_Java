@@ -14,7 +14,6 @@
 	
 		<font size="5" color="black">
 		
-			<a href="<%=rootPath %>/index.jsp"> Home </a>
 			<a href="<%=rootPath %>/member/logout.do"> Logout </a>
 			<a href="<%=rootPath %>/member/mypage.jsp"> My page </a>
 			
@@ -33,7 +32,6 @@
 		
 		<font size="5" color="black">
 		
-			<a href="<%=rootPath %>/index.jsp"> Home </a>
 			<a href="<%=rootPath %>/member/join.jsp"> Join </a>
 			<a href="<%=rootPath %>/member/login.jsp"> Login </a>
 			<a href="#">Board</a>

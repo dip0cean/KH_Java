@@ -19,9 +19,9 @@
 		<table border="1" width="1000">
 			<tbody>
 				<!-- header -->
-				<tr height="100">
+				<tr height="150">
 					<td align="center">
-						<h1>놀러와용! 성헌의 숲!</h1>
+						<a href="<%=request.getContextPath()%>"><img alt="로고" src="/Homepage/image/동숲로고.png" width="150" height="150"></a>
 					</td>
 				</tr>
 				
