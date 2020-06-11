@@ -110,6 +110,18 @@ public class MemberDAO {
 		ps.setString(1, mdto.getMember_id());
 
 		ps.execute();
+
+		sql = "SELECT ACCESS_LOGIN FROM MEMBER_ACCESS";
+
+		ps = con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+
+		con.close();
 	}
 
 	// [5] 아이디 찾기
@@ -226,9 +238,9 @@ public class MemberDAO {
 		ps.setString(7, mdto.getMember_phone());
 		ps.setString(8, mdto.getMember_intro());
 		ps.setString(9, mdto.getMember_id());
-		
+
 		ps.execute();
-		
+
 		con.close();
 	}
 }

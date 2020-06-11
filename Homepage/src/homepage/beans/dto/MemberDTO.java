@@ -94,6 +94,10 @@ public class MemberDTO {
 	public String getMember_birth() {
 		return member_birth;
 	}
+	
+	public String getMember_birthday() {
+		return member_birth.substring(0, 10);
+	}
 
 	public void setMember_birth(String member_birth) {
 		this.member_birth = member_birth;

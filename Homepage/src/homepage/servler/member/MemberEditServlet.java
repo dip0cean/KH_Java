@@ -40,7 +40,7 @@ public class MemberEditServlet extends HttpServlet {
 			req.getSession().setAttribute("userinfo", mdto);
 			mdao.edit(mdto);
 			
-			resp.sendRedirect("mypage.jsp?succ");
+			resp.sendRedirect("mypage_edit.jsp?succ");
 		
 		} catch (Exception e) {
 				
