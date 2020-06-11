@@ -4,6 +4,7 @@
 	
 <%
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+	String go = request.getParameter("go");
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -19,10 +20,9 @@
 		<table>
 			<tr>
 				<th>패스워드</th>
+				<td><input type="hidden" name="go" value=<%=go %>></td>
 				<td><input type="password" name="member_pw" placeholder="패스워드 입력"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
+				<td colspan="3" align="center">
 				<input type="submit" value="정보 수정"></td>
 			</tr>
 		</table>

@@ -21,28 +21,27 @@
 					<th>아이디</th>
 					<td><input type="text" name="member_id" placeholder="ID" required>
 					</td>
+					<td rowspan="2" align="center">
+						<input type="submit" value="login">
+					</td>	
 				</tr>
-	
+				
 				<!-- 패스워드 -->
 				<tr>
 					<th>패스워드</th>
 					<td><input type="password" name="member_pw" placeholder="PW" required>
 					</td>
-				</tr>
-				
-				<!-- 전송 -->
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="login">
+					<td>
 					</td>
 				</tr>
 			</tbody>
+				
+				<!-- 전송 -->
 			<tfoot>
-				<tr align="center">
-					<td colspan="2">
-					<a href="find_id.jsp">아이디 찾기</a>
-					<br>
-					<a href="find_pw.jsp">비밀번호 찾기</a>
+				<tr>
+					<td colspan="3" align="center">
+						<a href="find_id.jsp"><input type="button" value="Find ID"></a>
+						<a href="find_pw.jsp"><input type="button" value="Find PW"></a>
 					</td>
 				</tr>
 			</tfoot>

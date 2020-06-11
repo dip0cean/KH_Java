@@ -16,7 +16,7 @@
 		
 			<a href="<%=rootPath %>/index.jsp"> Home </a>
 			<a href="<%=rootPath %>/member/logout.do"> Logout </a>
-			<a href="<%=rootPath %>/member/check.jsp"> My page </a>
+			<a href="<%=rootPath %>/member/mypage.jsp"> My page </a>
 			
 			<!-- 관리자 계정일 경우 -->
 			<%if(mdto.getAccess_auth().equals("운영자")) { %>

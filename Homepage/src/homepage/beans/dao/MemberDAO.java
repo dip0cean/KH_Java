@@ -116,9 +116,9 @@ public class MemberDAO {
 		ps = con.prepareStatement(sql);
 
 		ResultSet rs = ps.executeQuery();
-		
+
 		rs.next();
-		
+
 		mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
 
 		con.close();
@@ -227,21 +227,37 @@ public class MemberDAO {
 	public void edit(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "UPDATE MEMBER SET MEMBER_PW = ? , MEMBER_NICK = ? , MEMBER_POST = ? , MEMBER_BASE_ADDR = ? , MEMBER_EXTRA_ADDR = ? , MEMBER_BIRTH = ? , MEMBER_PHONE = ? , MEMBER_INTRO = ? WHERE MEMBER_ID = ?";
+		String sql = "UPDATE MEMBER SET MEMBER_NICK = ? , MEMBER_POST = ? , MEMBER_BASE_ADDR = ? , MEMBER_EXTRA_ADDR = ? , MEMBER_BIRTH = ? , MEMBER_PHONE = ? , MEMBER_INTRO = ? WHERE MEMBER_ID = ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, mdto.getMember_pw());
-		ps.setString(2, mdto.getMember_nick());
-		ps.setString(3, mdto.getMember_post());
-		ps.setString(4, mdto.getMember_base_addr());
-		ps.setString(5, mdto.getMember_extra_addr());
-		ps.setString(6, mdto.getMember_birth());
-		ps.setString(7, mdto.getMember_phone());
-		ps.setString(8, mdto.getMember_intro());
-		ps.setString(9, mdto.getMember_id());
+		ps.setString(1, mdto.getMember_nick());
+		ps.setString(2, mdto.getMember_post());
+		ps.setString(3, mdto.getMember_base_addr());
+		ps.setString(4, mdto.getMember_extra_addr());
+		ps.setString(5, mdto.getMember_birth());
+		ps.setString(6, mdto.getMember_phone());
+		ps.setString(7, mdto.getMember_intro());
+		ps.setString(8, mdto.getMember_id());
 
 		ps.execute();
 
 		con.close();
+	}
+
+	// [8] 비밀번호 수정
+	public void editPw(MemberDTO mdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "UPDATE MEMBER SET MEMBER_PW = ? WHERE MEMBER_ID = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_pw());
+		ps.setString(2, mdto.getMember_id());
+
+		ps.execute();
+
+		con.close();
+
 	}
 }

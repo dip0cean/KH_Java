@@ -20,11 +20,6 @@
 				</tr>
 				
 				<tr>
-					<th>패스워드</th>
-					<td><input type="password" name="member_pw" value=<%=mdto.getMember_pw() %> required></td>
-				</tr>
-				
-				<tr>
 					<th>닉네임</th>
 					<td><input type="text" name="member_nick" value=<%=mdto.getMember_nick()%> required></td>
 				</tr>
@@ -33,16 +28,19 @@
 					<th rowspan="3">주소</th>
 					<td><input type="text" name="member_post" value=<%=mdto.getMember_post()%> required></td>
 				</tr>
+				
 				<tr>
 					<td><input type="text" name="member_base_addr" value=<%=mdto.getMember_base_addr()%> required></td>
 				</tr>
 				<tr>
 					<td><input type="text" name="member_extra_addr" value=<%=mdto.getMember_extra_addr()%> required></td>
 				</tr>
+				
 				<tr>
 					<th>생년월일</th>
-					<td><input type="date" name="member_birth" value=<%=mdto.getMember_birthday()%> required></td>
+					<td><input type="date" name="member_birth" value=<%=mdto.getMember_birth()%> required></td>
 				</tr>
+				
 				<tr>
 					<th>휴대전화</th>
 					<td><input type="text" name="member_phone" value=<%=mdto.getMember_phone()%> required></td>

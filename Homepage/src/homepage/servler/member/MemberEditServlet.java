@@ -25,7 +25,7 @@ public class MemberEditServlet extends HttpServlet {
 			MemberDTO userinfo = (MemberDTO) req.getSession().getAttribute("userinfo");
 			
 			mdto.setMember_id(userinfo.getMember_id());
-			mdto.setMember_pw(req.getParameter("member_pw"));
+			mdto.setMember_pw(userinfo.getMember_pw());
 			mdto.setMember_nick(req.getParameter("member_nick"));
 			mdto.setMember_post(req.getParameter("member_post"));
 			mdto.setMember_base_addr(req.getParameter("member_base_addr"));
@@ -40,7 +40,7 @@ public class MemberEditServlet extends HttpServlet {
 			req.getSession().setAttribute("userinfo", mdto);
 			mdao.edit(mdto);
 			
-			resp.sendRedirect("mypage_edit.jsp?succ");
+			resp.sendRedirect("edit_userinfo.jsp?succ");
 		
 		} catch (Exception e) {
 				
