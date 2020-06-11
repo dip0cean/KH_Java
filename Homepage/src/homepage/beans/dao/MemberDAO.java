@@ -223,6 +223,7 @@ public class MemberDAO {
 		return mdto;
 	}
 
+	// [7] 회원 정보 수정
 	public void edit(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
 
