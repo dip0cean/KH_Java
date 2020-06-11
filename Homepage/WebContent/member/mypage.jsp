@@ -98,7 +98,9 @@
 					<br>
 					<a href="check.jsp?go=edit_userinfo.jsp"><input type="button" value="정보 수정"></a>
 					<a href="check.jsp?go=edit_pw.jsp"><input type="button" value="비밀번호 수정"></a>
-					<a href="check.jsp?go=exit.do"><input type="button" value="회원 탈퇴"></a>
+					<%if(!mdto.getAccess_auth().equals("운영자")) { %>
+					<a href="check.jsp?go=exit.jsp"><input type="button" value="회원 탈퇴"></a>
+					<%} %>
 				</td>
 			</tr>
 		</tfoot>

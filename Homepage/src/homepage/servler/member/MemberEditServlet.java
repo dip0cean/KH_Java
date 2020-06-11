@@ -20,9 +20,10 @@ public class MemberEditServlet extends HttpServlet {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			
+			// 정보 수정
+			MemberDTO userinfo = (MemberDTO) req.getSession().getAttribute("userinfo");
 			MemberDAO mdao = new MemberDAO();
 			MemberDTO mdto = new MemberDTO();
-			MemberDTO userinfo = (MemberDTO) req.getSession().getAttribute("userinfo");
 			
 			mdto.setMember_id(userinfo.getMember_id());
 			mdto.setMember_pw(userinfo.getMember_pw());
@@ -39,7 +40,10 @@ public class MemberEditServlet extends HttpServlet {
 			
 			mdao.edit(mdto);
 			
-			mdto = mdao.login(mdto);
+			// 단일 조회로 최신 정보 갱신
+			String member_id = userinfo.getMember_id();
+			
+			mdto = mdao.get(member_id);
 			req.getSession().setAttribute("userinfo", mdto);
 			
 			resp.sendRedirect("edit_userinfo.jsp?succ");

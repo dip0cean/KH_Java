@@ -259,4 +259,86 @@ public class MemberDAO {
 		con.close();
 
 	}
+
+	// [9] 회원 탈퇴
+	public boolean exit(MemberDTO mdto, String exit_user) throws Exception {
+		String user_answer = exit_user;
+		String exit = "모든 정보를 삭제하겠습니다.";
+
+		boolean result;
+
+		if (exit.equals(user_answer)) {
+			Connection con = getConnection();
+
+			String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
+
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+
+			ps.execute();
+
+			sql = "DELETE FROM MEMBER_ACCESS WHERE MEMBER_ID = ? AND ACCESS_AUTH = ?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, mdto.getMember_id());
+			ps.setString(2, mdto.getAccess_auth());
+
+			ps.execute();
+
+			con.close();
+
+			result = true;
+
+		} else {
+
+			result = false;
+		}
+
+		return result;
+	}
+
+	// [10] 단일조회 메소드
+	public MemberDTO get(String member_id) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, member_id);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		MemberDTO mdto = new MemberDTO();
+		mdto.setMember_id(rs.getString("MEMBER_ID"));
+		mdto.setMember_pw(rs.getString("MEMBER_PW"));
+		mdto.setMember_nick(rs.getString("MEMBER_NICK"));
+		mdto.setMember_post(rs.getString("MEMBER_POST"));
+		mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+		mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+		mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
+		mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
+		mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+
+		sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+
+		ps = con.prepareStatement(sql);
+
+		ps.setString(1, mdto.getMember_id());
+
+		rs = ps.executeQuery();
+
+		rs.next();
+		mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
+		mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
+		mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+
+		con.close();
+
+		return mdto;
+	}
 }
