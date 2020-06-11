@@ -30,15 +30,17 @@ public class MemberEditServlet extends HttpServlet {
 			mdto.setMember_post(req.getParameter("member_post"));
 			mdto.setMember_base_addr(req.getParameter("member_base_addr"));
 			mdto.setMember_extra_addr(req.getParameter("member_extra_addr"));
-			mdto.setMember_birth(req.getParameter("member_birth"));
+			mdto.setMember_birth(userinfo.getMember_birthday());
 			mdto.setMember_phone(req.getParameter("member_phone"));
 			mdto.setMember_intro(req.getParameter("member_intro"));
 			mdto.setAccess_auth(userinfo.getAccess_auth());
 			mdto.setAccess_join(userinfo.getAccess_join());
 			mdto.setAccess_login(userinfo.getAccess_login());
 			
-			req.getSession().setAttribute("userinfo", mdto);
 			mdao.edit(mdto);
+			
+			mdto = mdao.login(mdto);
+			req.getSession().setAttribute("userinfo", mdto);
 			
 			resp.sendRedirect("edit_userinfo.jsp?succ");
 		

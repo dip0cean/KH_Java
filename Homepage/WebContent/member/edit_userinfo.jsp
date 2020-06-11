@@ -1,9 +1,11 @@
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <%
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 %>
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 	<div align="center">
 		<h2>My Page</h2>
@@ -21,29 +23,29 @@
 				
 				<tr>
 					<th>닉네임</th>
-					<td><input type="text" name="member_nick" value=<%=mdto.getMember_nick()%> required></td>
+					<td><input type="text" name="member_nick" value="<%=mdto.getMember_nick()%>" required></td>
 				</tr>
 				
 				<tr>
 					<th rowspan="3">주소</th>
-					<td><input type="text" name="member_post" value=<%=mdto.getMember_post()%> required></td>
+					<td><input type="text" name="member_post" value="<%=mdto.getMember_post()%>" required></td>
 				</tr>
 				
 				<tr>
-					<td><input type="text" name="member_base_addr" value=<%=mdto.getMember_base_addr()%> required></td>
+					<td><input type="text" name="member_base_addr" value="<%=mdto.getMember_base_addr()%>" required></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="member_extra_addr" value=<%=mdto.getMember_extra_addr()%> required></td>
+					<td><input type="text" name="member_extra_addr" value="<%=mdto.getMember_extra_addr()%>" required></td>
 				</tr>
 				
 				<tr>
 					<th>생년월일</th>
-					<td><input type="date" name="member_birth" value=<%=mdto.getMember_birth()%> required></td>
+					<td><%=mdto.getMember_birthday()%></td>
 				</tr>
 				
 				<tr>
 					<th>휴대전화</th>
-					<td><input type="text" name="member_phone" value=<%=mdto.getMember_phone()%> required></td>
+					<td><input type="text" name="member_phone" value="<%=mdto.getMember_phone()%>" required></td>
 				</tr>
 				
 				<tr>

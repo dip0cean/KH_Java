@@ -10,7 +10,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h2>My Page</h2>
+	<h2>Check Password</h2>
 	
 	<%if(request.getParameter("error") != null) { %>
 		<h3><font color="red">패스워드를 다시 입력해주세요.</font></h3>
