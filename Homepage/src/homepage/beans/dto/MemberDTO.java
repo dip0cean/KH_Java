@@ -1,7 +1,6 @@
 package homepage.beans.dto;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class MemberDTO {
 	private String member_id;
@@ -97,7 +96,7 @@ public class MemberDTO {
 	public String getMember_birth() {
 		return member_birth;
 	}
-	
+
 	public String getMember_birthday() {
 		return member_birth.substring(0, 10);
 	}
@@ -121,15 +120,26 @@ public class MemberDTO {
 	public void setMember_intro(String member_intro) {
 		this.member_intro = member_intro;
 	}
-	
-	public void setMember_Access(ResultSet rs) throws SQLException {
+
+	public void setMember(ResultSet rs) throws Exception {
+		this.member_id = rs.getString("MEMBER_ID");
+		this.member_pw = rs.getString("MEMBER_PW");
+		this.member_nick = rs.getString("MEMBER_NICK");
+		this.member_post = rs.getString("MEMBER_POST");
+		this.member_base_addr = rs.getString("MEMBER_BASE_ADDR");
+		this.member_extra_addr = rs.getString("MEMBER_EXTRA_ADDR");
+		this.member_birth = rs.getString("MEMBER_BIRTH");
+		this.member_phone = rs.getString("MEMBER_PHONE");
+		this.member_intro = rs.getString("MEMBER_INTRO");
+	}
+
+	public void setMember_Access(ResultSet rs) throws Exception {
 		this.access_auth = rs.getString("ACCESS_AUTH");
 		this.access_join = rs.getString("ACCESS_JOIN");
 		this.access_login = rs.getString("ACCESS_LOGIN");
-		
 	}
-	
-	public MemberDTO(ResultSet rs) throws SQLException {
+
+	public MemberDTO(ResultSet rs) throws Exception {
 		this.setMember_id(rs.getString("member_id"));
 		this.setMember_pw(rs.getString("member_pw"));
 		this.setMember_nick(rs.getString("member_nick"));

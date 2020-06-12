@@ -352,7 +352,7 @@ public class MemberDAO {
 		return mdto;
 	}
 
-	// [11] 회원 검색
+	// [11] 회원 검색 (아이디 조회)
 	public List<MemberDTO> search(String member_id) throws Exception {
 		Connection con = getConnection();
 
@@ -368,7 +368,7 @@ public class MemberDAO {
 
 		while (rs.next()) {
 			MemberDTO mdto = new MemberDTO(rs);
-			
+
 			String sql2 = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
 
 			PreparedStatement ps2 = con.prepareStatement(sql2);
@@ -376,14 +376,86 @@ public class MemberDAO {
 			ps2.setString(1, mdto.getMember_id());
 
 			ResultSet rs2 = ps2.executeQuery();
-			
+
 			rs2.next();
-			
+
 			mdto.setMember_Access(rs2);
 
 			list.add(mdto);
 		}
 
+		con.close();
+
+		return list;
+	}
+
+	// [12] 회원 통합 검색
+	public List<MemberDTO> search(String type, String keyword) throws Exception {
+		Connection con = getConnection();
+
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+
+		MemberDTO mdto;
+
+		if (type.equals("MEMBER_ID") || type.equals("MEMBER_NICK")) {
+
+			String sql = "SELECT * FROM MEMBER WHERE INSTR(#1, ?) > 0 ORDER BY #1 ASC";
+
+			sql = sql.replace("#1", type);
+
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, keyword);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				mdto = new MemberDTO(rs);
+
+				String sql2 = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ? ORDER BY MEMBER_ID ASC";
+
+				PreparedStatement ps2 = con.prepareStatement(sql2);
+
+				ps2.setString(1, rs.getString("MEMBER_ID"));
+
+				ResultSet rs2 = ps2.executeQuery();
+
+				rs2.next();
+
+				mdto.setMember_Access(rs2);
+
+				list.add(mdto);
+			}
+		} else if (type.equals("ACCESS_AUTH")) {
+
+			String sql = "SELECT * FROM MEMBER_ACCESS WHERE INSTR(ACCESS_AUTH, ? ) > 0 ORDER BY MEMBER_ID ASC";
+
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, keyword);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				mdto = new MemberDTO();
+
+				mdto.setMember_Access(rs);
+
+				String sql2 = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? ORDER BY MEMBER_ID ASC";
+
+				PreparedStatement ps2 = con.prepareStatement(sql2);
+
+				ps2.setString(1, rs.getString("MEMBER_ID"));
+
+				ResultSet rs2 = ps2.executeQuery();
+				
+				rs2.next();
+				
+				mdto.setMember(rs2);
+
+				list.add(mdto);
+			}
+		}
 		con.close();
 
 		return list;
