@@ -14,6 +14,7 @@ import homepage.beans.dto.MemberDTO;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/member/check.do")
 public class MemberCheckServlet extends HttpServlet {
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -27,18 +28,18 @@ public class MemberCheckServlet extends HttpServlet {
 			mdto.setMember_pw(req.getParameter("member_pw"));
 
 			mdto = mdao.login(mdto);
-			
+
 			if (mdto != null) {
 				resp.sendRedirect(go);
 			} else {
-				resp.sendRedirect("check.jsp?error&go="+go);
+				resp.sendRedirect("check.jsp?error&go=" + go);
 			}
-			
+
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
 			resp.sendError(500);
-			
+
 		}
 
 	}

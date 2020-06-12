@@ -352,7 +352,7 @@ public class MemberDAO {
 		return mdto;
 	}
 
-	// [11] 회원 검색 (아이디 조회)
+	// [11] 관리자 권한 회원 검색 (아이디 조회)
 	public List<MemberDTO> search(String member_id) throws Exception {
 		Connection con = getConnection();
 
@@ -389,7 +389,7 @@ public class MemberDAO {
 		return list;
 	}
 
-	// [12] 회원 통합 검색
+	// [12] 관리자 권한 회원 통합 검색
 	public List<MemberDTO> search(String type, String keyword) throws Exception {
 		Connection con = getConnection();
 
@@ -459,5 +459,36 @@ public class MemberDAO {
 		con.close();
 
 		return list;
+	}
+	
+	// [13] 관리자 권한 회원 정보 수정
+	public void userEdit(MemberDTO mdto) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "UPDATE MEMBER SET MEMBER_PW = ? , MEMBER_NICK = ? , MEMBER_POST = ? , MEMBER_BASE_ADDR = ? , MEMBER_EXTRA_ADDR = ? , MEMBER_PHONE = ? , MEMBER_INTRO = ? WHERE MEMBER_ID = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, mdto.getMember_pw());
+		ps.setString(2, mdto.getMember_nick());
+		ps.setString(3, mdto.getMember_post());
+		ps.setString(4, mdto.getMember_base_addr());
+		ps.setString(5, mdto.getMember_extra_addr());
+		ps.setString(6, mdto.getMember_phone());
+		ps.setString(7, mdto.getMember_intro());
+		ps.setString(8, mdto.getMember_id());
+		
+		ps.execute();
+		
+		sql = "UPDATE MEMBER_ACCESS SET ACCESS_AUTH = ? WHERE MEMBER_ID = ?";
+		
+		ps = con.prepareStatement(sql);
+		
+		ps.setString(1, mdto.getAccess_auth());
+		ps.setString(2, mdto.getMember_id());
+		
+		ps.execute();
+		
+		con.close();
 	}
 }

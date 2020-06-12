@@ -8,6 +8,7 @@
 <%
 	String type = request.getParameter("type");
 	String keyword = request.getParameter("keyword");
+	session.setAttribute("keyword", keyword);
 	MemberDAO mdao = new MemberDAO();
 
 	List<MemberDTO> list;
@@ -27,7 +28,7 @@
 		<table>
 			<tr>
 				<td><select name="type">
-						<option>선택</option>
+						<option disabled="disabled">선택</option>
 						<option value="MEMBER_ID">아이디</option>
 						<option value="MEMBER_NICK">닉네임</option>
 						<option value="ACCESS_AUTH">회원 등급</option>
@@ -38,8 +39,8 @@
 		</table>
 	</form>
 	<br>
+	<hr>
 	<br>
-
 	<%
 		if (list.isEmpty() && !keyword.equals("")) {
 	%>
@@ -68,9 +69,11 @@
 				<td><%=mdto.getMember_id()%></td>
 				<td><%=mdto.getMember_nick()%></td>
 				<td><%=mdto.getAccess_auth()%></td>
-				<td><a href="#"><input type="button" value="상세"></a> <a
-					href="#"><input type="button" value="수정"></a> <a href="#"><input
-						type="button" value="삭제"></a></td>
+				<td>
+				<a href="user_info.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="상세"></a> 
+				<a href="user_edit.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="수정"></a> 
+				<a href="#"><input type="button" value="삭제"></a>
+				</td>
 			</tr>
 
 			<%

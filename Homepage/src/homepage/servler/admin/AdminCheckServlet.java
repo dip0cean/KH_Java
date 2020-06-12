@@ -32,7 +32,7 @@ public class AdminCheckServlet extends HttpServlet {
 			if (mdto != null) {
 				resp.sendRedirect(go);
 			} else {
-				resp.sendRedirect("check.jsp?error&go=" + go);
+				resp.sendRedirect("admin_check.jsp?error&go=" + go);
 			}
 
 		} catch (Exception e) {

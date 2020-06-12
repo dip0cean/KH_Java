@@ -140,15 +140,15 @@ public class MemberDTO {
 	}
 
 	public MemberDTO(ResultSet rs) throws Exception {
-		this.setMember_id(rs.getString("member_id"));
-		this.setMember_pw(rs.getString("member_pw"));
-		this.setMember_nick(rs.getString("member_nick"));
-		this.setMember_post(rs.getString("member_post"));
-		this.setMember_base_addr(rs.getString("member_base_addr"));
-		this.setMember_extra_addr(rs.getString("member_extra_addr"));
-		this.setMember_birth(rs.getString("member_birth"));
-		this.setMember_phone(rs.getString("member_phone"));
-		this.setMember_intro(rs.getString("member_intro"));
+		this.setMember_id(rs.getString("MEMBER_ID"));
+		this.setMember_pw(rs.getString("MEMBER_PW"));
+		this.setMember_nick(rs.getString("MEMBER_NICK"));
+		this.setMember_post(rs.getString("MEMBER_POST"));
+		this.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+		this.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+		this.setMember_birth(rs.getString("MEMBER_BIRTH"));
+		this.setMember_phone(rs.getString("MEMBER_PHONE"));
+		this.setMember_intro(rs.getString("MEMBER_INTRO"));
 	}
 
 }
