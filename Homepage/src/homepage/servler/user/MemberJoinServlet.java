@@ -1,4 +1,4 @@
-package homepage.servler.member;
+package homepage.servler.user;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import homepage.beans.dao.MemberDAO;
 import homepage.beans.dto.MemberDTO;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/member/join.do")
+@WebServlet(urlPatterns = "/user/join.do")
 public class MemberJoinServlet extends HttpServlet {
 
 	@Override

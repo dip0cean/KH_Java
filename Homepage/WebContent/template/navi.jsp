@@ -32,8 +32,8 @@
 		
 		<font size="5" color="black">
 		
-			<a href="<%=rootPath %>/member/join.jsp"> Join </a>
-			<a href="<%=rootPath %>/member/login.jsp"> Login </a>
+			<a href="<%=rootPath %>/user/join.jsp"> Join </a>
+			<a href="<%=rootPath %>/user/login.jsp"> Login </a>
 			<a href="#">Board</a>
 			
 		</font>

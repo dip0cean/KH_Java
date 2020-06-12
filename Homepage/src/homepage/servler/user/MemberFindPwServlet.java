@@ -1,4 +1,4 @@
-package homepage.servler.member;
+package homepage.servler.user;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import homepage.beans.dao.MemberDAO;
 import homepage.beans.dto.MemberDTO;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/member/find_pw.do")
+@WebServlet(urlPatterns = "/user/find_pw.do")
 public class MemberFindPwServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
