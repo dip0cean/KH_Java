@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import homepage.beans.dto.MemberDTO;
 
 public class MemberDAO {
@@ -311,34 +314,78 @@ public class MemberDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		rs.next();
+		MemberDTO mdto;
 
-		MemberDTO mdto = new MemberDTO();
-		mdto.setMember_id(rs.getString("MEMBER_ID"));
-		mdto.setMember_pw(rs.getString("MEMBER_PW"));
-		mdto.setMember_nick(rs.getString("MEMBER_NICK"));
-		mdto.setMember_post(rs.getString("MEMBER_POST"));
-		mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
-		mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
-		mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
-		mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
-		mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
+		if (rs.next()) {
 
-		sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+			mdto = new MemberDTO();
+			mdto.setMember_id(rs.getString("MEMBER_ID"));
+			mdto.setMember_pw(rs.getString("MEMBER_PW"));
+			mdto.setMember_nick(rs.getString("MEMBER_NICK"));
+			mdto.setMember_post(rs.getString("MEMBER_POST"));
+			mdto.setMember_base_addr(rs.getString("MEMBER_BASE_ADDR"));
+			mdto.setMember_extra_addr(rs.getString("MEMBER_EXTRA_ADDR"));
+			mdto.setMember_birth(rs.getString("MEMBER_BIRTH"));
+			mdto.setMember_phone(rs.getString("MEMBER_PHONE"));
+			mdto.setMember_intro(rs.getString("MEMBER_INTRO"));
 
-		ps = con.prepareStatement(sql);
+			sql = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
 
-		ps.setString(1, mdto.getMember_id());
+			ps = con.prepareStatement(sql);
 
-		rs = ps.executeQuery();
+			ps.setString(1, mdto.getMember_id());
 
-		rs.next();
-		mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
-		mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
-		mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+			rs = ps.executeQuery();
+
+			rs.next();
+			mdto.setAccess_auth(rs.getString("ACCESS_AUTH"));
+			mdto.setAccess_join(rs.getString("ACCESS_JOIN"));
+			mdto.setAccess_login(rs.getString("ACCESS_LOGIN"));
+
+		} else {
+
+			mdto = null;
+		}
 
 		con.close();
 
 		return mdto;
+	}
+
+	// [11] 회원 검색
+	public List<MemberDTO> search(String member_id) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM MEMBER WHERE INSTR(MEMBER_ID, ?) > 0 ORDER BY MEMBER_ID ASC";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, member_id);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+
+		while (rs.next()) {
+			MemberDTO mdto = new MemberDTO(rs);
+			
+			String sql2 = "SELECT * FROM MEMBER_ACCESS WHERE MEMBER_ID = ?";
+
+			PreparedStatement ps2 = con.prepareStatement(sql2);
+
+			ps2.setString(1, mdto.getMember_id());
+
+			ResultSet rs2 = ps2.executeQuery();
+			
+			rs2.next();
+			
+			mdto.setMember_Access(rs2);
+
+			list.add(mdto);
+		}
+
+		con.close();
+
+		return list;
 	}
 }

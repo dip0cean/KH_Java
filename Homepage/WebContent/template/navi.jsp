@@ -20,7 +20,7 @@
 			<!-- 관리자 계정일 경우 -->
 			<%if(mdto.getAccess_auth().equals("운영자")) { %>
 			
-			<a href="#"> Setting </a>
+			<a href="<%=rootPath %>/admin/home.jsp"> Setting </a>
 			
 			<%} %>
 			

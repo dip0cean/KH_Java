@@ -22,6 +22,7 @@
 							
 							find_pw : <%=session.getAttribute("find_pw") %> <br>
 							states : <%=session.getAttribute("find_pw") != null %> <br>
+							
 						</h6>
 					</td>
 				</tr>
