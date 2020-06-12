@@ -19,15 +19,28 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
+	<%if(request.getParameter("error") != null) { %>
+		<h4>
+			<font color="red">접근 권한이 없습니다.</font>
+		</h4>
+	<%} %>
+	
 	<h3>
 	
 	<%if(session.getAttribute("userinfo") != null) {%>
-	<%=mdto.getMember_nick() %>님, 
+	
+	<font color="skyblue"><%=mdto.getMember_nick() %></font>님, 
+	
 	<%} %>
+	
 	환영합니다!
+	
 	<br>
+	
 	행복이 가득한 성헌의 숲에 오신 것을요!
+	
 	</h3>
+	
 	<img alt="동물의 숲" src="./image/성헌의 숲.png" width="750" height="300">
 </div>
 

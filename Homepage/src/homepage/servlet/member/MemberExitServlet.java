@@ -1,4 +1,4 @@
-package homepage.servler.member;
+package homepage.servlet.member;
 
 import java.io.IOException;
 

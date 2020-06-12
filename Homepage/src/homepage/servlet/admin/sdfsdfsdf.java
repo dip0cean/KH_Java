@@ -1,4 +1,4 @@
-package homepage.servler.admin;
+package homepage.servlet.admin;
 
 import java.util.List;
 
