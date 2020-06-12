@@ -264,8 +264,8 @@ public class MemberDAO {
 	}
 
 	// [9] 회원 탈퇴
-	public boolean exit(MemberDTO mdto, String exit_user) throws Exception {
-		String user_answer = exit_user;
+	public boolean exit(MemberDTO mdto, String text) throws Exception {
+		String user_answer = text;
 		String exit = "모든 정보를 삭제하겠습니다.";
 
 		boolean result;
@@ -490,5 +490,30 @@ public class MemberDAO {
 		ps.execute();
 		
 		con.close();
+	}
+	
+	// [14] 관리자 권한 회원 정보 삭제
+	public void userExit(String member_id, String access_auth) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, member_id);
+		
+		ps.execute();
+		
+		sql = "DELETE FROM MEMBER_ACCESS WHERE MEMBER_ID = ? AND ACCESS_AUTH = ?";
+		
+		ps = con.prepareStatement(sql);
+		
+		ps.setString(1, member_id);
+		ps.setString(2, access_auth);
+		
+		ps.execute();
+		
+		con.close();
+		
 	}
 }

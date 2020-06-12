@@ -23,7 +23,10 @@
 
 <div align="center">
 	<h2>회원 검색</h2>
-
+	<%if(request.getParameter("succ") != null) { %>
+		<h3><font color="red">회원 정보를 삭제했습니다.</font></h3>
+	<%} %>
+	
 	<form action="manage_user.jsp" method="get">
 		<table>
 			<tr>
@@ -72,7 +75,7 @@
 				<td>
 				<a href="user_info.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="상세"></a> 
 				<a href="user_edit.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="수정"></a> 
-				<a href="#"><input type="button" value="삭제"></a>
+				<a href="user_exit.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="삭제"></a>
 				</td>
 			</tr>
 

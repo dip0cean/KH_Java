@@ -3,8 +3,9 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	String go = request.getParameter("go");
+	String member_id = request.getParameter("member_id");
+	String access_auth = request.getParameter("access_auth");
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -20,10 +21,16 @@
 		<table>
 			<tr>
 				<th>패스워드</th>
-				<td><input type="hidden" name="go" value=<%=go %>></td>
+				<td><input type="hidden" name="go" value="<%=go %>"></td>
+				
+				<%if(go.equals("user_exit.do")) { %>
+				<td><input type="hidden" name="member_id" value="<%=member_id%>"></td>
+				<td><input type="hidden" name="access_auth" value="<%=access_auth%>"></td>
+				<%} %>
+				
 				<td><input type="password" name="member_pw" placeholder="패스워드 입력"></td>
 				<td colspan="3" align="center">
-				<input type="submit" value="정보 수정"></td>
+				<input type="submit" value="확인"></td>
 			</tr>
 		</table>
 	</form>

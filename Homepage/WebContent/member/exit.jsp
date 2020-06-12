@@ -14,7 +14,7 @@
 	<%} %>
 	
 	<form action="exit.do" method="post">
-		<input type="text" name="exit_user" size="35" placeholder="모든 정보를 삭제하겠습니다.">
+		<input type="text" name="exit" size="35" placeholder="모든 정보를 삭제하겠습니다.">
 		<input type="submit" value="탈퇴">
 	</form>
 </div>

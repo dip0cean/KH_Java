@@ -14,7 +14,7 @@ import homepage.beans.dto.MemberDTO;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/admin/check.do")
 public class AdminCheckServlet extends HttpServlet {
-	
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -30,7 +30,13 @@ public class AdminCheckServlet extends HttpServlet {
 			mdto = mdao.login(mdto);
 
 			if (mdto != null) {
-				resp.sendRedirect(go);
+				if (go.equals("user_exit.do")) {
+					String member_id = req.getParameter("member_id");
+					String access_auth = req.getParameter("access_auth");
+					resp.sendRedirect(go + "?member_id=" + member_id + "&access_auth=" + access_auth);
+				} else {
+					resp.sendRedirect(go);
+				}
 			} else {
 				resp.sendRedirect("admin_check.jsp?error&go=" + go);
 			}

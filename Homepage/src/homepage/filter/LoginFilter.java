@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 //		-*.do > 모든 do 파일
 //		- / 사용 금지
 //	* 2 / 3번 같이 사용 금지
-@WebFilter(urlPatterns = "/member/mypage.jsp")
+@WebFilter(urlPatterns = "/member/*")
 public class LoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
 		if(req.getSession().getAttribute("userinfo") != null) {
 			chain.doFilter(request, response);			
 		} else {
-			resp.sendRedirect("login.jsp");
+			resp.sendRedirect(req.getContextPath() + "/user/login.jsp");
 		}
 	}
 }
