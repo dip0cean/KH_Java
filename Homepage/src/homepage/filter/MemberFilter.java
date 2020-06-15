@@ -7,9 +7,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import homepage.beans.dto.MemberDTO;
 
 
 //	규칙
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 //		-*.do > 모든 do 파일
 //		- / 사용 금지
 //	* 2 / 3번 같이 사용 금지
-@WebFilter(urlPatterns = "/member/*")
+//@WebFilter(urlPatterns = "/member/*")
 public class MemberFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,9 +31,13 @@ public class MemberFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
+		
+		MemberDTO mdto = (MemberDTO) req.getSession().getAttribute("userinfo");
+		
+		boolean isMember = mdto != null;
 
 		
-		if(req.getSession().getAttribute("userinfo") != null) {
+		if(isMember) {
 			chain.doFilter(request, response);			
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/user/login.jsp");

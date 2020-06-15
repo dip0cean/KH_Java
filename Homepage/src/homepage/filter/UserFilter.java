@@ -7,11 +7,12 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = "/user/*")
+import homepage.beans.dto.MemberDTO;
+
+//@WebFilter(urlPatterns = "/user/*")
 public class UserFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -20,8 +21,12 @@ public class UserFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
-		if(req.getAttribute("userinfo") != null) {
-			resp.sendRedirect(req.getContextPath() + "/user/login.jsp");
+		MemberDTO mdto = (MemberDTO) req.getSession().getAttribute("userinfo");
+		
+		boolean isMember = mdto != null;
+		
+		if(isMember) {
+			resp.sendRedirect(req.getContextPath()); 
 		} else {
 			chain.doFilter(request, response);
 		}

@@ -19,11 +19,6 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<%if(request.getParameter("error") != null) { %>
-		<h4>
-			<font color="red">접근 권한이 없습니다.</font>
-		</h4>
-	<%} %>
 	
 	<h3>
 	

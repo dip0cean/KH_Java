@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	XML(eXtend Markup Language)
+	- 데이터를 저장하기 위한 태그 형식의 문서
+	- 첫번째 줄에는 반드시 XML 헤더가 작성되어야 한다.
+	
+	web.xml
+	- 웹 프로젝트의 운용 설정을 저장하는 파일
+	- 이 곳에 등록된 설정에 의해 프로젝트가 구동된다.
+	- 이 곳에 등록되지 않은 내용은 server 가 가진 web.xml 에 의해 운용된다.
+	- 모든 설정은 web-app 태그 내에 수행한다.
+
+ -->
+ 
+ <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+ 	
+ 	<!-- 최초 대문 페이지 설정 -->
+ 	<welcome-file-list>
+ 		<welcome-file>index.jsp</welcome-file>
+ 	</welcome-file-list>
+ 	
+ 	<!-- 세션 자동만료 시간 설정 -->
+ 	<!-- 30분이 기본 세션 만료 시간 -->
+ 	<session-config>
+ 		<session-timeout>30</session-timeout>
+ 	</session-config>
+ 	
+ 	<!-- 서블릿 도는 필터를 등록 > 순서 부여를 위해 -->
+ 	<!--  MemberJoinServlet 등록 -->
+ 	<!-- - servlet 태그 내부에 등록할 서블릭의 정보를 설정 -->
+ 	<servlet>
+ 		<servlet-name>memberJoinServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.user.MemberJoinServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<!-- - selvet-mapping 태그 내부에 연결(mapping) 할 주소 정보를 설정 -->
+ 	<servlet-mapping>
+ 		<servlet-name>memberJoinServlet</servlet-name>
+ 		<url-pattern>/user/join.do</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!-- MemberLoginServlet 등록 -->
+ 	<servlet>
+ 		<servlet-name>memberLoginServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.user.MemberLoginServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>memberLoginServlet</servlet-name>
+ 		<url-pattern>/user/login.do</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!-- web.xml 은 작성된 순서대로 등록이 이루어진다.
+ 		Filter 는 원하는 순서대로 등록 코드를 작성한다.
+ 		1. EncodingFilter
+ 		2. UserFilter
+ 		3. MemberFilter
+ 		4. AdminFilter
+ 	 -->
+ 	 <!-- Encoding Filter -->
+ 	 <filter>
+ 	 	<filter-name>encodingFilter</filter-name>
+ 	 	<filter-class>homepage.filter.EncodingFilter</filter-class>
+ 	 </filter>
+ 	 
+ 	 <filter-mapping>
+ 	 	<filter-name>encodingFilter</filter-name>
+ 	 	<url-pattern>/*</url-pattern>
+ 	 </filter-mapping>
+ 	 
+ 	 <!-- Test User Filter -->
+ 	  <filter>
+ 	 	<filter-name>testLoginFilter</filter-name>
+ 	 	<filter-class>homepage.filter.TestLoginFilter</filter-class>
+ 	 </filter>
+ 	 
+ 	 <filter-mapping>
+ 	 	<filter-name>testLoginFilter</filter-name>
+ 	 	<url-pattern>/*</url-pattern>
+ 	 </filter-mapping>
+ 	 
+ 	 <!-- User Filter -->
+ 	 <filter>
+ 	 	<filter-name>userFilter</filter-name>
+ 	 	<filter-class>homepage.filter.UserFilter</filter-class>
+ 	 </filter>
+ 	 
+ 	 <filter-mapping>
+ 	 	<filter-name>userFilter</filter-name>
+ 	 	<url-pattern>/user/*</url-pattern>
+ 	 </filter-mapping>
+ 	 
+ 	 <!-- Member Filter -->
+ 	 <filter>
+ 	 	<filter-name>memberFilter</filter-name>
+ 	 	<filter-class>homepage.filter.MemberFilter</filter-class>
+ 	 </filter>
+ 	 
+ 	 <filter-mapping>
+ 	 	<filter-name>memberFilter</filter-name> 
+ 	 	<url-pattern>/member/*</url-pattern>
+ 	 </filter-mapping>
+ 	 
+ 	 <!-- Admin Filter -->
+ 	 <filter>
+ 	 	<filter-name>adminFilter</filter-name>
+ 	 	<filter-class>homepage.filter.AdminFilter</filter-class>
+ 	 </filter>
+ 	 
+ 	 <filter-mapping>
+ 	 	<filter-name>adminFilter</filter-name>
+ 	 	<url-pattern>/admin/*</url-pattern>
+ 	 </filter-mapping>
+ 	 
+ 	 <!-- 에러 페이지 설정 -->
+ 	 <error-page>
+ 	 	<error-code>404</error-code>
+ 	 	<location>/error/404.jsp</location>
+ 	 </error-page>
+ 	 
+ 	 <error-page>
+ 	 	<error-code>403</error-code>
+ 	 	<location>/error/403.jsp</location>
+ 	 </error-page>
+ 	 
+ 	 <error-page>
+ 	 	<error-code>500</error-code>
+ 	 	<location>/error/500.jsp</location>
+ 	 </error-page>
+ 
+ </web-app>

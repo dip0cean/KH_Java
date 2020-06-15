@@ -7,13 +7,12 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import homepage.beans.dto.MemberDTO;
 
-@WebFilter(urlPatterns = "/admin/*")
+//@WebFilter(urlPatterns = "/admin/*")
 public class AdminFilter implements Filter {
 
 	@Override
@@ -31,7 +30,7 @@ public class AdminFilter implements Filter {
 
 		} else if (!mdto.getAccess_auth().equals("운영자")) {
 
-			resp.sendRedirect(req.getContextPath() + "?error");
+			resp.sendError(403);
 
 		} else {
 
