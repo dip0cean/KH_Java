@@ -8,6 +8,10 @@
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = pdao.getPost(Long.parseLong(request.getParameter("post_no")));
 	long hits = pdao.getHits(pdto);
+	String post_id = pdto.getPost_id();
+	
+	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+	String member_id = mdto.getMember_id();
 	
 %>
 
@@ -25,7 +29,7 @@
 			</tr>
 			<tr>
 				<th height="80">제목</th>
-				<td colspan="3"><font size="15"><%=pdto.getPost_title() %></font></td>
+				<td colspan="3"><font size="5"><%=pdto.getPost_title() %></font></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,6 +51,9 @@
 	</table>
 	<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
 	<a href="board.jsp"><input type="button" value="뒤로 가기"></a>
+	<%if(post_id.equals(member_id)) { %>
+		<a href="delete.do?post_no=<%=pdto.getPost_no()%>"><input type="button" value="삭제"></a>
+	<%} %>
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

@@ -199,12 +199,27 @@ public class PostDAO {
 
 		while (rs.next()) {
 			PostDTO pdto = new PostDTO(rs);
-			
+
 			list.add(pdto);
 		}
+
+		con.close();
+
+		return list;
+	}
+
+	// [10] 게시글 삭제
+	public void deletePost(long post_no) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "DELETE FROM POST WHERE POST_NO = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setLong(1, post_no);
+		
+		ps.execute();
 		
 		con.close();
-		
-		return list;
 	}
 }
