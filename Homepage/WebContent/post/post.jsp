@@ -25,7 +25,7 @@
 				<th height="80">말머리</th>
 				<td><%=pdto.getPost_sub() %></td>
 				<th height="80">작성자</th>
-				<td><%=pdto.getPost_id() %></td>
+				<td><a href="<%=request.getContextPath()%>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
 			</tr>
 			<tr>
 				<th height="80">제목</th>
