@@ -12,32 +12,19 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div align="center">
 	<h2>회원 정보 수정</h2>
-	<br>
 	<hr>
 	<br>
 	<form action="user_edit.do" method="post">
-		<table>
+		<table style="width: 1038px;">
 			<tr>
-				<th>
+				<th height="50">
 					아이디
 				</th>
 				<td>
 					<input type="hidden" name="member_id" value="<%=mdto.getMember_id()%>">
 					<%=mdto.getMember_id() %>
 				</td>
-			</tr>
-			
-			<tr>
-				<th>
-					패스워드
-				</th>
-				<td>
-					<input type="text" name="member_pw" value="<%=mdto.getMember_pw() %>" placeholder="PW">
-				</td>
-			</tr>
-			
-			<tr>
-				<th>
+				<th height="50">
 					닉네임
 				</th>
 				<td>
@@ -46,28 +33,13 @@
 			</tr>
 			
 			<tr>
-				<th rowspan="3">
-					주소
+				<th height="50">
+					패스워드
 				</th>
 				<td>
-					<input type="text" name="member_post" value="<%=mdto.getMember_post() %>" placeholder="우편번호">
+					<input type="text" name="member_pw" value="<%=mdto.getMember_pw() %>" placeholder="PW">
 				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<input type="text" name="member_base_addr" value="<%=mdto.getMember_base_addr() %>" placeholder="기본 주소">
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<input type="text" name="member_extra_addr" value="<%=mdto.getMember_extra_addr() %>" placeholder="상세 주소">
-				</td>
-			</tr>
-			
-			<tr>
-				<th>
+				<th height="50">
 					생년월일
 				</th>
 				<td>
@@ -77,25 +49,29 @@
 			</tr>
 			
 			<tr>
-				<th>
+				<th rowspan="2" height="50">
+					주소
+				</th>
+				<td colspan="3">
+					<input type="text" name="member_post" value="<%=mdto.getMember_post() %>" placeholder="우편번호" size="20">
+					<input type="text" name="member_base_addr" value="<%=mdto.getMember_base_addr() %>" placeholder="기본 주소" size="100">
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="3" height="20">
+					<input type="text" name="member_extra_addr" value="<%=mdto.getMember_extra_addr() %>" placeholder="상세 주소" size="126">
+				</td>
+			</tr>
+			
+			<tr>
+				<th height="50">
 					휴대전화
 				</th>
 				<td>
 					<input type="text" name="member_phone" value="<%=mdto.getMember_phone() %>" placeholder="전화번호">
 				</td>
-			</tr>
-			
-			<tr>
-				<th>
-					자기 소개
-				</th>
-				<td>
-					<textarea rows="10" cols="30" name="member_intro"><%=mdto.getMember_intro() %></textarea>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>
+				<th height="50">
 					회원 등급
 				</th>
 				<td>
@@ -109,17 +85,23 @@
 			</tr>
 			
 			<tr>
-				<th>
+				<th height="50">
+					자기 소개
+				</th>
+				<td colspan="3">
+					<textarea rows="10" cols="130" name="member_intro"><%=mdto.getMember_intro() %></textarea>
+				</td>
+			</tr>
+			
+			<tr>
+				<th height="40">
 					가입일
 				</th>
 				<td>
 					<input type="hidden" name="access_join" value="<%=mdto.getAccess_join()%>">
 					<%=mdto.getAccess_join() %>
 				</td>
-			</tr>
-			
-			<tr>
-				<th>
+				<th height="40">
 					최근 로그인
 				</th>
 				<td>
@@ -129,7 +111,7 @@
 			</tr>
 			
 			<tr>
-			 	<td colspan="2" align="center">
+			 	<td colspan="4" align="center">
 			 		<input type="submit" value="수정">
 			 	</td>
 			</tr>

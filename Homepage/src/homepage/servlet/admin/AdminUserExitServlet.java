@@ -26,7 +26,7 @@ public class AdminUserExitServlet extends HttpServlet {
 			MemberDAO mdao = new MemberDAO();
 			mdao.userExit(member_id, access_auth);
 			
-			resp.sendRedirect("manage_user.jsp?type=MEMBER_ID&keyword=" + req.getSession().getAttribute("keyword") + "&succ");
+			resp.sendRedirect("manage_user.jsp?succ");
 
 		} catch (Exception e) {
 			

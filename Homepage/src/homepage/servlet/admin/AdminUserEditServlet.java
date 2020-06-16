@@ -37,7 +37,7 @@ public class AdminUserEditServlet extends HttpServlet {
 			mdto.setAccess_join(req.getParameter("access_join"));
 			mdto.setAccess_login(req.getParameter("access_login"));
 			mdao.userEdit(mdto);
-			resp.sendRedirect("manage_user.jsp?type=MEMBER_ID&keyword=" + req.getSession().getAttribute("keyword"));
+			resp.sendRedirect("manage_user.jsp?");
 
 		} catch (Exception e) {
 

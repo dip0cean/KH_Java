@@ -362,12 +362,21 @@ public class MemberDAO {
 		
 		ResultSet rs = ps.executeQuery();
 		
+		String sql2 = "SELECT * FROM MEMBER_ACCESS";
+		
+		PreparedStatement ps2 = con.prepareStatement(sql2);
+		
+		ResultSet rs2 = ps2.executeQuery();
+		
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 		
-		boolean result = rs.next();
-		
-		while(result) {
-			MemberDTO mdto = (result) ? new MemberDTO(rs) : null;
+		while(rs.next()) {
+			
+			MemberDTO mdto = new MemberDTO(rs);
+			
+			rs2.next();
+			
+			mdto.setMember_Access(rs2);
 			
 			list.add(mdto);
 		}
