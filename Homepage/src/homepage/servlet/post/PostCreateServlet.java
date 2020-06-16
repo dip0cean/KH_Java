@@ -19,15 +19,18 @@ public class PostCreateServlet extends HttpServlet {
 			
 			PostDTO pdto = new PostDTO();
 			PostDAO pdao = new PostDAO();
-
+			long post_no = pdao.getSequence();
+			
+			pdto.setPost_no(post_no);
 			pdto.setPost_id(req.getParameter("post_id"));
 			pdto.setPost_sub(req.getParameter("post_sub"));
 			pdto.setPost_title(req.getParameter("post_title"));
 			pdto.setPost_content(req.getParameter("post_content"));
-
+			
+			
 			pdao.creatPost(pdto);
 			
-			resp.sendRedirect("create_result.jsp");
+			resp.sendRedirect("post.jsp?post_no=" + post_no);
 			
 		} catch (Exception e) {
 		

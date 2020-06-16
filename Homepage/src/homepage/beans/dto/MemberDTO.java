@@ -13,6 +13,7 @@ public class MemberDTO {
 	private String member_phone;
 	private String member_intro;
 	private String access_auth;
+	private String access_login;
 	private String access_join;
 
 	public String getAccess_auth() {
@@ -37,12 +38,6 @@ public class MemberDTO {
 
 	public void setAccess_login(String access_login) {
 		this.access_login = access_login;
-	}
-
-	private String access_login;
-
-	public MemberDTO() {
-		super();
 	}
 
 	public String getMember_id() {
@@ -151,4 +146,7 @@ public class MemberDTO {
 		this.setMember_intro(rs.getString("MEMBER_INTRO"));
 	}
 
+	public MemberDTO() {
+		super();
+	}
 }

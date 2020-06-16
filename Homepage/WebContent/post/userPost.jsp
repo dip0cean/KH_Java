@@ -65,7 +65,7 @@
 				</form>
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<a href="board.jsp"><input type="button" value="목록으로"></a>
+					<a href="<%=request.getContextPath() %>/user/board.jsp"><input type="button" value="목록으로"></a>
 				</td>
 			</tr>
 		</tfoot>

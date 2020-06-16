@@ -17,7 +17,6 @@
 
 <%-- <%@ include file="/template/header.jsp" %> --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-
 <div align="center">
 	
 	<h3>
@@ -35,8 +34,8 @@
 	행복이 가득한 성헌의 숲에 오신 것을요!
 	
 	</h3>
-	
-	<img alt="동물의 숲" src="./image/성헌의 숲.png" width="750" height="300">
+	<br>
+	<img alt="동물의 숲" src="./image/성헌의 숲.png" width="1038" height="576">
 </div>
 
 <%-- <%@ include file="/template/footer.jsp" %> --%>

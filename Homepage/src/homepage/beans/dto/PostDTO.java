@@ -55,7 +55,11 @@ public class PostDTO {
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
 	}
-
+	
+	public String getPost_date2() {
+		return post_date.substring(0, 10);
+	}
+	
 	public String getPost_date() {
 		return post_date;
 	}

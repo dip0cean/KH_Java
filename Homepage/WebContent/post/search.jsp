@@ -38,17 +38,16 @@
 <div align="center">
 	<h2>"<%=keyword %>" 로 검색한 결과</h2>
 	<h3>총 <%=list.size() %> 건의 게시글이 있습니다.</h3> 
-	<hr>
 	
-	<table>
+	<table style="width: 1038px;">
 		<thead>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
-				<th width="60">번호</th>
-				<th>말머리</th>
+				<th width="70">번호</th>
+				<th width="100">말머리</th>
 				<th width="500">제목</th>
-				<th width="80">작성자</th>
-				<th>조회수</th>
+				<th width="200">작성자</th>
+				<th width="150">조회수</th>
 				<th width="150">작성일</th>
 			</tr>
 		</thead>
@@ -65,7 +64,11 @@
 							<td align="center"><%=post.getPost_no() %></td>
 							<td align="center"><%=post.getPost_sub() %></td>
 							<td><a href="post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<%if(post.getPost_id() != null) { %>
 							<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=post.getPost_id()%>"><%=post.getPost_id() %></a></td>
+							<%}  else {%>
+								<td align="center"><font color="gray" size="2"><i>탈퇴한 유저</i></font></td>
+							<%} %>
 							<td align="center"><%=post.getPost_hits() %></td>
 							<td><%=post.getPost_date() %></td>		
 						</tr>
@@ -90,7 +93,7 @@
 				</form>
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<a href="board.jsp"><input type="button" value="목록으로"></a>
+					<a href="<%=request.getContextPath() %>/user/board.jsp"><input type="button" value="목록으로"></a>
 				</td>
 			</tr>
 		</tfoot>

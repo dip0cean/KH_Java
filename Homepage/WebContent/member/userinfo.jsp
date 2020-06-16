@@ -12,65 +12,70 @@
 
 <div align="center">
 	<h2>My Page</h2>
-	<table>
+	<table style="width: 1038px;">
 		<tbody>
 			<tr>
 				<th>
 					아이디
 				</th>
-				<td>
+				<td height="80" colspan="2">
 					<%=mdto.getMember_id() %>
 				</td>
-				<tr>
 				<th>
 					닉네임
 				</th>
-				<td>
+				<td height="80" colspan="2">
 					<%=mdto.getMember_nick() %>
 				</td>
 			</tr>
 			<tr>
-				<th>
-					자기 소개
-				</th>
-				<td>
-					<%=mdto.getMember_intro() %>
+				<td colspan="6">
+					<hr>
 				</td>
 			</tr>
 			<tr>
 				<th>
 					회원 등급
 				</th>
-				<td>
+				<td height="80">
 					<%=mdto.getAccess_auth() %>
 				</td>
-			</tr>
-			<tr>
 				<th>
 					총 작성글
 				</th>
-				<td>
+				<td height="80">
 					<%=countPost %> 개
+				</td>
+				<th>
+					가입일
+				</th>
+				<td height="80">
+					<%=mdto.getAccess_join() %>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<hr>
 				</td>
 			</tr>
 			<tr>
 				<th>
-					가입일
+					자기 소개
 				</th>
-				<td>
-					<%=mdto.getAccess_join() %>
+				<td width="300" height="250" colspan="5">
+					<%=mdto.getMember_intro() %>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<hr>
 				</td>
 			</tr>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td	colspan="2" align="center">
-					<br>
-					<a href="<%=request.getContextPath()%>/post/search.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
-				</td>
-			</tr>
-		</tfoot>
 	</table>
+	<br>
+	<a href="<%=request.getContextPath()%>/post/search.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
 </div>
+<br>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

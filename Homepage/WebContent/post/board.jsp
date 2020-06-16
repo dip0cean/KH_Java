@@ -32,18 +32,17 @@
 		</thead>
 	</table>
 	
-	<hr>
 	<br>
 	
-	<table>
+	<table style="width: 1038px;">
 		<thead>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
-				<th width="60">번호</th>
-				<th>말머리</th>
+				<th width="70">번호</th>
+				<th width="100">말머리</th>
 				<th width="500">제목</th>
-				<th width="80">작성자</th>
-				<th>조회수</th>
+				<th width="200">작성자</th>
+				<th width="150">조회수</th>
 				<th width="150">작성일</th>
 			</tr>
 		</thead>
@@ -60,9 +59,13 @@
 							<td align="center"><%=pdto.getPost_no() %></td>
 							<td align="center"><%=pdto.getPost_sub() %></td>
 							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
+							<%if(pdto.getPost_id() != null) { %>
 							<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
+							<%}  else {%>
+								<td align="center"><font color="gray" size="2"><i>탈퇴한 유저</i></font></td>
+							<%} %>
 							<td align="center"><%=pdto.getPost_hits() %></td>
-							<td><%=pdto.getPost_date() %></td>			
+							<td><%=pdto.getPost_date2() %></td>			
 						</tr>
 				<%} %>
 			<%} %>	

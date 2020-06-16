@@ -14,7 +14,7 @@
 	<form action="create.do" method="post">
 		<table>
 			<tr>
-				<th>말머리</th>
+				<th height="40">말머리</th>
 				<td>
 					<select name="post_sub">
 						<option disabled="disabled">선택</option>
@@ -26,11 +26,11 @@
 				</td>
 			</tr>
 			<tr>
-				<th>작성자</th>
+				<th height="40">작성자</th>
 				<td><%=mdto.getMember_id() %><input type="hidden" name="post_id" value="<%=mdto.getMember_id() %>"></td>
 			</tr>
 			<tr>
-				<th>제목</th>
+				<th height="40">제목</th>
 				<td><input type="text" name="post_title" size="70" maxlength="100"></td>
 			</tr>
 			<tr>

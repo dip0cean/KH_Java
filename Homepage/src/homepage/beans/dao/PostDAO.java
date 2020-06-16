@@ -46,14 +46,15 @@ public class PostDAO {
 	public void creatPost(PostDTO pdto) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "INSERT INTO POST VALUES(POST_NO_SEQ.NEXTVAL, ? , ? , ? , ? , SYSDATE , 0)";
+		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0)";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, pdto.getPost_id());
-		ps.setString(2, pdto.getPost_sub());
-		ps.setString(3, pdto.getPost_title());
-		ps.setString(4, pdto.getPost_content());
+		ps.setLong(1, pdto.getPost_no());
+		ps.setString(2, pdto.getPost_id());
+		ps.setString(3, pdto.getPost_sub());
+		ps.setString(4, pdto.getPost_title());
+		ps.setString(5, pdto.getPost_content());
 
 		ps.execute();
 
@@ -98,9 +99,8 @@ public class PostDAO {
 
 		ResultSet rs = ps.executeQuery();
 
-		rs.next();
-
-		PostDTO pdto = new PostDTO(rs);
+		// 3항 연산자
+		PostDTO pdto = rs.next() ? new PostDTO(rs) : null;
 
 		con.close();
 
@@ -109,33 +109,19 @@ public class PostDAO {
 	}
 
 	// [6] 조회수
-	public long getHits(PostDTO pdto) throws Exception {
-		long hits = pdto.getPost_hits() + 1;
+	public void getHits(long post_no) throws Exception {
 
 		Connection con = getConnection();
 
-		String sql = "UPDATE POST SET POST_HITS = ? WHERE POST_NO = ?";
+		String sql = "UPDATE POST SET POST_HITS = POST_HITS + 1 WHERE POST_NO = ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setLong(1, hits);
-		ps.setLong(2, pdto.getPost_no());
+		ps.setLong(1, post_no);
 
 		ps.execute();
 
-		sql = "SELECT POST_HITS FROM POST WHERE POST_NO = ?";
-
-		ps = con.prepareStatement(sql);
-
-		ps.setLong(1, pdto.getPost_no());
-
-		ResultSet rs = ps.executeQuery();
-
-		rs.next();
-
-		hits = rs.getLong("POST_HITS");
-
-		return hits;
+		con.close();
 	}
 
 	// [7] 게시글 수정
@@ -239,12 +225,32 @@ public class PostDAO {
 
 		while (rs.next()) {
 			PostDTO pdto = new PostDTO(rs);
-			
+
 			list.add(pdto);
 		}
+
+		con.close();
+
+		return list;
+	}
+
+	// [12] 게시글 번호 찾기
+	public long getSequence() throws Exception {
+		Connection con = getConnection();
+		
+		// dual 테이블은 오라클이 제공하는 임시 테이블
+		String sql = "SELECT POST_NO_SEQ.NEXTVAL FROM DUAL";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		long getSequence = rs.getLong(1);
 		
 		con.close();
 		
-		return list;
+		return getSequence;
 	}
 }
