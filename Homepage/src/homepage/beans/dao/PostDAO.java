@@ -162,7 +162,7 @@ public class PostDAO {
 	public List<PostDTO> userPost(String post_id) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE POST_ID = ?";
+		String sql = "SELECT * FROM POST WHERE POST_ID = ? ORDER BY POST_DATE DESC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 

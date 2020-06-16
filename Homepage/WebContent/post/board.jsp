@@ -60,7 +60,7 @@
 							<td align="center"><%=pdto.getPost_no() %></td>
 							<td align="center"><%=pdto.getPost_sub() %></td>
 							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
-							<td align="center"><a href="search.jsp?post_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
+							<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
 							<td align="center"><%=pdto.getPost_hits() %></td>
 							<td><%=pdto.getPost_date() %></td>			
 						</tr>

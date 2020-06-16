@@ -5,9 +5,8 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <%
-	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	MemberDAO mdao = new MemberDAO();
-	
+	MemberDTO mdto = mdao.get(request.getParameter("member_id"));	
 	long countPost = mdao.countPost(mdto.getMember_id());
 %>
 
@@ -28,39 +27,6 @@
 				</th>
 				<td>
 					<%=mdto.getMember_nick() %>
-				</td>
-			</tr>
-			<tr>
-				<th rowspan="3">
-					주소
-				</th>
-				<td>
-					<%=mdto.getMember_post() %>
-				</td>
-			<tr>	
-				<td>
-					<%=mdto.getMember_base_addr() %>
-				</td>
-			</tr>
-			<tr>	
-				<td>
-					<%=mdto.getMember_extra_addr() %>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					생년월일
-				</th>
-				<td>
-					<%=mdto.getMember_birthday() %>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					휴대전화
-				</th>
-				<td>
-					<%=mdto.getMember_phone() %>
 				</td>
 			</tr>
 			<tr>
@@ -95,25 +61,12 @@
 					<%=mdto.getAccess_join() %>
 				</td>
 			</tr>
-			<tr>
-				<th>
-					최종 로그인
-				</th>
-				<td>
-					<%=mdto.getAccess_login() %>
-				</td>
-			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td	colspan="2" align="center">
 					<br>
 					<a href="<%=request.getContextPath()%>/post/search.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
-					<a href="check.jsp?go=edit_userinfo.jsp"><input type="button" value="정보 수정"></a>
-					<a href="check.jsp?go=edit_pw.jsp"><input type="button" value="비밀번호 수정"></a>
-					<%if(!mdto.getAccess_auth().equals("운영자")) { %>
-					<a href="check.jsp?go=exit.jsp"><input type="button" value="회원 탈퇴"></a>
-					<%} %>
 				</td>
 			</tr>
 		</tfoot>

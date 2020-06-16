@@ -448,9 +448,9 @@ public class MemberDAO {
 				ps2.setString(1, rs.getString("MEMBER_ID"));
 
 				ResultSet rs2 = ps2.executeQuery();
-				
+
 				rs2.next();
-				
+
 				mdto.setMember(rs2);
 
 				list.add(mdto);
@@ -460,15 +460,15 @@ public class MemberDAO {
 
 		return list;
 	}
-	
+
 	// [13] 관리자 권한 회원 정보 수정
 	public void userEdit(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
-		
+
 		String sql = "UPDATE MEMBER SET MEMBER_PW = ? , MEMBER_NICK = ? , MEMBER_POST = ? , MEMBER_BASE_ADDR = ? , MEMBER_EXTRA_ADDR = ? , MEMBER_PHONE = ? , MEMBER_INTRO = ? WHERE MEMBER_ID = ?";
-		
+
 		PreparedStatement ps = con.prepareStatement(sql);
-		
+
 		ps.setString(1, mdto.getMember_pw());
 		ps.setString(2, mdto.getMember_nick());
 		ps.setString(3, mdto.getMember_post());
@@ -477,43 +477,64 @@ public class MemberDAO {
 		ps.setString(6, mdto.getMember_phone());
 		ps.setString(7, mdto.getMember_intro());
 		ps.setString(8, mdto.getMember_id());
-		
+
 		ps.execute();
-		
+
 		sql = "UPDATE MEMBER_ACCESS SET ACCESS_AUTH = ? WHERE MEMBER_ID = ?";
-		
+
 		ps = con.prepareStatement(sql);
-		
+
 		ps.setString(1, mdto.getAccess_auth());
 		ps.setString(2, mdto.getMember_id());
-		
+
 		ps.execute();
-		
+
 		con.close();
 	}
-	
+
 	// [14] 관리자 권한 회원 정보 삭제
 	public void userExit(String member_id, String access_auth) throws Exception {
 		Connection con = getConnection();
-		
+
 		String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, member_id);
+
+		ps.execute();
+
+		sql = "DELETE FROM MEMBER_ACCESS WHERE MEMBER_ID = ? AND ACCESS_AUTH = ?";
+
+		ps = con.prepareStatement(sql);
+
+		ps.setString(1, member_id);
+		ps.setString(2, access_auth);
+
+		ps.execute();
+
+		con.close();
+
+	}
+
+	// [15] 게시글 개수 확인
+	public long countPost(String member_id) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_ID = ? ";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ps.setString(1, member_id);
 		
-		ps.execute();
+		ResultSet rs = ps.executeQuery();
 		
-		sql = "DELETE FROM MEMBER_ACCESS WHERE MEMBER_ID = ? AND ACCESS_AUTH = ?";
+		rs.next();
 		
-		ps = con.prepareStatement(sql);
-		
-		ps.setString(1, member_id);
-		ps.setString(2, access_auth);
-		
-		ps.execute();
+		long result = rs.getLong(1);
 		
 		con.close();
 		
+		return result;
 	}
 }
