@@ -33,12 +33,12 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="post_title" size="65"
+				<td><input type="text" name="post_title" size="70"
 					maxlength="100" value="<%=pdto.getPost_title() %>"></td>
 			</tr>
 			<tr>
 				<th rowspan="10">내용</th>
-				<td><textarea rows="30" cols="80" name="post_content"><%=pdto.getPost_content() %></textarea>
+				<td><textarea rows="30" cols="70" name="post_content"><%=pdto.getPost_content() %></textarea>
 				</td>
 			</tr>
 			<tr>
