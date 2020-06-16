@@ -29,23 +29,21 @@
 			</tr>
 			<tr>
 				<th height="80">제목</th>
-				<td colspan="3"><font size="5"><%=pdto.getPost_title() %></font></td>
+				<td colspan="4"><font size="5"><%=pdto.getPost_title() %></font></td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th height="450">내용</th>
-				<td width="600" height="450" colspan="3"><%=pdto.getPost_content() %></td>
+				<td width="600" height="450" colspan="4"><%=pdto.getPost_content() %></td>
 			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
 				<th height="80">조회수</th>
-				<td colspan="3"><%=hits %></td>
-			</tr>
-			<tr>
+				<td><%=hits %></td>
 				<th height="80">작성일</th>
-				<td colspan="3"><%=pdto.getPost_date() %>
+				<td><%=pdto.getPost_date() %>
 			</tr>
 		</tfoot>
 	</table>
