@@ -26,7 +26,7 @@
  		<session-timeout>30</session-timeout>
  	</session-config>
  	
- 	<!-- 서블릿 도는 필터를 등록 > 순서 부여를 위해 -->
+ 	<!-- 서블릿 또는 필터를 등록 > 순서 부여를 위해 -->
  	<!--  MemberJoinServlet 등록 -->
  	<!-- - servlet 태그 내부에 등록할 서블릭의 정보를 설정 -->
  	<servlet>
@@ -49,6 +49,37 @@
  	<servlet-mapping>
  		<servlet-name>memberLoginServlet</servlet-name>
  		<url-pattern>/user/login.do</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!-- PostServlet 등록 -->
+ 	<servlet>
+ 		<servlet-name>postCreateServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.post.PostCreateServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>postCreateServlet</servlet-name>
+ 		<url-pattern>/post/create.do</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+ 		<servlet-name>postEditServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.post.PostEditServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>postEditServlet</servlet-name>
+ 		<url-pattern>/post/edit_post.do</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+ 		<servlet-name>postDeleteServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.post.PostDeleteServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>postDeleteServlet</servlet-name>
+ 		<url-pattern>/post/delete.do</url-pattern>
  	</servlet-mapping>
  	
  	<!-- web.xml 은 작성된 순서대로 등록이 이루어진다.
