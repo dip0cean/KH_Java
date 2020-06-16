@@ -49,9 +49,10 @@
 			</tr>
 		</tfoot>
 	</table>
-	<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
+	<br>
 	<a href="board.jsp"><input type="button" value="뒤로 가기"></a>
 	<%if(post_id.equals(member_id)) { %>
+		<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
 		<a href="delete.do?post_no=<%=pdto.getPost_no()%>"><input type="button" value="삭제"></a>
 	<%} %>
 </div>

@@ -6,21 +6,28 @@
 	
 <%
 	PostDAO pdao = new PostDAO();
-	List<PostDTO> list = pdao.fullPost();
+	List<PostDTO> list;
+	String go = request.getParameter("go");
+	if(request.getParameter("go") != null) {
+		list = pdao.boardPost(go);
+	} else {
+		go = "전체";
+		list = pdao.fullPost();
+	}
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h2>전체 게시글</h2>
+	<h2><%=go %> 게시판</h2>
 	<table>
 		<thead>
 			<tr>
-				<th>전체</th>
-				<th>공지</th>
-				<th>일반</th>
-				<th>정보</th>
-				<th>질문</th>
+				<th><a href="board.jsp">전체</a></th>
+				<th><a href="board.jsp?go=공지">공지</a></th>
+				<th><a href="board.jsp?go=일반">일반</a></th>
+				<th><a href="board.jsp?go=정보">정보</a></th>
+				<th><a href="board.jsp?go=질문">질문</a></th>
 			</tr>
 		</thead>
 	</table>

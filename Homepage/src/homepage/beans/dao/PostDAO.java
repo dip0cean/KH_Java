@@ -24,7 +24,7 @@ public class PostDAO {
 	public List<PostDTO> fullPost() throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST ORDER BY POST_NO ASC";
+		String sql = "SELECT * FROM POST ORDER BY POST_DATE DESC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -187,7 +187,7 @@ public class PostDAO {
 	public List<PostDTO> boardPost(String post_sub) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE POST_SUB = ?";
+		String sql = "SELECT * FROM POST WHERE POST_SUB = ? ORDER BY POST_DATE DESC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
