@@ -13,7 +13,7 @@
 
 	List<MemberDTO> list;
 	if (type == null && keyword == null) {
-		list = new ArrayList<>();
+		list = mdao.search();
 		keyword = "";
 	} else {
 		list = mdao.search(type, keyword);
@@ -42,25 +42,20 @@
 		</table>
 	</form>
 	<br>
-	<hr>
 	<br>
-	<%
-		if (list.isEmpty() && !keyword.equals("")) {
-	%>
 
-	<h5>검색 결과가 존재하지 않습니다.</h5>
-
-	<%
-		} else if(!list.isEmpty()){
-	%>
-
-	<table border="1">
+	<table style="width: 1038px;">
 		<thead>
 			<tr>
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>회원 등급</th>
 				<th>관리메뉴</th>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<hr>
+				</td>
 			</tr>
 		</thead>
 		<tbody align="center">
@@ -78,6 +73,11 @@
 				<a href="user_exit.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="삭제"></a>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="4">
+					<hr>
+				</td>
+			</tr>
 
 			<%
 				}
@@ -85,11 +85,6 @@
 
 		</tbody>
 	</table>
-
-	<%
-		}
-	%>
-
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

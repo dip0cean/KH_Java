@@ -352,7 +352,32 @@ public class MemberDAO {
 		return mdto;
 	}
 
-	// [11] 관리자 권한 회원 검색 (아이디 조회)
+	// [11] 관리자 권한 회원 검색 (전체 조회)
+	public List<MemberDTO> search() throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT * FROM MEMBER";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		
+		boolean result = rs.next();
+		
+		while(result) {
+			MemberDTO mdto = (result) ? new MemberDTO(rs) : null;
+			
+			list.add(mdto);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+
+	// [12] 관리자 권한 회원 검색 (아이디 조회)
 	public List<MemberDTO> search(String member_id) throws Exception {
 		Connection con = getConnection();
 
@@ -389,7 +414,7 @@ public class MemberDAO {
 		return list;
 	}
 
-	// [12] 관리자 권한 회원 통합 검색
+	// [13] 관리자 권한 회원 통합 검색
 	public List<MemberDTO> search(String type, String keyword) throws Exception {
 		Connection con = getConnection();
 
@@ -461,7 +486,7 @@ public class MemberDAO {
 		return list;
 	}
 
-	// [13] 관리자 권한 회원 정보 수정
+	// [14] 관리자 권한 회원 정보 수정
 	public void userEdit(MemberDTO mdto) throws Exception {
 		Connection con = getConnection();
 
@@ -492,7 +517,7 @@ public class MemberDAO {
 		con.close();
 	}
 
-	// [14] 관리자 권한 회원 정보 삭제
+	// [15] 관리자 권한 회원 정보 삭제
 	public void userExit(String member_id, String access_auth) throws Exception {
 		Connection con = getConnection();
 
@@ -517,24 +542,24 @@ public class MemberDAO {
 
 	}
 
-	// [15] 게시글 개수 확인
+	// [16] 게시글 개수 확인
 	public long countPost(String member_id) throws Exception {
 		Connection con = getConnection();
-		
+
 		String sql = "SELECT COUNT(*) FROM POST WHERE POST_ID = ? ";
-		
+
 		PreparedStatement ps = con.prepareStatement(sql);
-		
+
 		ps.setString(1, member_id);
-		
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		rs.next();
-		
+
 		long result = rs.getLong(1);
-		
+
 		con.close();
-		
+
 		return result;
 	}
 }
