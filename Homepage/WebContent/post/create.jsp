@@ -27,17 +27,16 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><%=mdto.getMember_id() %></td>
-				<td><input type="hidden" name="post_id" value="<%=mdto.getMember_id() %>"></td>
+				<td><%=mdto.getMember_id() %><input type="hidden" name="post_id" value="<%=mdto.getMember_id() %>"></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="post_title" size="65" maxlength="100"></td>
+				<td><input type="text" name="post_title" size="70" maxlength="100"></td>
 			</tr>
 			<tr>
 				<th rowspan="10">내용</th>
 				<td>
-					<textarea rows="30" cols="80" name="post_content"></textarea>
+					<textarea  rows="30" cols="70" name="post_content"></textarea>
 				</td>
 			</tr>
 			<tr>

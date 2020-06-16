@@ -78,6 +78,7 @@
 						<option value="일반" selected="selected">일반</option>
 						<option value="정보">정보</option>
 						<option value="질문">질문</option>
+						<option value="post_id">아이디</option>
 					</select>
 					<input type="text" name="post_title" placeholder="제목">
 					<input type="submit" value="검색">

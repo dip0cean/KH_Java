@@ -217,9 +217,34 @@ public class PostDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setLong(1, post_no);
-		
+
 		ps.execute();
+
+		con.close();
+	}
+
+	// [11] 아이디 검색으로 게시물 조회
+	public List<PostDTO> searchId_post(String post_id) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,?) > 0 ORDER BY POST_ID ASC , POST_NO DESC";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, post_id);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<PostDTO> list = new ArrayList<PostDTO>();
+
+		while (rs.next()) {
+			PostDTO pdto = new PostDTO(rs);
+			
+			list.add(pdto);
+		}
 		
 		con.close();
+		
+		return list;
 	}
 }
