@@ -356,13 +356,13 @@ public class MemberDAO {
 	public List<MemberDTO> search() throws Exception {
 		Connection con = getConnection();
 		
-		String sql = "SELECT * FROM MEMBER";
+		String sql = "SELECT * FROM MEMBER ORDER BY MEMBER_ID ASC";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();
 		
-		String sql2 = "SELECT * FROM MEMBER_ACCESS";
+		String sql2 = "SELECT * FROM MEMBER_ACCESS ORDER BY MEMBER_ID ASC";
 		
 		PreparedStatement ps2 = con.prepareStatement(sql2);
 		
