@@ -7,6 +7,7 @@
 <%
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	MemberDAO mdao = new MemberDAO();
+	mdto = mdao.get(mdto.getMember_id());
 	
 	long countPost = mdao.countPost(mdto.getMember_id());
 %>

@@ -67,8 +67,11 @@
 					<th>로그인 시간</th>
 					<td><%=mdto.getAccess_login() %></td>
 				<tr>
-					<td colspan="2" align="center"><input
-							type="submit" value="저장"></td>
+					<td colspan="2" align="center">
+						<input type="submit" value="저장">
+						<a href="<%=request.getContextPath()%>/member/mypage.jsp"><input type="button" value="취소"></a>
+					</td>
+					
 				</tr>
 			</table>
 		</form>

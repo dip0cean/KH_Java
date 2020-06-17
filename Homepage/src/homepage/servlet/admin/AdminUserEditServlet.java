@@ -19,7 +19,7 @@ public class AdminUserEditServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
-			req.setCharacterEncoding("UTF-8");
+			
 			
 			MemberDAO mdao = new MemberDAO();
 			MemberDTO mdto = new MemberDTO();
@@ -36,8 +36,19 @@ public class AdminUserEditServlet extends HttpServlet {
 			mdto.setAccess_auth(req.getParameter("access_auth"));
 			mdto.setAccess_join(req.getParameter("access_join"));
 			mdto.setAccess_login(req.getParameter("access_login"));
+			
 			mdao.userEdit(mdto);
-			resp.sendRedirect("manage_user.jsp?");
+			MemberDTO userinfo = (MemberDTO) req.getSession().getAttribute("userinfo");
+			
+			if(userinfo.getAccess_auth().equals("운영자")) {
+				
+				resp.sendRedirect("manage_user.jsp?");
+				
+			} else {
+				
+				resp.sendRedirect(req.getContextPath());
+				
+			}
 
 		} catch (Exception e) {
 

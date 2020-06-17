@@ -5,7 +5,7 @@
 <div align="center">
 	<h2>패스워드 변경이 완료되었습니다.</h2>
 	
-	<a href="<%=request.getContextPath() %>"><input type="button" value="홈으로"></a>
+	<a href="<%=request.getContextPath() %>/member/mypage.jsp"><input type="button" value="돌아가기"></a>
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

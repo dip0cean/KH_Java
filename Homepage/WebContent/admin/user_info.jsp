@@ -119,7 +119,7 @@
 				</td>
 		</tbody>
 	</table>	
-	<a href="manage_user.jsp"><input type="button" value="뒤로가기"></a>
+	<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

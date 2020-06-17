@@ -8,6 +8,9 @@
 	MemberDAO mdao = new MemberDAO();
 	MemberDTO mdto = mdao.get(request.getParameter("member_id"));	
 	long countPost = mdao.countPost(mdto.getMember_id());
+	
+	String go = request.getParameter("go");
+	
 %>
 
 <div align="center">
@@ -75,6 +78,7 @@
 	</table>
 	<br>
 	<a href="<%=request.getContextPath()%>/post/search.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
+	<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
 </div>
 <br>
 

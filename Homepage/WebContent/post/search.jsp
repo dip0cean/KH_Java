@@ -31,6 +31,10 @@
 		keyword = request.getParameter("post_title");
 	
 	}
+	
+	String go = request.getParameter("go");
+	
+	
 %>
 
 
@@ -93,7 +97,7 @@
 				</form>
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<a href="<%=request.getContextPath() %>/user/board.jsp"><input type="button" value="목록으로"></a>
+					<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
 				</td>
 			</tr>
 		</tfoot>

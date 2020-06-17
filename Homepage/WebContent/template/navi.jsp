@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -5,6 +6,10 @@
 <%
 	String rootPath = request.getContextPath();
 	MemberDTO mdto = (MemberDTO)session.getAttribute("userinfo"); 
+	MemberDAO mdao = new MemberDAO();
+	
+	mdto = mdao.get(mdto.getMember_id());
+	
 	boolean isLogin = mdto != null;
 %>
 
