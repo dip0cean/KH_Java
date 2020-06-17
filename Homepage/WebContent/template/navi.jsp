@@ -8,7 +8,11 @@
 	MemberDTO mdto = (MemberDTO)session.getAttribute("userinfo"); 
 	MemberDAO mdao = new MemberDAO();
 	
-	mdto = mdao.get(mdto.getMember_id());
+	if(mdto != null) {
+
+		mdto = mdao.get(mdto.getMember_id());
+		
+	}
 	
 	boolean isLogin = mdto != null;
 %>

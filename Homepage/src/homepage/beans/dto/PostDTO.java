@@ -1,6 +1,8 @@
 package homepage.beans.dto;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PostDTO {
 
@@ -55,13 +57,37 @@ public class PostDTO {
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
 	}
-	
+
+	public String getPost_date() {
+		return post_date;
+	}
+
 	public String getPost_date2() {
 		return post_date.substring(0, 10);
 	}
-	
-	public String getPost_date() {
-		return post_date;
+
+	public String getPost_time() {
+		return post_date.substring(11, 16);
+	}
+
+	public String getPost_autotime() {
+		
+		//Date d = new Date();
+		//SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		//String today = f.format(d);
+		
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
+		if(getPost_date2().equals(today)) {
+
+			return getPost_time();
+			
+		} else {
+			
+			return getPost_date2();
+			
+		}
+		
 	}
 
 	public void setPost_date(String post_date) {
@@ -75,7 +101,7 @@ public class PostDTO {
 	public void setPost_hits(long post_hits) {
 		this.post_hits = post_hits;
 	}
-	
+
 	public PostDTO(ResultSet rs) throws Exception {
 		this.setPost_no(rs.getLong("post_no"));
 		this.setPost_id(rs.getString("post_id"));

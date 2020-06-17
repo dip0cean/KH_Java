@@ -109,15 +109,16 @@ public class PostDAO {
 	}
 
 	// [6] 조회수
-	public void getHits(long post_no) throws Exception {
+	public void getHits(long post_no, String member_id) throws Exception {
 
 		Connection con = getConnection();
 
-		String sql = "UPDATE POST SET POST_HITS = POST_HITS + 1 WHERE POST_NO = ?";
+		String sql = "UPDATE POST SET POST_HITS = POST_HITS + 1 WHERE POST_NO = ? AND POST_ID != ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setLong(1, post_no);
+		ps.setString(2, member_id);
 
 		ps.execute();
 
