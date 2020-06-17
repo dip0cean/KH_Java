@@ -65,7 +65,7 @@ public class PostDAO {
 	public List<PostDTO> searchPost(PostDTO pdto) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE INSTR(POST_TITLE, ? ) > 0 AND POST_SUB = ? ORDER BY POST_NO ASC";
+		String sql = "SELECT * FROM POST WHERE INSTR(POST_TITLE, ? ) > 0 AND POST_SUB = ? ORDER BY POST_NO DESC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -213,7 +213,7 @@ public class PostDAO {
 	public List<PostDTO> searchId_post(String post_id) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,?) > 0 ORDER BY POST_ID ASC , POST_NO DESC";
+		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,?) > 0 ORDER BY POST_NO DESC , POST_ID ASC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
