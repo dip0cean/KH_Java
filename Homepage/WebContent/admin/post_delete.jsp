@@ -98,7 +98,7 @@
 					<hr>
 					<br>
 					<input type="submit" value="삭제">
-					<a href="javascript:history.back()"><input type="button" value="뒤로 가기"></a>
+					<a href="<%=request.getContextPath()%>/post/board.jsp"><input type="button" value="목록으로"></a>
 				</td>
 			</tr>		
 		</tfoot>
