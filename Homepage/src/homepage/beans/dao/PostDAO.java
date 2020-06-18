@@ -1,23 +1,47 @@
 package homepage.beans.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import homepage.beans.dto.PostDTO;
 
 public class PostDAO {
 
+	// context.xml에서 관리하는 자원 객체를 참조할 수 있도록 연결 코드 구현
+	private static DataSource src; // 리모컨 선언
+
+	// static 변수의 초기화가 복잡할 경우에 사용할 수 있는 static 전용 구문
+	static {
+		// src= context.xml 에서 관리하는 자원의 정보
+
+		try {
+			
+			Context ctx = new InitialContext(); // 탐색 도구
+			Context env = (Context) ctx.lookup("java:/comp/env"); // Object 를 Context 로 다운 캐스팅
+			src = (DataSource) env.lookup("jdbc/oracle");
+			
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// [1] 드라이버 실행 및 드라이버 연결
 	public Connection getConnection() throws Exception {
-		Class.forName("oracle.jdbc.OracleDriver");
-
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "C##KH", "C##KH");
-
-		return con;
+//		Class.forName("oracle.jdbc.OracleDriver");
+//
+//		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "C##KH", "C##KH");
+//
+//		return con;
+		
+		return src.getConnection();
 	}
 
 	// [2] 전체 게시글 조회
@@ -238,20 +262,20 @@ public class PostDAO {
 	// [12] 게시글 번호 찾기
 	public long getSequence() throws Exception {
 		Connection con = getConnection();
-		
+
 		// dual 테이블은 오라클이 제공하는 임시 테이블
 		String sql = "SELECT POST_NO_SEQ.NEXTVAL FROM DUAL";
-		
+
 		PreparedStatement ps = con.prepareStatement(sql);
-		
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		rs.next();
-		
+
 		long getSequence = rs.getLong(1);
-		
+
 		con.close();
-		
+
 		return getSequence;
 	}
 }

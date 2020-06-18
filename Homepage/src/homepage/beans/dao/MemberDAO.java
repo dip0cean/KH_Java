@@ -1,21 +1,40 @@
 package homepage.beans.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import homepage.beans.dto.MemberDTO;
 
 public class MemberDAO {
+	
+	// context.xml에서 관리하는 자원 객체를 참조할 수 있도록 연결 코드 구현
+	private static DataSource src;
+	
+	static {
+		try {
+			Context ctx = new InitialContext();
+			Context env = (Context) ctx.lookup("java:/comp/env");
+			src = (DataSource) env.lookup("jdbc/oracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// [1] 드라이버 실행 및 호스트 연결
 	public Connection getConnection() throws Exception {
-		Class.forName("oracle.jdbc.OracleDriver");
-
-		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "C##KH", "C##KH");
+//		Class.forName("oracle.jdbc.OracleDriver");
+//
+//		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "C##KH", "C##KH");
+		
+		return src.getConnection();
 	}
 
 	// [2] 회원 가입
