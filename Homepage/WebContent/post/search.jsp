@@ -35,7 +35,7 @@
 	}
 	
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
-	
+	boolean login = session.getAttribute("userinfo") != null;
 %>
 
 
@@ -125,7 +125,7 @@
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
 					<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
-					<%if(mdto.getAccess_auth().equals("운영자")) {%>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
 					<a href="<%=request.getContextPath() %>/admin/search_delete.jsp?post_sub=<%=request.getParameter("post_sub")%>&post_title=<%=request.getParameter("post_title")%>"><input type="button" value="선택 삭제"></a>
 					<%} %>
 				</td>
