@@ -18,18 +18,18 @@
 			<tbody>
 				<!-- 아이디 -->
 				<tr>
-					<th>아이디</th>
-					<td><input type="text" name="member_id" placeholder="ID" required>
+					<th width="80">아이디</th>
+					<td width="80"><input type="text" name="member_id" placeholder="ID" size="20" required>
 					</td>
-					<td rowspan="2" align="center">
+					<td rowspan="2" align="center" width="80">
 						<input type="submit" value="login">
 					</td>	
 				</tr>
 				
 				<!-- 패스워드 -->
 				<tr>
-					<th>패스워드</th>
-					<td><input type="password" name="member_pw" placeholder="PW" required>
+					<th width="80">패스워드</th>
+					<td width="80"><input type="password" name="member_pw" placeholder="PW" size="20" required>
 					</td>
 					<td>
 					</td>
@@ -40,6 +40,8 @@
 			<tfoot>
 				<tr>
 					<td colspan="3" align="center">
+					<br>
+						<a href="join.jsp"><input type="button" value="Join"></a>
 						<a href="find_id.jsp"><input type="button" value="Find ID"></a>
 						<a href="find_pw.jsp"><input type="button" value="Find PW"></a>
 					</td>

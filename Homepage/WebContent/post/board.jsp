@@ -16,10 +16,13 @@
 		go = "전체";
 		list = pdao.fullPost();
 	}
+	boolean login = session.getAttribute("userinfo") != null;
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	MemberDAO mdao = new MemberDAO();
 	
-	mdto = mdao.get(mdto.getMember_id());
+	if(login) {
+		mdto = mdao.get(mdto.getMember_id());		
+	}
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -126,7 +129,7 @@
 				</form>
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<%if(mdto.getAccess_auth().equals("운영자")) {%>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
 					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
 					<%} %>
 				</td>
