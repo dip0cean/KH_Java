@@ -100,11 +100,63 @@ public class ReplyDAO {
 	public List<ReplyDTO> userReply(String member_id) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM REPLY WHERE REPLY_ID = ?";
+		String sql = "SELECT * FROM REPLY WHERE REPLY_ID = ? ORDER BY POST_DATE DESC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, member_id);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<ReplyDTO> list = new ArrayList<ReplyDTO>();
+
+		while (rs.next()) {
+			ReplyDTO rdto = new ReplyDTO(rs);
+
+			list.add(rdto);
+		}
+
+		con.close();
+
+		return list;
+	}
+
+	// [7] String 타입 컬럼명으로 댓글 리스트 조회
+	public List<ReplyDTO> replyList(String column, String keyword) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM ? = ? ORDER BY POST_NO DESC";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, column);
+		ps.setString(2, keyword);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<ReplyDTO> list = new ArrayList<ReplyDTO>();
+
+		while (rs.next()) {
+			ReplyDTO rdto = new ReplyDTO(rs);
+			
+			list.add(rdto);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	
+	// [8] Long 타입 컬럼명으로 댓글 리스트 조회
+	public List<ReplyDTO> replyList(String column, long keyword) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM ? = ? ORDER BY POST_NO DESC";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, column);
+		ps.setLong(2, keyword);
 
 		ResultSet rs = ps.executeQuery();
 
