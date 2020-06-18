@@ -21,7 +21,7 @@ public class ReplyDAO {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			Context env = (Context) ctx.lookup("java:/comp/emv");
+			Context env = (Context) ctx.lookup("java:/comp/env");
 			src = (DataSource) env.lookup("jdbc/oracle");
 		} catch (NamingException e) {
 
@@ -85,10 +85,20 @@ public class ReplyDAO {
 
 		List<ReplyDTO> list = new ArrayList<ReplyDTO>();
 
-		while (rs.next()) {
-			ReplyDTO rdto = new ReplyDTO(rs);
+		boolean result = rs != null;
 
-			list.add(rdto);
+		if (result) {
+
+			while (rs.next()) {
+				ReplyDTO rdto = new ReplyDTO(rs);
+
+				list.add(rdto);
+			}
+
+		} else {
+
+			list = null;
+
 		}
 
 		con.close();
@@ -138,15 +148,15 @@ public class ReplyDAO {
 
 		while (rs.next()) {
 			ReplyDTO rdto = new ReplyDTO(rs);
-			
+
 			list.add(rdto);
 		}
-		
+
 		con.close();
-		
+
 		return list;
 	}
-	
+
 	// [8] Long 타입 컬럼명으로 댓글 리스트 조회
 	public List<ReplyDTO> replyList(String column, long keyword) throws Exception {
 		Connection con = getConnection();
@@ -164,12 +174,66 @@ public class ReplyDAO {
 
 		while (rs.next()) {
 			ReplyDTO rdto = new ReplyDTO(rs);
-			
+
 			list.add(rdto);
 		}
-		
+
 		con.close();
-		
+
 		return list;
+	}
+
+	// [9] 댓글 개수 조회
+	public long replyCount(long post_no) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM REPLY WHERE POST_NO = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setLong(1, post_no);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next(); 
+
+		long count = rs.getLong(1);
+
+		con.close();
+
+		return count;
+	}
+
+	// [10] 댓글 수정
+	public void editReply(ReplyDTO rdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "UPDATE REPLY SET REPLY_CONTENT = ? WHERE POST_NO = ? AND REPLY_NO = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, rdto.getReply_content());
+		ps.setLong(2, rdto.getPost_no());
+		ps.setLong(3, rdto.getReply_no());
+
+		ps.execute();
+
+		con.close();
+	}
+
+	// [11] 댓글 삭제
+	public void deleteReply(ReplyDTO rdto) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "DELETE FROM REPLY WHERE POST_NO = ? AND REPLY_NO = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setLong(1, rdto.getPost_no());
+		ps.setLong(2, rdto.getReply_no());
+
+		ps.execute();
+
+		con.close();
 	}
 }

@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
@@ -23,6 +24,9 @@
 	if(login) {
 		mdto = mdao.get(mdto.getMember_id());		
 	}
+	
+	ReplyDAO rdao = new ReplyDAO();
+	long count;
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -75,15 +79,16 @@
 					<i><b>게시글을 조회할 수 없습니다.</b></i>
 				</th>
 			</tr>	
-			<%} else {%>
+			<%} else {%> 
 				<%for(PostDTO pdto : list) {%>
+						<%count = rdao.replyCount(pdto.getPost_no()); %>
 						<tr height="40">
 			
 							<td align="center"><%=pdto.getPost_no() %></td>
 			
 							<td align="center"><%=pdto.getPost_sub() %></td>
 			
-							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
+							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %><font size="3" color="gray"><b>  |  (<%=count %>)</b></font></a></td>
 			
 							<%if(pdto.getPost_id() != null) { %>
 			
