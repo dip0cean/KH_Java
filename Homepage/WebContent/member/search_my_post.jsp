@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="java.util.List"%>
@@ -9,7 +10,10 @@
 <%
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
+	ReplyDAO rdao = new ReplyDAO();
 	List<PostDTO> list = pdao.userPost(request.getParameter("post_id"));
+	
+	long count;
 	String keyword = request.getParameter("post_id");
 	String url = "?";
 
@@ -63,13 +67,14 @@
 			</tr>	
 			<%} else {%>
 				<%for(PostDTO post : list) {%>
+						<%count = rdao.replyCount(post.getPost_no()); %>
 						<tr height="40">
 			
 							<td align="center"><%=post.getPost_no() %></td>
 			
 							<td align="center"><%=post.getPost_sub() %></td>
 			
-							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font></a></td>
 			
 							<%if(post.getPost_id() != null) { %>
 			

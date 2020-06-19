@@ -70,7 +70,7 @@ public class PostDAO {
 	public void creatPost(PostDTO pdto) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0)";
+		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0 , ? , 0 , 0)";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -79,6 +79,7 @@ public class PostDAO {
 		ps.setString(3, pdto.getPost_sub());
 		ps.setString(4, pdto.getPost_title());
 		ps.setString(5, pdto.getPost_content());
+		ps.setLong(6, pdto.getSuper_no());
 
 		ps.execute();
 
