@@ -127,7 +127,7 @@ public class PostDAO {
 		con.close();
 	}
 
-	// [4] 전체 게시판에서 제목으로 게시글 조회
+	// [4] 말머리와 제목으로 게시글 조회
 	public List<PostDTO> searchPost(PostDTO pdto) throws Exception {
 		Connection con = getConnection();
 
@@ -240,7 +240,7 @@ public class PostDAO {
 	public List<PostDTO> boardPost(String post_sub) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE POST_SUB = ? ORDER BY POST_DATE DESC";
+		String sql = "SELECT * FROM POST WHERE POST_SUB = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -261,7 +261,59 @@ public class PostDAO {
 		return list;
 	}
 
-	// [10] 게시글 삭제
+	// [10] 닉네임 검색으로 게시물 조회
+	public List<PostDTO> searchNickpost(String member_nick) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0 ORDER BY POST_NO DESC , POST_ID ASC";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, member_nick);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		
+		while (rs.next()) {
+			PostDTO pdto = new PostDTO(rs);
+			
+			list.add(pdto);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	
+	// [11] 말머리와 닉네임으로 게시글 찾기
+	public List<PostDTO> searchNickpost(String go, String member_nick) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT * FROM POST WHERE POST_SUB = ? AND INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, go);
+		ps.setString(2, member_nick);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		
+		while(rs.next()) {
+			PostDTO pdto = new PostDTO(rs);
+			
+			list.add(pdto);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	
+	
+	// [12] 게시글 삭제
 	public void deletePost(long post_no) throws Exception {
 		Connection con = getConnection();
 
@@ -276,32 +328,7 @@ public class PostDAO {
 		con.close();
 	}
 
-	// [11] 아이디 검색으로 게시물 조회
-	public List<PostDTO> searchId_post(String post_id) throws Exception {
-		Connection con = getConnection();
-
-		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,?) > 0 ORDER BY POST_NO DESC , POST_ID ASC";
-
-		PreparedStatement ps = con.prepareStatement(sql);
-
-		ps.setString(1, post_id);
-
-		ResultSet rs = ps.executeQuery();
-
-		List<PostDTO> list = new ArrayList<PostDTO>();
-
-		while (rs.next()) {
-			PostDTO pdto = new PostDTO(rs);
-
-			list.add(pdto);
-		}
-
-		con.close();
-
-		return list;
-	}
-
-	// [12] 게시글 번호 찾기
+	// [13] 게시글 번호 찾기
 	public long getSequence() throws Exception {
 		Connection con = getConnection();
 

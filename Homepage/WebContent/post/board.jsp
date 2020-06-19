@@ -9,6 +9,7 @@
 	
 <%
 	PostDAO pdao = new PostDAO();
+	PostDTO getParameter = new PostDTO();
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	MemberDTO member_nick = new MemberDTO();
 	MemberDAO mdao = new MemberDAO();
@@ -17,20 +18,58 @@
 	
 	long count;
 	boolean login = mdto != null;
+	boolean parameter = request.getParameter("post_sub") != null && request.getParameter("post_title") != null;
+	String post_sub = request.getParameter("post_sub");
 	String go = request.getParameter("go");
+	String board_title = go;
 	
+	// 게시판 이동을 위한 구문
 	if(request.getParameter("go") != null) {
+		
 		list = pdao.boardPost(go);
+		
+		if(parameter && post_sub.equals("member_nick")) {
+			go = board_title;
+			list = pdao.searchNickpost(go, request.getParameter("post_title"));
+			
+		} else if(parameter && !request.getParameter("post_sub").equals("member_nick")){
+			
+			go = post_sub;
+			getParameter.setPost_sub(post_sub);
+			getParameter.setPost_title(request.getParameter("post_title"));
+			board_title = post_sub;
+			list = pdao.searchPost(getParameter);
+			
+		}
+		
 	} else {
-		go = "전체";
+		
+		board_title = "전체";
 		list = pdao.fullPost();
+		
+		if(parameter) {
+			// 말머리와 제목으로 검색했을 때
+			board_title = post_sub;
+			getParameter.setPost_sub(request.getParameter("post_sub"));
+			getParameter.setPost_title(request.getParameter("post_title"));
+			
+			list = pdao.searchPost(getParameter);
+			
+			if(getParameter.getPost_sub().equals("member_nick")) {
+				board_title = go;
+				list = pdao.searchNickpost(request.getParameter("post_title"));
+			}
+			
+		} 
+
 	}
+	
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h2><%=go %> 게시판</h2>
+	<h2><%=board_title %> 게시판</h2>
 	<table>
 		<thead>
 			<tr>
@@ -80,7 +119,7 @@
 			<%} else {%> 
 				<%for(PostDTO pdto : list) {%>
 						<%count = rdao.replyCount(pdto.getPost_no()); %>
-						<%member_nick = mdao.get(pdto.getPost_id());%>
+						<%member_nick = mdao.get(pdto.getPost_id()); %>
 						<tr height="40">
 			
 							<td align="center"><%=pdto.getPost_no() %></td>
@@ -114,11 +153,13 @@
 			<tr>
 				<td colspan="6" align="center">
 				<hr><br>
-				<form action="search.jsp" method="post">
+			
+				<form action="board.jsp" method="get">
+
 					<select name="post_sub">
 			
 						<option disabled="disabled">선택</option>
-			
+
 						<option value="공지">공지</option>
 			
 						<option value="일반" selected="selected">일반</option>
@@ -126,11 +167,14 @@
 						<option value="정보">정보</option>
 			
 						<option value="질문">질문</option>
-			
-						<option value="post_id">아이디</option>
+
+						<option value="member_nick">닉네임</option>
 			
 					</select>
-					<input type="text" name="post_title" placeholder="제목">
+					<input type="text" name="post_title" placeholder="검색어">
+				<%if(request.getParameter("go") != null) { %>
+					<input type="hidden" name="go" value="<%=go %>">	
+				<%} %>
 					<input type="submit" value="검색">
 				</form>
 				<br>
