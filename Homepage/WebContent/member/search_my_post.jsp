@@ -1,6 +1,5 @@
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
-<%@page import="java.util.Enumeration"%>
 <%@page import="java.util.List"%>
 <%@page import="homepage.beans.dto.PostDTO"%>
 <%@page import="homepage.beans.dao.PostDAO"%>
@@ -8,29 +7,21 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	List<PostDTO> list;
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
-	Enumeration<String> e = request.getParameterNames();
-	String parameterName = (String) e.nextElement();
-	String keyword;
+	List<PostDTO> list = pdao.userPost(request.getParameter("post_id"));
+	String keyword = request.getParameter("post_id");
+	String url = "?";
 
-	if(parameterName.equals("post_id")){
-		// 마이 페이지에서 작성글 조회 시
-		 list = pdao.userPost(request.getParameter("post_id"));
-		 keyword = request.getParameter("post_id");
+	if (request.getParameter("post_sub") != null && request.getParameter("post_title") != null) {
 		
-	} else if(request.getParameter("post_sub").equals("post_id")){
-		// 전체 게시판에서 아이디로 검색 시
-		list = pdao.searchId_post(request.getParameter("post_title"));
-		keyword = request.getParameter("post_title");
-		
-	} else {
-		// 전체 게시판에서 제목 및 말머리로 검색 시
+ 		// 게시글 조회 후 제목 및 말머리로 검색 시
 		pdto.setPost_sub(request.getParameter("post_sub"));
 		pdto.setPost_title(request.getParameter("post_title"));
 		list = pdao.searchPost(pdto);
 		keyword = request.getParameter("post_title");
+		String sub = request.getParameter("post_sub");
+		url = "?post_sub=" + sub + "&post_title=" + keyword;
 	
 	}
 	
@@ -78,7 +69,7 @@
 			
 							<td align="center"><%=post.getPost_sub() %></td>
 			
-							<td><a href="post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
 			
 							<%if(post.getPost_id() != null) { %>
 			
@@ -103,7 +94,7 @@
 			<tr>
 				<td colspan="6" align="center">
 				<hr><br>
-				<form action="search.jsp" method="post">
+				<form action="search_my_post.jsp" method="post">
 					<select name="post_sub">
 				
 						<option disabled="disabled">선택</option>
@@ -116,18 +107,14 @@
 				
 						<option value="질문">질문</option>
 				
-						<option value="post_id">아이디</option>
-				
 					</select>
 					<input type="text" name="post_title" placeholder="제목">
 					<input type="submit" value="검색">
 				</form>
 				<br>
-					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
-					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
-					<a href="<%=request.getContextPath() %>/admin/search_delete.jsp?post_sub=<%=request.getParameter("post_sub")%>&post_title=<%=request.getParameter("post_title")%>"><input type="button" value="선택 삭제"></a>
-					<%} %>
+					<a href="<%=request.getContextPath() %>/post/create.jsp"><input type="button" value="글쓰기"></a>
+					<a href="delete_my_post.jsp<%=url%>"><input type="button" value="선택 삭제"></a>
+					<a href="mypage.jsp"><input type="button" value="마이 페이지"></a>
 				</td>
 			</tr>
 		</table>

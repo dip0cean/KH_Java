@@ -113,7 +113,8 @@
 		</tbody>
 	</table>
 	<br><hr><br>
-	<a href="<%=request.getContextPath()%>/post/search.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
+	<a href="search_my_post.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="작성글 조회"></a>
+	<a href="search_my_reply.jsp?member_id=<%=mdto.getMember_id()%>"><input type="button" value="댓글 조회"></a>
 	<a href="check.jsp?go=edit_userinfo.jsp"><input type="button" value="정보 수정"></a>
 	<a href="check.jsp?go=edit_pw.jsp"><input type="button" value="비밀번호 수정"></a>
 	<%if(!mdto.getAccess_auth().equals("운영자")) { %>

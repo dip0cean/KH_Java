@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="homepage.beans.dto.PostDTO"%>
 <%@page import="homepage.beans.dao.PostDAO"%>
@@ -8,7 +9,7 @@
 	List<PostDTO> list;
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
-
+	
 	String keyword;
 	
 	if(request.getParameter("post_sub").equals("post_id")){
@@ -22,9 +23,8 @@
 		pdto.setPost_title(request.getParameter("post_title"));
 		list = pdao.searchPost(pdto);
 		keyword = request.getParameter("post_title");
-
-	}
 	
+	}
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>

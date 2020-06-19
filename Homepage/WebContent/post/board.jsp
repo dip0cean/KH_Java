@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
@@ -8,20 +9,21 @@
 	
 <%
 	PostDAO pdao = new PostDAO();
+	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+	MemberDTO member_nick = new MemberDTO();
+	MemberDAO mdao = new MemberDAO();
+	ReplyDAO rdao = new ReplyDAO();
 	List<PostDTO> list;
+	
+	long count;
+	boolean login = mdto != null;
 	String go = request.getParameter("go");
+	
 	if(request.getParameter("go") != null) {
 		list = pdao.boardPost(go);
 	} else {
 		go = "전체";
 		list = pdao.fullPost();
-	}
-	boolean login = session.getAttribute("userinfo") != null;
-	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
-	MemberDAO mdao = new MemberDAO();
-	
-	if(login) {
-		mdto = mdao.get(mdto.getMember_id());		
 	}
 %>	
 
@@ -75,19 +77,21 @@
 					<i><b>게시글을 조회할 수 없습니다.</b></i>
 				</th>
 			</tr>	
-			<%} else {%>
+			<%} else {%> 
 				<%for(PostDTO pdto : list) {%>
+						<%count = rdao.replyCount(pdto.getPost_no()); %>
+						<%member_nick = mdao.get(pdto.getPost_id());%>
 						<tr height="40">
 			
 							<td align="center"><%=pdto.getPost_no() %></td>
 			
 							<td align="center"><%=pdto.getPost_sub() %></td>
 			
-							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
+							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font></a></td>
 			
 							<%if(pdto.getPost_id() != null) { %>
 			
-								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>&go=<%=request.getContextPath()%>/post/board.jsp"><%=pdto.getPost_id() %></a></td>
+								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>&go=<%=request.getContextPath()%>/post/board.jsp"><%=member_nick.getMember_nick() %></a></td>
 			
 							<%}  else {%>
 			
