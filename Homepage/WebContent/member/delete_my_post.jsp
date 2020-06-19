@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="homepage.beans.dto.PostDTO"%>
@@ -10,7 +11,9 @@
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
+	ReplyDAO rdao = new ReplyDAO();
 	
+	long count;
 	String keyword;
 	
 	 if(request.getParameter("post_sub") != null && request.getParameter("post_title") != null) {
@@ -74,6 +77,7 @@
 			</tr>	
 			<%} else {%>
 				<%for(PostDTO post : list) {%>
+					<%count = rdao.replyCount(post.getPost_no()); %>
 						<tr height="40">
 						
 							<td align="center"><input type="checkbox" name="post_no" value="<%=post.getPost_no()%>"></td>
@@ -82,7 +86,7 @@
 							
 							<td align="center"><%=post.getPost_sub() %></td>
 							
-							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font></a></td>
 							
 							<%if(post.getPost_id() != null) { %>
 							

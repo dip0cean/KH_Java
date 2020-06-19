@@ -15,16 +15,16 @@
 	<hr>
 	<br>
 	<form action="user_edit.do" method="post">
-		<table style="width: 600px;">
+		<table style="width: 700px;">
 			<tr>
-				<th height="50">
+				<th height="50" width="100">
 					아이디
 				</th>
 				<td>
 					<input type="hidden" name="member_id" value="<%=mdto.getMember_id()%>">
 					<%=mdto.getMember_id() %>
 				</td>
-				<th height="50">
+				<th height="50" width="100">
 					닉네임
 				</th>
 				<td>
@@ -33,13 +33,13 @@
 			</tr>
 			
 			<tr>
-				<th height="50">
+				<th height="50" width="100">
 					패스워드
 				</th>
 				<td>
 					<input type="text" name="member_pw" value="<%=mdto.getMember_pw() %>" placeholder="PW">
 				</td>
-				<th height="50">
+				<th height="50" width="100">
 					생년월일
 				</th>
 				<td>
@@ -49,13 +49,13 @@
 			</tr>
 			
 			<tr>
-				<th height="50">
+				<th height="50" width="100">
 					휴대전화
 				</th>
 				<td>
 					<input type="text" name="member_phone" value="<%=mdto.getMember_phone() %>" placeholder="전화번호">
 				</td>
-				<th height="50">
+				<th height="50" width="100">
 					회원 등급
 				</th>
 				<td>
@@ -69,7 +69,7 @@
 			</tr>
 			
 			<tr>
-				<th rowspan="2" height="50">
+				<th rowspan="2" height="50" width="100">
 					주소
 				</th>
 				<td>
@@ -87,7 +87,7 @@
 			</tr>
 			
 			<tr>
-				<th height="50">
+				<th height="50" width="100">
 					자기 소개
 				</th>
 				<td colspan="3">
@@ -96,14 +96,14 @@
 			</tr>
 			
 			<tr>
-				<th height="40">
+				<th height="50" width="100">
 					가입일
 				</th>
 				<td>
 					<input type="hidden" name="access_join" value="<%=mdto.getAccess_join()%>">
 					<%=mdto.getAccess_join() %>
 				</td>
-				<th height="40">
+				<th height="50" width="100">
 					최근 로그인
 				</th>
 				<td>

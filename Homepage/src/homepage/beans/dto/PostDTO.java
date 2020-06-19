@@ -13,6 +13,33 @@ public class PostDTO {
 	private String post_content;
 	private String post_date;
 	private long post_hits;
+	private long super_no;
+	private long group_no;
+	private long depth;
+
+	public long getSuper_no() {
+		return super_no;
+	}
+
+	public void setSuper_no(long super_no) {
+		this.super_no = super_no;
+	}
+
+	public long getGroup_no() {
+		return group_no;
+	}
+
+	public void setGroup_no(long group_no) {
+		this.group_no = group_no;
+	}
+
+	public long getDepth() {
+		return depth;
+	}
+
+	public void setDepth(long depth) {
+		this.depth = depth;
+	}
 
 	public PostDTO() {
 		super();
@@ -71,23 +98,23 @@ public class PostDTO {
 	}
 
 	public String getPost_autotime() {
-		
-		//Date d = new Date();
-		//SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		//String today = f.format(d);
-		
+
+		// Date d = new Date();
+		// SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		// String today = f.format(d);
+
 		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		
-		if(getPost_date2().equals(today)) {
+
+		if (getPost_date2().equals(today)) {
 
 			return getPost_time();
-			
+
 		} else {
-			
+
 			return getPost_date2();
-			
+
 		}
-		
+
 	}
 
 	public void setPost_date(String post_date) {
@@ -110,6 +137,9 @@ public class PostDTO {
 		this.setPost_content(rs.getString("post_content"));
 		this.setPost_date(rs.getString("post_date"));
 		this.setPost_hits(rs.getLong("post_hits"));
+		this.setSuper_no(rs.getLong("super_no"));
+		this.setGroup_no(rs.getLong("group_no"));
+		this.setDepth(rs.getLong("depth"));
 	}
 
 }

@@ -12,6 +12,10 @@
 <div align="center">
 	<h2>게시글 작성</h2>
 	<form action="create.do" method="post">
+		<!-- 원본글 번호가 있다면(답글이라면) 원본글번호를 hidden으로 첨부 -->
+		<%if(request.getParameter("post_no") != null) { %>
+			<input type="hidden" name="post_no" value="<%=request.getParameter("post_no")%>">
+		<%} %>	
 		<table>
 			<tr>
 				<th height="40">말머리</th>
