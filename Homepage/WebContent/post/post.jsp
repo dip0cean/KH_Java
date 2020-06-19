@@ -56,8 +56,18 @@
 
 <div align="center">
 	<h2><%=pdto.getPost_title() %></h2>
-	<table style="width: 1038px;">
+	<table style="width: 1038px;"> 
 		<tbody>
+			<tr>
+				<td colspan="6" align="right">
+					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<%if(isAdmin || isMine) { %>
+						<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
+						<a href="delete.do?post_no=<%=pdto.getPost_no()%>"><input type="button" value="삭제"></a>
+					<%} %>
+					<a href="board.jsp"><input type="button" value="목록"></a>
+				</td>
+			</tr>
 			<tr>
 				<th>말머리</th>
 				<td height="80" colspan="2"><%=pdto.getPost_sub() %></td>
@@ -130,7 +140,7 @@
 													</div>
 												</td>	
 												<td align="right">
-													<%if(my_reply) { %>
+													<%if(my_reply || mdto.getAccess_auth().equals("운영자")) { %>
 														<%if (request.getParameter("edit") != null && request.getParameter("reply_no").equals(reply_no)) { %>
 															<p><input type="submit" value="댓글 수정"></p>
 														<%} else {%>
@@ -169,6 +179,7 @@
 						<%} %>	
 							<tr>
 								<td colspan="2">
+									<hr>
 									<br>
 									<div style="font-size: 25px; text-align: left; font-style: italic;"><b>댓글 작성</b></div>
 
