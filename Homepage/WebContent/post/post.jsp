@@ -61,6 +61,7 @@
 			<tr>
 				<td colspan="6" align="right">
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<a href="create.jsp?post_no=<%=post_no%>"><input type="button" value="답글"></a>
 					<%if(isAdmin || isMine) { %>
 						<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
 						<a href="delete.do?post_no=<%=pdto.getPost_no()%>"><input type="button" value="삭제"></a>

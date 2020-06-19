@@ -26,7 +26,11 @@ public class PostCreateServlet extends HttpServlet {
 			pdto.setPost_sub(req.getParameter("post_sub"));
 			pdto.setPost_title(req.getParameter("post_title"));
 			pdto.setPost_content(req.getParameter("post_content"));
-			pdto.setSuper_no(post_no);
+				
+			if(req.getParameter("post_no") != null) {
+				pdto.setSuper_no(Integer.parseInt(req.getParameter("post_no")));
+			}
+			
 			
 			pdao.creatPost(pdto);
 			

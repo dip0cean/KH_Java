@@ -3,6 +3,7 @@ package homepage.beans.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class PostDAO {
 		// src= context.xml 에서 관리하는 자원의 정보
 
 		try {
-			
+
 			Context ctx = new InitialContext(); // 탐색 도구
 			Context env = (Context) ctx.lookup("java:/comp/env"); // Object 를 Context 로 다운 캐스팅
 			src = (DataSource) env.lookup("jdbc/oracle");
-			
+
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +41,7 @@ public class PostDAO {
 //		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "C##KH", "C##KH");
 //
 //		return con;
-		
+
 		return src.getConnection();
 	}
 
@@ -48,7 +49,7 @@ public class PostDAO {
 	public List<PostDTO> fullPost() throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST ORDER BY POST_DATE DESC";
+		String sql = "SELECT * FROM POST CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -66,11 +67,41 @@ public class PostDAO {
 		return list;
 	}
 
+	// - 번호가 이미 생성되어서 pdto 에 들어있으므로 시퀀스 사용 금지!
+	// - pdto.getSuper_no() == 0
+	// - pdto.getSuper_no() > 0
+	// - pdto 에 들어갈 데이터(상위글 번호, 그룹번호, 차수정보) 를 계산하여 등록!
+
+	// - 새글 등록 기준
+	// - 상위글 번호 : 0
+	// - 그룹번호 : 원본글과 동일
+	// - 차수 : 0
+	// - 답글 등록 기준
+	// - 상위글 번호 : 원본글 번호
+	// - 그룹번호 " 원본글 그룹 번호
+	// - 차수 : 원본글 차수 + 1
+
 	// [3] 게시글 작성
 	public void creatPost(PostDTO pdto) throws Exception {
+		if (pdto.getSuper_no() == 0) {
+			// 새글일 경우
+			// pdto 에는 5개의 정보가 들어있다. (번호 / 말머리 / 제목/ 작성자 / 내용)
+			// 추가로 그룹번호 설정 (나머지 값 == 0)
+			pdto.setGroup_no(pdto.getPost_no());
+
+		} else {
+			// 답글일 경우
+			// pdto 에는 6개의 정보가 들어있다. (번호 / 말머리 / 제목/ 작성자 / 내용 / 상위글번호)
+			// 추가로 그룹번호와 차수를 설정해주어야 한다.
+			// 원본글의 정보가 필요하므로 불러온다.
+			PostDTO upPost = this.getPost(pdto.getSuper_no());
+			// 원본글 그룹 번호 가지고 오기
+			pdto.setGroup_no(upPost.getGroup_no());
+			pdto.setDepth(upPost.getDepth() + 1);
+		}
 		Connection con = getConnection();
 
-		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0 , ? , 0 , 0)";
+		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0 , ? , ? , ?)";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -79,7 +110,17 @@ public class PostDAO {
 		ps.setString(3, pdto.getPost_sub());
 		ps.setString(4, pdto.getPost_title());
 		ps.setString(5, pdto.getPost_content());
-		ps.setLong(6, pdto.getSuper_no());
+		if(pdto.getSuper_no() == 0) {
+			
+			ps.setNull(6, Types.INTEGER);
+			
+		} else {
+			
+			ps.setLong(6, pdto.getSuper_no());
+			
+		}
+		ps.setLong(7, pdto.getGroup_no());
+		ps.setLong(8, pdto.getDepth());
 
 		ps.execute();
 
@@ -265,7 +306,7 @@ public class PostDAO {
 		Connection con = getConnection();
 
 		// dual 테이블은 오라클이 제공하는 임시 테이블
-		String sql = "SELECT POST_NO_SEQ.NEXTVAL FROM DUAL";
+		String sql = "SELECT POST_SEQ.NEXTVAL FROM DUAL";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
