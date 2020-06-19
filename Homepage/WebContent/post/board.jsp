@@ -88,9 +88,9 @@
 							<td align="center"><%=pdto.getPost_sub() %></td>
 			
 							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font></a></td>
-							<td>super_no<%=pdto.getSuper_no() %></td>
-							<td>group_no<%=pdto.getGroup_no() %></td>
-							<td>depth<%=pdto.getDepth() %>
+<%-- 							<td>super_no<%=pdto.getSuper_no() %></td> --%>
+<%-- 							<td>group_no<%=pdto.getGroup_no() %></td> --%>
+<%-- 							<td>depth<%=pdto.getDepth() %> --%>
 							<%if(pdto.getPost_id() != null) { %>
 			
 								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>&go=<%=request.getContextPath()%>/post/board.jsp"><%=member_nick.getMember_nick() %></a></td>
