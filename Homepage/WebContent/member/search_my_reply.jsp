@@ -53,7 +53,7 @@
 			
 							<td align="center"><%=rdto.getPost_no() %></td>
 			
-							<td><a href="post.jsp?post_no=<%=rdto.getPost_no() %>"><%=rdto.getReply_content() %></a></td>
+							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=rdto.getPost_no() %>"><%=rdto.getReply_content() %></a></td>
 			
 							<%if(rdto.getReply_id() != null) { %>
 			
@@ -76,7 +76,7 @@
 			<tr>
 				<td colspan="6" align="center">
 				<hr><br>
-				<form action="search.jsp" method="post">
+				<form action="search_my_reply.jsp" method="post">
 					<select name="post_sub">
 				
 						<option disabled="disabled">선택</option>
@@ -96,9 +96,7 @@
 					<input type="submit" value="검색">
 				</form>
 				<br>
-					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
-					<a href="search_delete.jsp?post_sub=<%=request.getParameter("post_sub")%>&post_title=<%=request.getParameter("post_title")%>"><input type="button" value="선택 삭제"></a>
+					<a href="mypage.jsp"><input type="button" value="마이 페이지"></a>
 				</td>
 			</tr>
 		</table>

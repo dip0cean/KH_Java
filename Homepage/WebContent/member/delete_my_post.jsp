@@ -103,7 +103,7 @@
 			<%} %>	
 			<tr>
 				<td>
-					<input type="hidden" name="go" value="post_delete.jsp">
+					<input type="hidden" name="go" value="delete_my_post.jsp">
 				</td>
 			</tr>
 		</tbody>
@@ -123,7 +123,7 @@
 			<tr>
 				<td colspan="6" align="center">
 				<br>
-				<form action="my_post_delete.jsp" method="post">
+				<form action="delete_my_post.jsp" method="post">
 					<select name="post_sub">
 					
 						<option disabled="disabled">선택</option>
