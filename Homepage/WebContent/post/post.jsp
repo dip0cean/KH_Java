@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.ReplyDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="homepage.beans.dao.ReplyDAO"%>
@@ -11,6 +12,7 @@
 <%
 	PostDAO pdao = new PostDAO();
 	long post_no = Integer.parseInt(request.getParameter("post_no"));
+	MemberDAO mdao = new MemberDAO();
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	
 	// 조회수 검사 및 증가
@@ -30,11 +32,15 @@
 		
 	}
 	
-	// 작성자와 현재 회원 비교
+	// 작성자와 현재 회원 비교 / 작성자 닉네임과 회원 닉네임 얻기
 	PostDTO pdto = pdao.getPost(post_no);
+	MemberDTO nick = mdao.get(pdto.getPost_id());
 	
 	String post_id = pdto.getPost_id();
+	String post_nick = nick.getMember_nick();
+	
 	String member_id = mdto.getMember_id();
+	String member_nick = mdto.getMember_nick();
 	
 	boolean isAdmin = mdto.getAccess_auth().equals("운영자");
 	boolean isMine = member_id.equals(post_id);
@@ -57,7 +63,7 @@
 				<td height="80" colspan="2"><%=pdto.getPost_sub() %></td>
 				<th>작성자</th>
 				<%if(isPost_id) { %>
-					<td height="80" colspan="2"><a href="<%=request.getContextPath()%>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
+					<td height="80" colspan="2"><a href="<%=request.getContextPath()%>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=post_nick%></a></td>
 				<%} else {%>
 					<td height="80" colspan="2"><font color="red" size="3"><i><b>탈퇴한 유저</b></i></font></td>
 				<%} %>
@@ -111,6 +117,7 @@
 						<%if(list != null) { %>
 							<%for(ReplyDTO rdto : list) { %>
 								<%String reply_no = String.valueOf(rdto.getReply_no());%>
+								<%MemberDTO reply_user = mdao.get(rdto.getReply_id()); %>
 								<tr>
 									<td width="1038">
 									<form action="edit_reply.do" method="post">
@@ -118,7 +125,7 @@
 											<tr>
 												<td>
 													<div style="color: green; font-size: 24px;">
-														<b><%=rdto.getReply_id() %></b>
+														<b><%=reply_user.getMember_nick() %></b>
 													</div>
 												</td>	
 												<td align="right">
