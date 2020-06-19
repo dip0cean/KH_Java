@@ -118,6 +118,7 @@
 							<%for(ReplyDTO rdto : list) { %>
 								<%String reply_no = String.valueOf(rdto.getReply_no());%>
 								<%MemberDTO reply_user = mdao.get(rdto.getReply_id()); %>
+								<%boolean my_reply = member_id.equals(rdto.getReply_id()); %>
 								<tr>
 									<td width="1038">
 									<form action="edit_reply.do" method="post">
@@ -129,16 +130,18 @@
 													</div>
 												</td>	
 												<td align="right">
-													<div style="color: black; font-size: 24px;">
-														<%=rdto.getReply_date() %>
-													</div>
+													<%if(my_reply) { %>
+														<%if (request.getParameter("edit") != null && request.getParameter("reply_no").equals(reply_no)) { %>
+															<p><input type="submit" value="댓글 수정"></p>
+														<%} else {%>
+															<p><a href="post.jsp?post_no=<%=post_no%>&reply_no=<%=rdto.getReply_no() %>&edit"><input type="button" value="수정"></a> | <a href="delete_reply.do?reply_no=<%=rdto.getReply_no()%>&post_no=<%=post_no%>"><input type="button" value="삭제"></a></p>
+														<%} %>
+													<%} %>	
 												</td>
 												<td align="right" width="100">
-													<%if (request.getParameter("edit") != null && request.getParameter("reply_no").equals(reply_no)) { %>
-														<p><input type="submit" value="댓글 수정"></p>
-													<%} else {%>
-														<p><a href="post.jsp?post_no=<%=post_no%>&reply_no=<%=rdto.getReply_no() %>&edit">수정</a> | <a href="delete.do">삭제</a></p>
-													<%} %>
+													<div style="color: black; font-size: 15px;">
+														<%=rdto.getReply_date() %>
+													</div>
 												</td>
 											</tr>
 											<tr>
