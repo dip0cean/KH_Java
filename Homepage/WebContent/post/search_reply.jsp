@@ -1,64 +1,41 @@
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
-<%@page import="java.util.Enumeration"%>
+<%@page import="homepage.beans.dto.ReplyDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="homepage.beans.dto.PostDTO"%>
-<%@page import="homepage.beans.dao.PostDAO"%>
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 
 <%
-	List<PostDTO> list;
-	PostDAO pdao = new PostDAO();
-	PostDTO pdto = new PostDTO();
-	Enumeration<String> e = request.getParameterNames();
-	String parameterName = (String) e.nextElement();
-	String keyword;
-
-	if(parameterName.equals("post_id")){
-		// 마이 페이지에서 작성글 조회 시
-		 list = pdao.userPost(request.getParameter("post_id"));
-		 keyword = request.getParameter("post_id");
-		
-	} else if(request.getParameter("post_sub").equals("post_id")){
-		// 전체 게시판에서 아이디로 검색 시
-		list = pdao.searchId_post(request.getParameter("post_title"));
-		keyword = request.getParameter("post_title");
-		
-	} else {
-		// 전체 게시판에서 제목 및 말머리로 검색 시
-		pdto.setPost_sub(request.getParameter("post_sub"));
-		pdto.setPost_title(request.getParameter("post_title"));
-		list = pdao.searchPost(pdto);
-		keyword = request.getParameter("post_title");
+	String keyword = request.getParameter("member_id");
+	String column = "REPLY_ID";
 	
-	}
+	ReplyDAO rdao = new ReplyDAO();
+	MemberDAO mdao = new MemberDAO();
+	MemberDTO mdto = mdao.get(keyword);
+	MemberDTO admin = (MemberDTO) session.getAttribute("userinfo");
+	boolean login = admin != null;
 	
-	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
-	boolean login = mdto != null;
-%>
-
+	List<ReplyDTO> list = rdao.replyList(column, keyword);
+%>    
+    
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div align="center">
 	<h2>"<%=keyword %>" 로 검색한 결과</h2>
-	<h3>총 <%=list.size() %> 건의 게시글이 있습니다.</h3> 
+	<h3>총 <%=list.size() %> 건의 댓글이 있습니다.</h3> 
 	
 	<table style="width: 1038px;">
 		<thead>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
 			
-				<th width="70">번호</th>
+				<th width="70">글번호</th>
+						
+				<th width="750">댓글 내용</th>
 			
-				<th width="100">말머리</th>
-			
-				<th width="500">제목</th>
-			
-				<th width="200">작성자</th>
-			
-				<th width="150">조회수</th>
-			
+				<th width="200">댓글 작성자</th>
+						
 				<th width="150">작성일</th>
 			
 			</tr>
@@ -67,22 +44,20 @@
 			<%if(list.isEmpty()) { %>
 			<tr height="40">
 				<th colspan="6">
-					<i><b>게시글을 조회할 수 없습니다.</b></i>
+					<i><b>댓글을 조회할 수 없습니다.</b></i>
 				</th>
 			</tr>	
 			<%} else {%>
-				<%for(PostDTO post : list) {%>
+				<%for(ReplyDTO rdto : list) {%>
 						<tr height="40">
 			
-							<td align="center"><%=post.getPost_no() %></td>
+							<td align="center"><%=rdto.getPost_no() %></td>
 			
-							<td align="center"><%=post.getPost_sub() %></td>
+							<td><a href="post.jsp?post_no=<%=rdto.getPost_no() %>"><%=rdto.getReply_content() %></a></td>
 			
-							<td><a href="post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<%if(rdto.getReply_id() != null) { %>
 			
-							<%if(post.getPost_id() != null) { %>
-			
-								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=post.getPost_id()%>"><%=post.getPost_id() %></a></td>
+								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=rdto.getReply_id()%>"><%=mdto.getMember_nick() %></a></td>
 				
 							<%}  else {%>
 				
@@ -90,9 +65,7 @@
 				
 							<%} %>
 				
-							<td align="center"><%=post.getPost_hits() %></td>
-				
-							<td><%=post.getPost_date2() %></td>		
+							<td><%=rdto.getReply_date2() %></td>		
 				
 						</tr>
 				<%} %>

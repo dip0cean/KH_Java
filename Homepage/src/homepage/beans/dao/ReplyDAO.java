@@ -133,14 +133,16 @@ public class ReplyDAO {
 
 	// [7] String 타입 컬럼명으로 댓글 리스트 조회
 	public List<ReplyDTO> replyList(String column, String keyword) throws Exception {
+				
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM ? = ? ORDER BY POST_NO DESC";
-
+		String sql = "SELECT * FROM REPLY WHERE #1 = ? ORDER BY POST_NO DESC";
+		
+		sql = sql.replace("#1", column);
+		
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, column);
-		ps.setString(2, keyword);
+		ps.setString(1, keyword);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -159,14 +161,16 @@ public class ReplyDAO {
 
 	// [8] Long 타입 컬럼명으로 댓글 리스트 조회
 	public List<ReplyDTO> replyList(String column, long keyword) throws Exception {
+		
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM ? = ? ORDER BY POST_NO DESC";
+		String sql = "SELECT * FROM REPLY WHERE #1 = ? ORDER BY POST_NO DESC";
 
+		sql = sql.replace("#1", column);
+		
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, column);
-		ps.setLong(2, keyword);
+		ps.setLong(1, keyword);
 
 		ResultSet rs = ps.executeQuery();
 

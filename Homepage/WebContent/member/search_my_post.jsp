@@ -103,7 +103,7 @@
 			<tr>
 				<td colspan="6" align="center">
 				<hr><br>
-				<form action="search.jsp" method="post">
+				<form action="search_my_post.jsp" method="post">
 					<select name="post_sub">
 				
 						<option disabled="disabled">선택</option>
@@ -125,9 +125,7 @@
 				<br>
 					<a href="create.jsp"><input type="button" value="글쓰기"></a>
 					<a href="javascript:history.back()"><input type="button" value="뒤로가기"></a>
-					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
-					<a href="<%=request.getContextPath() %>/admin/search_delete.jsp?post_sub=<%=request.getParameter("post_sub")%>&post_title=<%=request.getParameter("post_title")%>"><input type="button" value="선택 삭제"></a>
-					<%} %>
+					<a href="my_post_delete.jsp"><input type="button" value="선택 삭제"></a>
 				</td>
 			</tr>
 		</table>

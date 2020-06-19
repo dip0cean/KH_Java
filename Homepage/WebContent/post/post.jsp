@@ -126,7 +126,7 @@
 											<tr>
 												<td>
 													<div style="color: green; font-size: 24px;">
-														<b><%=reply_user.getMember_nick() %></b>
+														<b><a href="<%=request.getContextPath()%>/member/userinfo.jsp?member_id=<%=reply_user.getMember_id()%>"><%=reply_user.getMember_nick() %></a></b>
 													</div>
 												</td>	
 												<td align="right">
@@ -195,7 +195,7 @@
 						<a href="edit_post.jsp?post_no=<%=pdto.getPost_no()%>"><input type="button" value="수정"></a>
 						<a href="delete.do?post_no=<%=pdto.getPost_no()%>"><input type="button" value="삭제"></a>
 					<%} %>
-					<a href="board.jsp"><input type="button" value="뒤로 가기"></a>
+					<a href="board.jsp"><input type="button" value="목록"></a>
 				</td>
 			</tr>
 		</tfoot>

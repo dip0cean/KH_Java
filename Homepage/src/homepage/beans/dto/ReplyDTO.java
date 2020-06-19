@@ -45,6 +45,10 @@ public class ReplyDTO {
 	public String getReply_date() {
 		return reply_date;
 	}
+	
+	public String getReply_date2() {
+		return reply_date.substring(0, 10);
+	}
 
 	public void setReply_date(String reply_date) {
 		this.reply_date = reply_date;

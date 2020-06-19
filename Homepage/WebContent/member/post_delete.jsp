@@ -1,3 +1,4 @@
+<%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="homepage.beans.dto.PostDTO"%>
@@ -6,32 +7,27 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	List<PostDTO> list;
 	PostDAO pdao = new PostDAO();
-	PostDTO pdto = new PostDTO();
-	
-	String keyword;
-	
-	if(request.getParameter("post_sub").equals("post_id")){
-		// 전체 게시판에서 아이디로 검색 시
-		list = pdao.searchId_post(request.getParameter("post_title"));
-		keyword = request.getParameter("post_title");
-		
+	List<PostDTO> list;
+	String go = request.getParameter("go");
+	if(request.getParameter("go") != null) {
+		list = pdao.boardPost(go);
 	} else {
-		// 전체 게시판에서 제목 및 말머리로 검색 시
-		pdto.setPost_sub(request.getParameter("post_sub"));
-		pdto.setPost_title(request.getParameter("post_title"));
-		list = pdao.searchPost(pdto);
-		keyword = request.getParameter("post_title");
-	
+		go = "전체";
+		list = pdao.fullPost();
 	}
+	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+	MemberDAO mdao = new MemberDAO();
+	
+	mdto = mdao.get(mdto.getMember_id());
+
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
 	<h2><font color="red"><i>삭제할 게시글을 선택해주세요.</i></font></h2>
-		
+	
 	<br>
 	<form action="post_delete.do" method="post">
 	<table style="width: 1038px;">
@@ -39,20 +35,20 @@
 			<tr><td colspan="7"><hr></td></tr>
 			<tr>
 			
-				<th width="35">선택</th>
-				
+				<th width="50">선택</th>
+			
 				<th width="70">번호</th>
-				
-				<th width="100">말머리</th>
-				
+			
+				<th width="95">말머리</th>
+			
 				<th width="500">제목</th>
-				
+			
 				<th width="165">작성자</th>
-				
+			
 				<th width="150">조회수</th>
-				
+			
 				<th width="150">작성일</th>
-				
+			
 			</tr>
 		</thead>
 		<tbody>
@@ -63,39 +59,38 @@
 				</th>
 			</tr>	
 			<%} else {%>
-				<%for(PostDTO post : list) {%>
+				<%for(PostDTO pdto : list) {%>
 						<tr height="40">
-						
-							<td align="center"><input type="checkbox" name="post_no" value="<%=post.getPost_no()%>"></td>
+							<td align="center"><input type="checkbox" name="post_no" value="<%=pdto.getPost_no()%>"></td>
 							
-							<td align="center"><%=post.getPost_no() %></td>
+							<td align="center"><%=pdto.getPost_no() %></td>
 							
-							<td align="center"><%=post.getPost_sub() %></td>
+							<td align="center"><%=pdto.getPost_sub() %></td>
 							
-							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=post.getPost_no() %>"><%=post.getPost_title() %></a></td>
+							<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
 							
-							<%if(post.getPost_id() != null) { %>
+							<%if(pdto.getPost_id() != null) { %>
 							
-								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=post.getPost_id()%>"><%=post.getPost_id() %></a></td>
+								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
 							
 							<%}  else {%>
-						
-								<td align="center"><font color="gray" size="2"><i>탈퇴한 유저</i></font></td>
 								
+								<td align="center"><font color="gray" size="2"><i>탈퇴한 유저</i></font></td>
+							
 							<%} %>
 							
-							<td align="center"><%=post.getPost_hits() %></td>
+							<td align="center"><%=pdto.getPost_hits() %></td>
 							
-							<td align="center"><%=post.getPost_date2() %></td>		
-								
+							<td align="center"><%=pdto.getPost_date2() %></td>			
+						
 						</tr>
 				<%} %>
-			<%} %>	
+			<%} %>
 			<tr>
 				<td>
 					<input type="hidden" name="go" value="post_delete.jsp">
 				</td>
-			</tr>
+			</tr>	
 		</tbody>
 		<tfoot>
 			<tr>
@@ -115,7 +110,7 @@
 				<br>
 				<form action="search_delete.jsp" method="post">
 					<select name="post_sub">
-					
+						
 						<option disabled="disabled">선택</option>
 						
 						<option value="공지">공지</option>
@@ -127,7 +122,7 @@
 						<option value="질문">질문</option>
 						
 						<option value="post_id">아이디</option>
-						
+					
 					</select>
 					<input type="text" name="post_title" placeholder="제목">
 					<input type="submit" value="검색">
