@@ -128,7 +128,17 @@
 			
 							<td align="center"><%=pdto.getPost_sub() %></td>
 			
-							<td><a href="post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font></a></td>
+							<td>
+								<a href="post.jsp?post_no=<%=pdto.getPost_no() %>">
+								<%if(pdto.getDepth() != 0) { %>
+									<%for(int i = 1 ; i <= pdto.getDepth(); i++ ) { %>
+										&emsp;
+									<%} %>
+									┗
+								<%} %>
+									<%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font>
+								</a>
+							</td>
 <%-- 							<td>super_no<%=pdto.getSuper_no() %></td> --%>
 <%-- 							<td>group_no<%=pdto.getGroup_no() %></td> --%>
 <%-- 							<td>depth<%=pdto.getDepth() %> --%>

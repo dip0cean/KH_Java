@@ -9,7 +9,7 @@
 <style type="text/css">
 	a:link { color: green; text-decoration: none;}
  	a:visited { color: green; text-decoration: none;}
-	 a:hover { color: skyblue; text-decoration: underline;}
+	a:hover { color: skyblue; text-decoration: none;}
 
 </style>
 </head>
