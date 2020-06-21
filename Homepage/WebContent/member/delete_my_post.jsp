@@ -18,9 +18,9 @@
 	
 	 if(request.getParameter("post_sub") != null && request.getParameter("post_title") != null) {
 		 
-		if(request.getParameter("post_sub").equals("post_id")){
+		if(request.getParameter("post_sub").equals("post_nick")){
 			// 전체 게시판에서 아이디로 검색 시
-			list = pdao.searchId_post(request.getParameter("post_title"));
+			list = pdao.searchNickpost(request.getParameter("post_title"));
 			keyword = request.getParameter("post_title");
 			
 		} else {
@@ -34,7 +34,7 @@
 		 
 	 } else {
 		 
-		 list = pdao.searchId_post(mdto.getMember_id());
+		 list = pdao.searchNickpost(mdto.getMember_nick());
 		 
 	 }
 	
@@ -90,7 +90,7 @@
 							
 							<%if(post.getPost_id() != null) { %>
 							
-								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=post.getPost_id()%>"><%=post.getPost_id() %></a></td>
+								<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=post.getPost_id()%>"><%=mdto.getMember_nick() %></a></td>
 							
 							<%}  else {%>
 						
@@ -140,7 +140,7 @@
 						
 						<option value="질문">질문</option>
 						
-						<option value="post_id">아이디</option>
+						<option value="post_nick">닉네임</option>
 						
 					</select>
 					<input type="text" name="post_title" placeholder="제목">

@@ -22,6 +22,7 @@
 	String post_sub = request.getParameter("post_sub");
 	String go = request.getParameter("go");
 	String board_title = go;
+	String sub_title = board_title;
 	
 	// 게시판 이동을 위한 구문
 	if(request.getParameter("go") != null) {
@@ -30,6 +31,7 @@
 		
 		if(parameter && post_sub.equals("member_nick")) {
 			go = board_title;
+			board_title = sub_title;
 			list = pdao.searchNickpost(go, request.getParameter("post_title"));
 			
 		} else if(parameter && !request.getParameter("post_sub").equals("member_nick")){

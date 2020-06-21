@@ -22,7 +22,7 @@
 		
 	} else if(request.getParameter("post_sub").equals("post_id")){
 		// 전체 게시판에서 아이디로 검색 시
-		list = pdao.searchId_post(request.getParameter("post_title"));
+		list = pdao.searchNickpost(request.getParameter("post_title"));
 		keyword = request.getParameter("post_title");
 		
 	} else {
