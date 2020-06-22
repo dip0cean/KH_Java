@@ -33,7 +33,7 @@
 			
 			<%} %>
 			
-			<a href="<%=rootPath %>/post/board.jsp"> Board </a>	
+			<a href="<%=rootPath %>/post/board.jsp?page=1"> Board </a>	
 			
 		</font>
 		
@@ -43,7 +43,7 @@
 		
 			<a href="<%=rootPath %>/user/join.jsp"> Join </a>
 			<a href="<%=rootPath %>/user/login.jsp"> Login </a>
-			<a href="<%=rootPath %>/post/board.jsp">Board</a>
+			<a href="<%=rootPath %>/post/board.jsp?page=1">Board</a>
 			
 		</font>
 		

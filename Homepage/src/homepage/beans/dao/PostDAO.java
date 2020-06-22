@@ -46,12 +46,14 @@ public class PostDAO {
 	}
 
 	// [2] 전체 게시글 조회
-	public List<PostDTO> fullPost() throws Exception {
+	public List<PostDTO> fullPost(long start, long end) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC";
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setLong(1, start);
+		ps.setLong(2, end);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -110,14 +112,14 @@ public class PostDAO {
 		ps.setString(3, pdto.getPost_sub());
 		ps.setString(4, pdto.getPost_title());
 		ps.setString(5, pdto.getPost_content());
-		if(pdto.getSuper_no() == 0) {
-			
+		if (pdto.getSuper_no() == 0) {
+
 			ps.setNull(6, Types.INTEGER);
-			
+
 		} else {
-			
+
 			ps.setLong(6, pdto.getSuper_no());
-			
+
 		}
 		ps.setLong(7, pdto.getGroup_no());
 		ps.setLong(8, pdto.getDepth());
@@ -128,15 +130,17 @@ public class PostDAO {
 	}
 
 	// [4] 말머리와 제목으로 게시글 조회
-	public List<PostDTO> searchPost(PostDTO pdto) throws Exception {
+	public List<PostDTO> searchPost(PostDTO pdto, long start, long end) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE INSTR(POST_TITLE, ? ) > 0 AND POST_SUB = ? ORDER BY POST_NO DESC";
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE INSTR(POST_TITLE, ? ) > 0 AND POST_SUB = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, pdto.getPost_title());
 		ps.setString(2, pdto.getPost_sub());
+		ps.setLong(3, start);
+		ps.setLong(4, end);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -212,14 +216,16 @@ public class PostDAO {
 	}
 
 	// [8] 작성자 게시물 검색
-	public List<PostDTO> userPost(String post_id) throws Exception {
+	public List<PostDTO> userPost(String post_id, long start, long end) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE POST_ID = ? ORDER BY POST_DATE DESC";
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE POST_ID = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, post_id);
+		ps.setLong(2, start);
+		ps.setLong(3, end);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -237,14 +243,16 @@ public class PostDAO {
 	}
 
 	// [9] 게시판 별 게시글 리스트
-	public List<PostDTO> boardPost(String post_sub) throws Exception {
+	public List<PostDTO> boardPost(String post_sub, long start, long end) throws Exception {
 		Connection con = getConnection();
 
-		String sql = "SELECT * FROM POST WHERE POST_SUB = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC";
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE POST_SUB = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, post_sub);
+		ps.setLong(2, start);
+		ps.setLong(3, end);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -262,57 +270,60 @@ public class PostDAO {
 	}
 
 	// [10] 닉네임 검색으로 게시물 조회
-	public List<PostDTO> searchNickpost(String member_nick) throws Exception {
+	public List<PostDTO> searchNickpost(String member_nick, long start, long end) throws Exception {
 		Connection con = getConnection();
-		
-		String sql = "SELECT * FROM POST WHERE INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0 ORDER BY POST_NO DESC , POST_ID ASC";
-		
+
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0 CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
+
 		PreparedStatement ps = con.prepareStatement(sql);
-		
+
 		ps.setString(1, member_nick);
-		
+		ps.setLong(2, start);
+		ps.setLong(3, end);
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		List<PostDTO> list = new ArrayList<PostDTO>();
-		
+
 		while (rs.next()) {
 			PostDTO pdto = new PostDTO(rs);
-			
+
 			list.add(pdto);
 		}
-		
+
 		con.close();
-		
+
 		return list;
 	}
-	
+
 	// [11] 말머리와 닉네임으로 게시글 찾기
-	public List<PostDTO> searchNickpost(String go, String member_nick) throws Exception {
+	public List<PostDTO> searchNickpost(String go, String member_nick, long start, long end) throws Exception {
 		Connection con = getConnection();
-		
-		String sql = "SELECT * FROM POST WHERE POST_SUB = ? AND INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0";
-		
+
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE POST_SUB = ? AND INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0 CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
+
 		PreparedStatement ps = con.prepareStatement(sql);
-		
+
 		ps.setString(1, go);
 		ps.setString(2, member_nick);
-		
+		ps.setLong(3, start);
+		ps.setLong(4, end);
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		List<PostDTO> list = new ArrayList<PostDTO>();
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 			PostDTO pdto = new PostDTO(rs);
-			
+
 			list.add(pdto);
 		}
-		
+
 		con.close();
-		
+
 		return list;
 	}
-	
-	
+
 	// [12] 게시글 삭제
 	public void deletePost(long post_no) throws Exception {
 		Connection con = getConnection();
@@ -346,5 +357,88 @@ public class PostDAO {
 		con.close();
 
 		return getSequence;
+	}
+
+	// [14-1] 게시글 개수 조회
+	public long getPostCount() throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-2] 말머리와 제목으로 게시물 개수 조회
+	public long getPostCount(String post_sub, String post_title) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_SUB = ? AND INSTR(POST_TITLE,?) > 0";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, post_sub);
+		ps.setString(2, post_title);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-3] 게시판 별 게시물 개수 조회
+	public long getPostCount(String post_sub) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_SUB = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, post_sub);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-4] 작성자 닉네임으로 게시물 개수 조회
+	public long getNickPostCount(String post_title) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_ID = (SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ?)";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, post_title);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		long result = rs.getLong(1);
+		
+		con.close();
+		
+		return result;
 	}
 }

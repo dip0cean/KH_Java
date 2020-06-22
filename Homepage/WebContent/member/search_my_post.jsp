@@ -8,12 +8,32 @@
 	pageEncoding="UTF-8"%>
 
 <%
+	// 페이지 확인하기
+	String pageStr = request.getParameter("page");
+	long pageSize = 20;
+	long pageNum;
+	
+	try{
+		pageNum = Long.parseLong(pageStr);
+		
+		if(pageNum <= 0) {
+			throw new Exception();
+		}
+	} catch(Exception e) {
+		pageNum = 1;
+	}
+	long end = pageNum * pageSize;
+	long start = end - (pageSize - 1);
+	
+	// 정보 준비
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
 	ReplyDAO rdao = new ReplyDAO();
-	List<PostDTO> list = pdao.userPost(request.getParameter("post_id"));
+	List<PostDTO> list = pdao.userPost(request.getParameter("post_id"), start, end);
 	
+	// 댓글 개수 가지고 오기
 	long count;
+	// 회원 정보 가지고 오기
 	String keyword = request.getParameter("post_id");
 	String url = "?";
 
@@ -22,7 +42,7 @@
  		// 게시글 조회 후 제목 및 말머리로 검색 시
 		pdto.setPost_sub(request.getParameter("post_sub"));
 		pdto.setPost_title(request.getParameter("post_title"));
-		list = pdao.searchPost(pdto);
+		list = pdao.searchPost(pdto, start, end);
 		keyword = request.getParameter("post_title");
 		String sub = request.getParameter("post_sub");
 		url = "?post_sub=" + sub + "&post_title=" + keyword;
@@ -41,6 +61,14 @@
 	
 	<table style="width: 1038px;">
 		<thead>
+			<tr>
+				<td colspan="6" align="right">
+					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
+					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
+					<%} %>
+				</td>
+			</tr>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
 			
@@ -48,11 +76,11 @@
 			
 				<th width="100">말머리</th>
 			
-				<th width="500">제목</th>
+				<th width="550">제목</th>
 			
 				<th width="200">작성자</th>
 			
-				<th width="150">조회수</th>
+				<th width="100">조회수</th>
 			
 				<th width="150">작성일</th>
 			
@@ -88,18 +116,26 @@
 				
 							<td align="center"><%=post.getPost_hits() %></td>
 				
-							<td><%=post.getPost_date2() %></td>		
+							<td align="center"><%=post.getPost_date2() %></td>		
 				
 						</tr>
 				<%} %>
 			<%} %>	
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<hr><br>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	<table style="width: 1038px;">
 			<tr>
 				<td colspan="6" align="center">
-				<hr><br>
+				<br>
 				<form action="search_my_post.jsp" method="post">
+				
 					<select name="post_sub">
 				
 						<option disabled="disabled">선택</option>
