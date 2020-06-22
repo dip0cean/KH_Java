@@ -41,7 +41,7 @@
 			getParameter.setPost_title(request.getParameter("post_title"));
 			board_title = post_sub;
 			list = pdao.searchPost(getParameter);
-			
+					
 		}
 		
 	} else {
@@ -51,14 +51,14 @@
 		
 		if(parameter) {
 			// 말머리와 제목으로 검색했을 때
-			board_title = post_sub;
+			board_title = "전체 - " + post_sub;
 			getParameter.setPost_sub(request.getParameter("post_sub"));
 			getParameter.setPost_title(request.getParameter("post_title"));
 			
 			list = pdao.searchPost(getParameter);
 			
 			if(getParameter.getPost_sub().equals("member_nick")) {
-				board_title = go;
+				board_title="전체 - 닉네임";
 				list = pdao.searchNickpost(request.getParameter("post_title"));
 			}
 			
@@ -71,7 +71,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h2><%=board_title %> 게시판</h2>
+	<h2><%=board_title %></h2>
 	<table>
 		<thead>
 			<tr>
@@ -166,7 +166,7 @@
 				<td colspan="6" align="center">
 				<hr><br>
 			
-				<form action="board.jsp" method="get">
+				<form action="board.jsp" method="post">
 
 					<select name="post_sub">
 			
