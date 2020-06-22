@@ -299,7 +299,7 @@ public class PostDAO {
 	// [11] 말머리와 닉네임으로 게시글 찾기
 	public List<PostDTO> searchNickpost(String go, String member_nick, long start, long end) throws Exception {
 		Connection con = getConnection();
-		
+
 		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE POST_SUB = ? AND INSTR(POST_ID,(SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ? )) > 0 CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -357,5 +357,88 @@ public class PostDAO {
 		con.close();
 
 		return getSequence;
+	}
+
+	// [14-1] 게시글 개수 조회
+	public long getPostCount() throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-2] 말머리와 제목으로 게시물 개수 조회
+	public long getPostCount(String post_sub, String post_title) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_SUB = ? AND INSTR(POST_TITLE,?) > 0";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, post_sub);
+		ps.setString(2, post_title);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-3] 게시판 별 게시물 개수 조회
+	public long getPostCount(String post_sub) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_SUB = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, post_sub);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		long result = rs.getLong(1);
+
+		con.close();
+
+		return result;
+	}
+
+	// [14-4] 작성자 닉네임으로 게시물 개수 조회
+	public long getNickPostCount(String post_title) throws Exception {
+		Connection con = getConnection();
+		
+		String sql = "SELECT COUNT(*) FROM POST WHERE POST_ID = (SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NICK = ?)";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, post_title);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		long result = rs.getLong(1);
+		
+		con.close();
+		
+		return result;
 	}
 }

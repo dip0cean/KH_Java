@@ -75,6 +75,8 @@
 	long blockSize = 10;
 	long startBlock = (pageNum - 1) / blockSize * blockSize + 1;
 	long endBlock = startBlock + (blockSize - 1);
+	// * 다음 버튼의 경우 계산을 통하여 페이지 개수를 구해야 출력 여부 판단이 가능
+	long pageListSize;
 	
 	//////////////////////////////////////////
 	// 게시판 이동 및 검색을 위한 구문			       //
@@ -82,11 +84,13 @@
 	if(request.getParameter("go") != null) {
 		
 		list = pdao.boardPost(go, start, end);
+		pageListSize = pdao.getPostCount(go);
 		
 		if(parameter && post_sub.equals("member_nick")) {
 			go = board_title;
 			board_title = sub_title;
 			list = pdao.searchNickpost(go, post_title, start, end);
+			pageListSize = pdao.getNickPostCount(post_title);
 			
 		} else if(parameter && !post_sub.equals("member_nick")){
 			
@@ -96,12 +100,14 @@
 			board_title = post_sub;
 			list = pdao.searchPost(getParameter, start, end);
 					
+			pageListSize = pdao.getPostCount(post_sub, post_title);
 		}
 		
 	} else {
 		
 		board_title = "전체";
 		list = pdao.fullPost(start, end);
+		pageListSize = pdao.getPostCount();
 		
 		if(parameter) {
 			// 말머리와 제목으로 검색했을 때
@@ -111,13 +117,21 @@
 			
 			list = pdao.searchPost(getParameter, start, end);
 			
+			pageListSize = pdao.getPostCount(post_sub, post_title);
+			
 			if(getParameter.getPost_sub().equals("member_nick")) {
 				board_title="전체 - 닉네임";
 				list = pdao.searchNickpost(request.getParameter("post_title"), start, end);
+				pageListSize = pdao.getNickPostCount(post_title);
 			}
 			
 		} 
 
+	}
+	
+	long pageCount = (pageListSize + pageSize - 1) / pageSize ;
+	if(endBlock > pageCount) {
+		endBlock = pageCount;
 	}
 	
 %>	
@@ -128,6 +142,7 @@
 	<h3>post_sub = <%=post_sub %> / post_title = <%=post_title %> / go = <%=go %></h3>
 	<h3>pageStr = <%=pageStr %> / pageNum = <%=pageNum %> / start = <%=start %> / end = <%=end %></h3>
 	<h3>startBlock = <%=startBlock %> / endBlock = <%=endBlock %></h3>
+	<h3>pageCount = <%=pageCount %> / pageListSize = <%=pageListSize %></h3>
 	<h2><%=board_title %></h2>
 	<table>
 		<thead>
@@ -152,14 +167,10 @@
 	<table style="width: 1038px;">
 		<thead>
 			<tr>
-				<td colspan="6" align="right">
-					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
-					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
-					<%} %>
+				<td colspan="6">
+					<hr>
 				</td>
 			</tr>
-			<tr><td colspan="6"><hr></td></tr>
 			<tr>
 			
 				<th width="70">번호</th>
@@ -228,32 +239,64 @@
 		<tfoot>
 			<tr>
 				<td colspan="6">
-					<hr><br>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" align="right">
+					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
+					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
+					<%} %>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="6" align="center">
 				
 				<%if(startBlock > 1) { %>
-					<%if(!parameter) { %>
-						<a href="board.jsp?page=<%=startBlock - 1%>">[이전]</a>
+					<%if(parameter) { %>
+						<%if(go == null) { %>
+							<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[이전]</a>
+						<%} else { %>
+							<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">[이전]</a>	
+						<%} %>
 					<%} else {%>
-						<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[이전]</a>
+						<%if(go == null) { %>
+							<a href="board.jsp?page=<%=startBlock - 1%>">[이전]</a>
+						<%} else {%>
+							<a href="board.jsp?page=<%=startBlock - 1%>go=<%=go%>">[이전]</a>
+						<%} %>
 					<%} %>
 				<%} %>	
 						<%for(long i = startBlock; i <= endBlock; i ++) { %>
 							<%if(parameter) {%>
-								<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>"><%=i %></a>
+								<%if(go == null) { %>
+									<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>"><%=i %></a>
+								<%} else { %>
+									<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>"><%=i %></a>
+								<%} %>
 							<%} else { %>
-								<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>"><%=i %></a>
+								<%if(go == null) { %>
+									<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>"><%=i %></a>
+								<%} else { %>
+									<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&go=<%=go%>"><%=i %></a>
+								<%} %>
 							<%} %>
 						<%} %>
 				
-				<%if(endBlock > 0) { %>		
-					<%if(!parameter) { %>
-						<a href="board.jsp?page=<%=endBlock + 1%>">[다음]</a>
+				<%if(pageCount > endBlock) { %>		
+					<%if(parameter) { %>
+						<%if(go == null) { %>
+							<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[다음]</a>
+						<%} else { %>
+							<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">[다음]</a>
+						<%} %>
 					<%} else {%>
-						<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[다음]</a>
+						<%if(go == null) { %>
+							<a href="board.jsp?page=<%=endBlock + 1%>">[다음]</a>
+						<%} else { %>
+							<a href="board.jsp?page=<%=endBlock + 1%>&go=<%=go%>">[다음]</a>
+						<%} %>
 					<%} %>
 				<%} %>	
 				
