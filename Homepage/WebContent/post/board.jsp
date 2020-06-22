@@ -10,14 +10,21 @@
 <%
 	PostDAO pdao = new PostDAO();
 	PostDTO getParameter = new PostDTO();
+	// 로그인 정보 가지고 오기
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
+	// 작성자 닉네임 가지고 오기
 	MemberDTO member_nick = new MemberDTO();
 	MemberDAO mdao = new MemberDAO();
 	ReplyDAO rdao = new ReplyDAO();
 	List<PostDTO> list;
 	
+	// 댓글 개수 조회
 	long count;
+	
+	// 로그인 여부
 	boolean login = mdto != null;
+	
+	// go 파라메러가 있는지, 게시판 이동을 했는지 여부
 	boolean parameter = request.getParameter("post_sub") != null && request.getParameter("post_title") != null;
 	String post_sub = request.getParameter("post_sub");
 	String go = request.getParameter("go");
@@ -25,7 +32,7 @@
 	String sub_title = board_title;
 	
 	// 페이지 계산 코드
-	long pageSize = 10; // 한 페이지에 표시할 데이터 개수
+	long pageSize = 20; // 한 페이지에 표시할 데이터 개수
 	
 	// page 번호를 계산하기 위한 코드
 	// - 양수만 페이지 번호로 받음
@@ -52,15 +59,15 @@
 	long end = pageNum * pageSize;
 	long start = end - (pageSize - 1);
 	
-	// 게시판 이동을 위한 구문
+	// 게시판 이동 및 검색을 위한 구문
 	if(request.getParameter("go") != null) {
 		
-		list = pdao.boardPost(go);
+		list = pdao.boardPost(go, start, end);
 		
 		if(parameter && post_sub.equals("member_nick")) {
 			go = board_title;
 			board_title = sub_title;
-			list = pdao.searchNickpost(go, request.getParameter("post_title"));
+			list = pdao.searchNickpost(go, request.getParameter("post_title"), start, end);
 			
 		} else if(parameter && !request.getParameter("post_sub").equals("member_nick")){
 			
@@ -68,14 +75,14 @@
 			getParameter.setPost_sub(post_sub);
 			getParameter.setPost_title(request.getParameter("post_title"));
 			board_title = post_sub;
-			list = pdao.searchPost(getParameter);
+			list = pdao.searchPost(getParameter, start, end);
 					
 		}
 		
 	} else {
 		
 		board_title = "전체";
-		list = pdao.fullPost();
+		list = pdao.fullPost(start, end);
 		
 		if(parameter) {
 			// 말머리와 제목으로 검색했을 때
@@ -83,11 +90,11 @@
 			getParameter.setPost_sub(request.getParameter("post_sub"));
 			getParameter.setPost_title(request.getParameter("post_title"));
 			
-			list = pdao.searchPost(getParameter);
+			list = pdao.searchPost(getParameter, start, end);
 			
 			if(getParameter.getPost_sub().equals("member_nick")) {
 				board_title="전체 - 닉네임";
-				list = pdao.searchNickpost(request.getParameter("post_title"));
+				list = pdao.searchNickpost(request.getParameter("post_title"), start, end);
 			}
 			
 		} 
@@ -163,7 +170,7 @@
 									<%for(int i = 1 ; i <= pdto.getDepth(); i++ ) { %>
 										&emsp;
 									<%} %>
-									┗
+									<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png">
 								<%} %>
 									<%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font>
 								</a>
