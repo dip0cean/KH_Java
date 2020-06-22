@@ -24,6 +24,34 @@
 	String board_title = go;
 	String sub_title = board_title;
 	
+	// 페이지 계산 코드
+	long pageSize = 10; // 한 페이지에 표시할 데이터 개수
+	
+	// page 번호를 계산하기 위한 코드
+	// - 양수만 페이지 번호로 받음
+	String pageStr = request.getParameter("page");
+	long pageNum;
+	
+	try {
+		
+	pageNum = Long.parseLong(pageStr);
+	
+	if(pageNum <= 0) {
+		
+		throw new Exception();
+		
+	}
+		
+	} catch (Exception e) {
+		
+		pageNum = 1;
+		
+	}
+	
+	// 시작 글 순서와 종료 글 순서를 계산
+	long end = pageNum * pageSize;
+	long start = end - (pageSize - 1);
+	
 	// 게시판 이동을 위한 구문
 	if(request.getParameter("go") != null) {
 		
@@ -71,6 +99,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
+	<h3>pageStr = <%=pageStr %> / pageNum = <%=pageNum %> / start = <%=start %> / end = <%=end %></h3>
 	<h2><%=board_title %></h2>
 	<table>
 		<thead>
