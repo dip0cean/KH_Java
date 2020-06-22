@@ -34,7 +34,7 @@
 	String post_sub = request.getParameter("post_sub");
 	String post_title = request.getParameter("post_title");
 	
-	boolean parameter = post_sub != null && post_title != null;
+	boolean isSearch = post_sub != null && post_title != null;
 	String go = request.getParameter("go");
 	String board_title = go;
 	String sub_title = board_title;
@@ -86,13 +86,13 @@
 		list = pdao.boardPost(go, start, end);
 		pageListSize = pdao.getPostCount(go);
 		
-		if(parameter && post_sub.equals("member_nick")) {
+		if(isSearch && post_sub.equals("member_nick")) {
 			go = board_title;
 			board_title = sub_title;
 			list = pdao.searchNickpost(go, post_title, start, end);
 			pageListSize = pdao.getNickPostCount(post_title);
 			
-		} else if(parameter && !post_sub.equals("member_nick")){
+		} else if(isSearch && !post_sub.equals("member_nick")){
 			
 			go = post_sub;
 			getParameter.setPost_sub(post_sub);
@@ -109,7 +109,7 @@
 		list = pdao.fullPost(start, end);
 		pageListSize = pdao.getPostCount();
 		
-		if(parameter) {
+		if(isSearch) {
 			// 말머리와 제목으로 검색했을 때
 			board_title = "전체 - " + post_sub;
 			getParameter.setPost_sub(request.getParameter("post_sub"));
@@ -129,7 +129,7 @@
 
 	}
 	
-	long pageCount = (pageListSize + pageSize - 1) / pageSize ;
+	long pageCount = (pageListSize + pageSize - 1) / pageSize;
 	if(endBlock > pageCount) {
 		endBlock = pageCount;
 	}
@@ -254,7 +254,7 @@
 				<td colspan="6" align="center">
 				
 				<%if(startBlock > 1) { %>
-					<%if(parameter) { %>
+					<%if(isSearch) { %>
 						<%if(go == null) { %>
 							<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[이전]</a>
 						<%} else { %>
@@ -269,7 +269,7 @@
 					<%} %>
 				<%} %>	
 						<%for(long i = startBlock; i <= endBlock; i ++) { %>
-							<%if(parameter) {%>
+							<%if(isSearch) {%>
 								<%if(go == null) { %>
 									<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>"><%=i %></a>
 								<%} else { %>
@@ -285,7 +285,7 @@
 						<%} %>
 				
 				<%if(pageCount > endBlock) { %>		
-					<%if(parameter) { %>
+					<%if(isSearch) { %>
 						<%if(go == null) { %>
 							<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[다음]</a>
 						<%} else { %>

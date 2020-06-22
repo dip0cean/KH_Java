@@ -7,35 +7,69 @@
 	pageEncoding="UTF-8"%>
 	
 <%
+	// 로그인 정보 및 회원 정보 
 	List<PostDTO> list;
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	PostDAO pdao = new PostDAO();
 	PostDTO pdto = new PostDTO();
 	ReplyDAO rdao = new ReplyDAO();
 	
+
+	String post_sub = request.getParameter("post_sub");
+	String post_title = request.getParameter("post_title");
+	boolean isSearch = post_sub != null && post_title != null;
+	// 댓글 갯수
 	long count;
 	String keyword;
 	
-	 if(request.getParameter("post_sub") != null && request.getParameter("post_title") != null) {
-		 
-		if(request.getParameter("post_sub").equals("post_nick")){
-			// 전체 게시판에서 아이디로 검색 시
-			list = pdao.searchNickpost(request.getParameter("post_title"));
-			keyword = request.getParameter("post_title");
-			
-		} else {
-			// 전체 게시판에서 제목 및 말머리로 검색 시
-			pdto.setPost_sub(request.getParameter("post_sub"));
-			pdto.setPost_title(request.getParameter("post_title"));
-			list = pdao.searchPost(pdto);
-			keyword = request.getParameter("post_title");
+	// 페이징 준비
+	long pageSize = 20;
+	String pageStr = request.getParameter("page");
+	long pageNum;
+	try {
 		
+		pageNum = Long.parseLong(pageStr);
+		
+		if(pageNum <= 0) {
+			
+			throw new Exception();
+			
 		}
-		 
-	 } else {
-		 
-		 list = pdao.searchNickpost(mdto.getMember_nick());
-		 
+		
+	} catch(Exception e) {
+		
+		pageNum = 1;
+		
+	}
+	
+	long end = pageNum * pageSize;
+	long start = end - (pageSize - 1);
+	
+	long pageListSize;
+	long blockSize = 10; // 페이지 개수
+	long startBlock = (pageNum - 1) / blockSize * blockSize + 1;
+	long endBlock = startBlock + (blockSize - 1);
+	
+	 list = pdao.searchNickpost(mdto.getMember_nick(), start, end);
+	 
+	 pageListSize = pdao.getNickPostCount(mdto.getMember_nick());
+	
+	 if(isSearch) {
+		
+			// 전체 게시판에서 제목 및 말머리로 검색 시
+			pdto.setPost_id(mdto.getMember_id());
+			pdto.setPost_sub(post_sub);
+			pdto.setPost_title(post_title);
+			list = pdao.searchPost(pdto, start, end);
+			keyword = post_title;
+			
+			pageListSize = pdao.getPostCount(post_sub, post_title);
+		
+	}
+
+	 long pageCount = (pageListSize + pageSize - 1) / pageSize;
+	 if(endBlock > pageCount) {
+		 endBlock = pageCount;
 	 }
 	
 %>	
@@ -105,19 +139,46 @@
 						</tr>
 				<%} %>
 			<%} %>	
-			<tr>
-				<td>
-					<input type="hidden" name="go" value="delete_my_post.jsp">
-				</td>
-			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7" align="center">
+				<td colspan="7">
 					<hr>
-					<br>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" align="right">
+					<input type="hidden" name="go" value="delete_my_post.jsp">
 					<input type="submit" value="삭제">
 					<a href="search_my_post.jsp?post_id=<%=mdto.getMember_id()%>"><input type="button" value="목록으로"></a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" align="center">
+					
+					<%if(startBlock > 1) { %>
+						<%if(isSearch) { %>
+							<a href="delete_my_post.jsp?post_sub=<%=post_sub%>&post_title=<%=post_title%>&page=<%=startBlock - 1%>">[이전]</a>
+						<%} else {%>
+							<a href="delete_my_post.jsp?page=<%=startBlock - 1 %>">[이전]</a>
+						<%} %>
+					<%} %>	
+					
+					<%for(long i = startBlock; i <= endBlock; i++) { %>
+						<%if(isSearch) { %>
+							<a href="delete_my_post.jsp?post_sub=<%=post_sub%>&post_title=<%=post_title%>&page=<%=i%>"><%=i %></a>
+						<%} else { %>
+							<a href="delete_my_post.jsp?page=<%=i%>"><%=i %></a>
+						<%} %>
+					<%} %>	
+						
+					<%if(pageCount > endBlock) {%>	
+						<%if(isSearch) { %>
+							<a href="delete_my_post.jsp?post_sub=<%=post_sub%>&post_title=<%=post_title%>&page=<%=endBlock + 1%>">[다음]</a>
+						<%} else {%>
+							<a href="delete_my_post.jsp?page=<%=endBlock + 1 %>">[다음]</a>
+						<%} %>	
+					<%} %>
 				</td>
 			</tr>		
 		</tfoot>
@@ -127,7 +188,7 @@
 			<tr>
 				<td colspan="6" align="center">
 				<br>
-				<form action="delete_my_post.jsp" method="post">
+				<form action="delete_my_post.jsp" method="get">
 					<select name="post_sub">
 					
 						<option disabled="disabled">선택</option>
@@ -139,8 +200,6 @@
 						<option value="정보">정보</option>
 						
 						<option value="질문">질문</option>
-						
-						<option value="post_nick">닉네임</option>
 						
 					</select>
 					<input type="text" name="post_title" placeholder="제목">

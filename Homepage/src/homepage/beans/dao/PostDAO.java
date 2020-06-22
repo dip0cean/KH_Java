@@ -105,7 +105,7 @@ public class PostDAO {
 
 		String sql = "INSERT INTO POST VALUES(? , ? , ? , ? , ? , SYSDATE , 0 , ? , ? , ?)";
 
-		PreparedStatement ps = con.prepareStatement(sql);
+		PreparedStatement ps = con.prepareStatement(sql); 
 
 		ps.setLong(1, pdto.getPost_no());
 		ps.setString(2, pdto.getPost_id());
@@ -129,7 +129,36 @@ public class PostDAO {
 		con.close();
 	}
 
-	// [4] 말머리와 제목으로 게시글 조회
+	// [4-1] 아이디, 말머리와 제목으로 게시글 조회
+	public List<PostDTO> searchMyPost(PostDTO pdto, long start, long end) throws Exception {
+		Connection con = getConnection();
+
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, T.* FROM (SELECT * FROM POST WHERE POST_ID = ? AND INSTR(POST_TITLE, ? ) > 0 AND POST_SUB = ? CONNECT BY PRIOR POST_NO=SUPER_NO START WITH SUPER_NO IS NULL ORDER SIBLINGS BY GROUP_NO DESC, POST_NO ASC) T ) WHERE RN BETWEEN ? AND ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setString(1, pdto.getPost_id());
+		ps.setString(2, pdto.getPost_title());
+		ps.setString(3, pdto.getPost_sub());
+		ps.setLong(4, start);
+		ps.setLong(5, end);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<PostDTO> list = new ArrayList<PostDTO>();
+
+		while (rs.next()) {
+			pdto = new PostDTO(rs);
+
+			list.add(pdto);
+		}
+
+		con.close();
+
+		return list;
+	}
+	
+	// [4-2] 말머리와 제목으로 게시글 조회
 	public List<PostDTO> searchPost(PostDTO pdto, long start, long end) throws Exception {
 		Connection con = getConnection();
 
