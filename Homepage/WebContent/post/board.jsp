@@ -139,10 +139,10 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
-	<h3>post_sub = <%=post_sub %> / post_title = <%=post_title %> / go = <%=go %></h3>
-	<h3>pageStr = <%=pageStr %> / pageNum = <%=pageNum %> / start = <%=start %> / end = <%=end %></h3>
-	<h3>startBlock = <%=startBlock %> / endBlock = <%=endBlock %></h3>
-	<h3>pageCount = <%=pageCount %> / pageListSize = <%=pageListSize %></h3>
+<%-- 	<h3>post_sub = <%=post_sub %> / post_title = <%=post_title %> / go = <%=go %></h3> --%>
+<%-- 	<h3>pageStr = <%=pageStr %> / pageNum = <%=pageNum %> / start = <%=start %> / end = <%=end %></h3> --%>
+<%-- 	<h3>startBlock = <%=startBlock %> / endBlock = <%=endBlock %></h3> --%>
+<%-- 	<h3>pageCount = <%=pageCount %> / pageListSize = <%=pageListSize %></h3> --%>
 	<h2><%=board_title %></h2>
 	<table>
 		<thead>
@@ -210,7 +210,7 @@
 									<%for(int i = 1 ; i <= pdto.getDepth(); i++ ) { %>
 										&emsp;
 									<%} %>
-									<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png">
+									<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png" width="15" height="15">
 								<%} %>
 									<%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font>
 								</a>
