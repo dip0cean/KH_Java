@@ -61,6 +61,14 @@
 	
 	<table style="width: 1038px;">
 		<thead>
+			<tr>
+				<td colspan="6" align="right">
+					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
+					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
+					<%} %>
+				</td>
+			</tr>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
 			
@@ -68,11 +76,11 @@
 			
 				<th width="100">말머리</th>
 			
-				<th width="500">제목</th>
+				<th width="550">제목</th>
 			
 				<th width="200">작성자</th>
 			
-				<th width="150">조회수</th>
+				<th width="100">조회수</th>
 			
 				<th width="150">작성일</th>
 			
@@ -108,18 +116,26 @@
 				
 							<td align="center"><%=post.getPost_hits() %></td>
 				
-							<td><%=post.getPost_date2() %></td>		
+							<td align="center"><%=post.getPost_date2() %></td>		
 				
 						</tr>
 				<%} %>
 			<%} %>	
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<hr><br>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	<table style="width: 1038px;">
 			<tr>
 				<td colspan="6" align="center">
-				<hr><br>
+				<br>
 				<form action="search_my_post.jsp" method="post">
+				
 					<select name="post_sub">
 				
 						<option disabled="disabled">선택</option>

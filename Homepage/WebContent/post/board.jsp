@@ -8,30 +8,40 @@
 	pageEncoding="UTF-8"%>
 	
 <%
+	//////////////////////////////////////////
+	// 로그인 정보 가지고 오기 및 작성자 정보 가지고 오기       //
+	/////////////////////////////////////////
 	PostDAO pdao = new PostDAO();
 	PostDTO getParameter = new PostDTO();
-	// 로그인 정보 가지고 오기
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
-	// 작성자 닉네임 가지고 오기
 	MemberDTO member_nick = new MemberDTO();
 	MemberDAO mdao = new MemberDAO();
 	ReplyDAO rdao = new ReplyDAO();
 	List<PostDTO> list;
 	
+	//////////////////////////////////////////
+	// 댓글 개수 조회					       //
+	/////////////////////////////////////////
 	// 댓글 개수 조회
 	long count;
 	
 	// 로그인 여부
 	boolean login = mdto != null;
 	
-	// go 파라메러가 있는지, 게시판 이동을 했는지 여부
-	boolean parameter = request.getParameter("post_sub") != null && request.getParameter("post_title") != null;
+	//////////////////////////////////////////
+	// 검색정보 가지고 오기				       //
+	/////////////////////////////////////////
 	String post_sub = request.getParameter("post_sub");
+	String post_title = request.getParameter("post_title");
+	
+	boolean parameter = post_sub != null && post_title != null;
 	String go = request.getParameter("go");
 	String board_title = go;
 	String sub_title = board_title;
 	
-	// 페이지 계산 코드
+	//////////////////////////////////////////
+	// 페이지 계산 코드					       //
+	/////////////////////////////////////////
 	long pageSize = 20; // 한 페이지에 표시할 데이터 개수
 	
 	// page 번호를 계산하기 위한 코드
@@ -59,7 +69,16 @@
 	long end = pageNum * pageSize;
 	long start = end - (pageSize - 1);
 	
-	// 게시판 이동 및 검색을 위한 구문
+	//////////////////////////////////////////
+	// 페이지 네비 계산코드				       //
+	/////////////////////////////////////////
+	long blockSize = 10;
+	long startBlock = (pageNum - 1) / blockSize * blockSize + 1;
+	long endBlock = startBlock + (blockSize - 1);
+	
+	//////////////////////////////////////////
+	// 게시판 이동 및 검색을 위한 구문			       //
+	/////////////////////////////////////////
 	if(request.getParameter("go") != null) {
 		
 		list = pdao.boardPost(go, start, end);
@@ -67,13 +86,13 @@
 		if(parameter && post_sub.equals("member_nick")) {
 			go = board_title;
 			board_title = sub_title;
-			list = pdao.searchNickpost(go, request.getParameter("post_title"), start, end);
+			list = pdao.searchNickpost(go, post_title, start, end);
 			
-		} else if(parameter && !request.getParameter("post_sub").equals("member_nick")){
+		} else if(parameter && !post_sub.equals("member_nick")){
 			
 			go = post_sub;
 			getParameter.setPost_sub(post_sub);
-			getParameter.setPost_title(request.getParameter("post_title"));
+			getParameter.setPost_title(post_title);
 			board_title = post_sub;
 			list = pdao.searchPost(getParameter, start, end);
 					
@@ -106,7 +125,9 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div align="center">
+	<h3>post_sub = <%=post_sub %> / post_title = <%=post_title %> / go = <%=go %></h3>
 	<h3>pageStr = <%=pageStr %> / pageNum = <%=pageNum %> / start = <%=start %> / end = <%=end %></h3>
+	<h3>startBlock = <%=startBlock %> / endBlock = <%=endBlock %></h3>
 	<h2><%=board_title %></h2>
 	<table>
 		<thead>
@@ -130,6 +151,14 @@
 	
 	<table style="width: 1038px;">
 		<thead>
+			<tr>
+				<td colspan="6" align="right">
+					<a href="create.jsp"><input type="button" value="글쓰기"></a>
+					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
+					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
+					<%} %>
+				</td>
+			</tr>
 			<tr><td colspan="6"><hr></td></tr>
 			<tr>
 			
@@ -137,11 +166,11 @@
 			
 				<th width="100">말머리</th>
 			
-				<th width="500">제목</th>
+				<th width="550">제목</th>
 			
 				<th width="200">작성자</th>
 			
-				<th width="150">조회수</th>
+				<th width="100">조회수</th>
 			
 				<th width="150">작성일</th>
 			
@@ -190,46 +219,76 @@
 				
 							<td align="center"><%=pdto.getPost_hits() %></td>
 				
-							<td><%=pdto.getPost_date2() %></td>			
-				
+							<td align="center"><%=pdto.getPost_date2() %></td>			
+							
 						</tr>
 				<%} %>
 			<%} %>	
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<hr><br>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" align="center">
+				
+				<%if(startBlock > 1) { %>
+					<%if(!parameter) { %>
+						<a href="board.jsp?page=<%=startBlock - 1%>">[이전]</a>
+					<%} else {%>
+						<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[이전]</a>
+					<%} %>
+				<%} %>	
+						<%for(long i = startBlock; i <= endBlock; i ++) { %>
+							<%if(parameter) {%>
+								<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>"><%=i %></a>
+							<%} else { %>
+								<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>"><%=i %></a>
+							<%} %>
+						<%} %>
+				
+				<%if(endBlock > 0) { %>		
+					<%if(!parameter) { %>
+						<a href="board.jsp?page=<%=endBlock + 1%>">[다음]</a>
+					<%} else {%>
+						<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[다음]</a>
+					<%} %>
+				<%} %>	
+				
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	<table style="width: 1038px;">
 			<tr>
 				<td colspan="6" align="center">
-				<hr><br>
-			
-				<form action="board.jsp" method="post">
-
-					<select name="post_sub">
-			
-						<option disabled="disabled">선택</option>
-
-						<option value="공지">공지</option>
-			
-						<option value="일반" selected="selected">일반</option>
-			
-						<option value="정보">정보</option>
-			
-						<option value="질문">질문</option>
-
-						<option value="member_nick">닉네임</option>
-			
-					</select>
-					<input type="text" name="post_title" placeholder="검색어">
-				<%if(request.getParameter("go") != null) { %>
-					<input type="hidden" name="go" value="<%=go %>">	
-				<%} %>
-					<input type="submit" value="검색">
-				</form>
-				<br>
-					<a href="create.jsp"><input type="button" value="글쓰기"></a>
-					<%if(login && mdto.getAccess_auth().equals("운영자")) {%>
-					<a href="<%=request.getContextPath() %>/admin/post_delete.jsp"><input type="button" value="선택 삭제"></a>
+					<br>
+					<form action="board.jsp" method="get">
+	
+						<select name="post_sub">
+				
+							<option disabled="disabled">선택</option>
+	
+							<option value="공지">공지</option>
+				
+							<option value="일반" selected="selected">일반</option>
+				
+							<option value="정보">정보</option>
+				
+							<option value="질문">질문</option>
+	
+							<option value="member_nick">닉네임</option>
+				
+						</select>
+						<input type="text" name="post_title" placeholder="검색어">
+					<%if(request.getParameter("go") != null) { %>
+						<input type="hidden" name="go" value="<%=go %>">	
 					<%} %>
+						<input type="submit" value="검색">
+					</form>
+					<br>
 				</td>
 			</tr>
 		</table>
