@@ -53,12 +53,12 @@
  	
  	<!-- PostServlet 등록 -->
  	<servlet>
- 		<servlet-name>postCreateServlet</servlet-name>
- 		<servlet-class>homepage.servlet.post.PostCreateServlet</servlet-class>
+ 		<servlet-name>postCreateUploadFileServlet</servlet-name>
+ 		<servlet-class>homepage.servlet.post.PostCreateUploadFileServlet</servlet-class>
  	</servlet>
  	
  	<servlet-mapping>
- 		<servlet-name>postCreateServlet</servlet-name>
+ 		<servlet-name>postCreateUploadFileServlet</servlet-name>
  		<url-pattern>/post/create.do</url-pattern>
  	</servlet-mapping>
  	
