@@ -76,9 +76,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th>말머리</th>
+				<th width="130">말머리</th>
 				<td height="80" colspan="2"><%=pdto.getPost_sub() %></td>
-				<th>작성자</th>
+				<th width="130">작성자</th>
 				<%if(isPost_id) { %>
 					<td height="80" colspan="2"><a href="<%=request.getContextPath()%>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=post_nick%></a></td>
 				<%} else {%>
@@ -91,9 +91,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th>조회수</th>
+				<th width="130">조회수</th>
 				<td colspan="2" height="80"><%=pdto.getPost_hits() %></td>
-				<th>작성일</th>
+				<th width="130">작성일</th>
 				<td colspan="2" height="80"><%=pdto.getPost_date() %>
 			</tr>
 			<tr>
@@ -102,7 +102,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>제목</th>
+				<th width="130">제목</th>
 				<td colspan="6" height="80"><font size="5"><%=pdto.getPost_title() %></font></td>
 			</tr>
 			<tr>
@@ -111,7 +111,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th width="130">내용</th>
 				<td width="300" height="250" colspan="6"><%=pdto.getPost_content() %></td>
 			</tr>
 			<tr>
@@ -121,7 +121,7 @@
 			</tr>
 			<%if(!filelist.isEmpty()) { %>
 				<tr>
-					<th>
+					<th width="130">
 						첨부 파일
 					</th>
 					<td colspan="6" height="80">
@@ -144,7 +144,7 @@
 			<%} %>
 			<tr>
 				<th>
-					<br><br><br>
+					<br><br><br><br>
 					<div style="font-size: 35px; text-align: left">댓글 <font size="4">(<%=rdao.replyCount(post_no) %>)</font></div>
 					<br>
 					
