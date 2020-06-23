@@ -15,8 +15,10 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import homepage.beans.dao.PostDAO;
+import homepage.beans.dao.PostFileDAO;
 import homepage.beans.dto.MemberDTO;
 import homepage.beans.dto.PostDTO;
+import homepage.beans.dto.PostFileDTO;
 
 @SuppressWarnings("serial")
 public class PostCreateUploadFileServlet extends HttpServlet {
@@ -60,9 +62,36 @@ public class PostCreateUploadFileServlet extends HttpServlet {
 				pdto.setSuper_no(Integer.parseInt(map.get("post_no").get(0).getString()));
 			}
 
-			// 6. 게시글 등록
+			// 6-1. 게시글 등록
 			pdao.creatPost(pdto);
-
+			
+			// 6-2. 파일 정보를 불러와서 저장 (하드 디스크 + 데이터 베이스)
+			// - 전송되는 이름 > post_file
+			// - 파일 크기(용량) 으로 파일 존재 여부 확인
+			List<FileItem> filelist = map.get("post_file");
+			
+			for(FileItem item : filelist) {
+				if(item.getSize() > 0) {
+					
+					// 데이터 베이스에 저장
+					PostFileDAO pfdao = new PostFileDAO();
+					long post_file_no = pfdao.getSequence();
+					
+					PostFileDTO pfdto = new PostFileDTO();
+					pfdto.setPost_file_no(post_file_no);
+					pfdto.setPost_no(post_no);
+					pfdto.setPost_file_name(item.getName());
+					pfdto.setPost_file_type(item.getContentType());
+					pfdto.setPost_file_size(item.getSize());
+					pfdao.save(pfdto);
+					
+					// 하드 디스크에 저장
+					File target = new File(baseDir, String.valueOf(post_file_no));
+					item.write(target);
+				}
+			}
+			
+			
 			// 7. 작성 게시글로 이동
 			resp.sendRedirect("post.jsp?post_no=" + post_no);
 
