@@ -64,7 +64,7 @@ public class PostCreateUploadFileServlet extends HttpServlet {
 			pdao.creatPost(pdto);
 
 			// 7. 작성 게시글로 이동
-			resp.sendRedirect("post.jps?post_no=" + post_no);
+			resp.sendRedirect("post.jsp?post_no=" + post_no);
 
 		} catch (Exception e) {
 

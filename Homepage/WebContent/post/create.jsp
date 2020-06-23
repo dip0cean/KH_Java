@@ -38,13 +38,13 @@
 				<td><input type="text" name="post_title" size="70" maxlength="100"></td>
 			</tr>
 			<tr>
-				<th rowspan="10">내용</th>
+				<th>내용</th>
 				<td>
 					<textarea  rows="30" cols="70" name="post_content"></textarea>
 				</td>
 			</tr>
 			<tr>
-				<th>파일 첨부</th>
+				<th height="40">파일 첨부</th>
 				<td><input type="file" name="post_file" multiple="multiple" accept=".jpeg , .jpg , .png , .gif"></td>
 			</tr>
 			<tr>
