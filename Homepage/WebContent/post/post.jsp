@@ -1,3 +1,5 @@
+<%@page import="homepage.beans.dto.PostFileDTO"%>
+<%@page import="homepage.beans.dao.PostFileDAO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.ReplyDTO"%>
 <%@page import="java.util.List"%>
@@ -49,6 +51,10 @@
 	// 댓글 읽어오기
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyDTO> list = rdao.postReply(post_no);
+	
+	// 파일 목록 불러오기
+	PostFileDAO pfdao = new PostFileDAO();
+	List<PostFileDTO> filelist = pfdao.getList(post_no);
 	
 %>
 
@@ -113,9 +119,32 @@
 					<hr>
 				</td>
 			</tr>
+			<%if(!filelist.isEmpty()) { %>
+				<tr>
+					<th>
+						첨부 파일
+					</th>
+					<td colspan="6" height="80">
+						<ul>
+							<%for(PostFileDTO pfdto : filelist) { %>
+							<li>
+								<%=pfdto.getPost_file_name() %> 
+								(<%=pfdto.getPost_file_size() %> bytes)
+								<a href="download.do?post_file_no=<%=pfdto.getPost_file_no()%>"><input type="image" src="<%=request.getContextPath()%>/image/download.png" width="15" height="15"></a>
+							</li>
+							<%} %>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6">
+						<hr>
+					</td>
+				</tr>
+			<%} %>
 			<tr>
 				<th>
-					<br>
+					<br><br><br>
 					<div style="font-size: 35px; text-align: left">댓글 <font size="4">(<%=rdao.replyCount(post_no) %>)</font></div>
 					<br>
 					

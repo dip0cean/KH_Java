@@ -69,12 +69,12 @@ public class PostCreateUploadFileServlet extends HttpServlet {
 			// - 전송되는 이름 > post_file
 			// - 파일 크기(용량) 으로 파일 존재 여부 확인
 			List<FileItem> filelist = map.get("post_file");
+			PostFileDAO pfdao = new PostFileDAO();
 			
 			for(FileItem item : filelist) {
 				if(item.getSize() > 0) {
 					
 					// 데이터 베이스에 저장
-					PostFileDAO pfdao = new PostFileDAO();
 					long post_file_no = pfdao.getSequence();
 					
 					PostFileDTO pfdto = new PostFileDTO();
