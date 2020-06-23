@@ -1,3 +1,5 @@
+<%@page import="homepage.beans.dto.PostFileDTO"%>
+<%@page import="homepage.beans.dao.PostFileDAO"%>
 <%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
@@ -134,6 +136,8 @@
 		endBlock = pageCount;
 	}
 	
+	PostFileDAO pfdao = new PostFileDAO();
+	
 %>	
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -198,6 +202,7 @@
 				<%for(PostDTO pdto : list) {%>
 						<%count = rdao.replyCount(pdto.getPost_no()); %>
 						<%member_nick = mdao.get(pdto.getPost_id()); %>
+						<%boolean post_file = !pfdao.getList(pdto.getPost_no()).isEmpty(); %>
 						<tr height="40">
 			
 							<td align="center"><%=pdto.getPost_no() %></td>
@@ -213,6 +218,9 @@
 									<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png" width="15" height="15">
 								<%} %>
 									<%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font>
+									<%if(post_file) { %>
+									<img alt="파일" src="<%=request.getContextPath()%>/image/download.png" width="15" height="15">
+									<%} %>
 								</a>
 							</td>
 <%-- 							<td>super_no<%=pdto.getSuper_no() %></td> --%>

@@ -11,7 +11,7 @@
 
 <div align="center">
 	<h2>게시글 작성</h2>
-	<form action="create.do" method="post">
+	<form action="create.do" method="post" enctype="multipart/form-data">
 		<!-- 원본글 번호가 있다면(답글이라면) 원본글번호를 hidden으로 첨부 -->
 		<%if(request.getParameter("post_no") != null) { %>
 			<input type="hidden" name="post_no" value="<%=request.getParameter("post_no")%>">
@@ -38,10 +38,14 @@
 				<td><input type="text" name="post_title" size="70" maxlength="100"></td>
 			</tr>
 			<tr>
-				<th rowspan="10">내용</th>
+				<th>내용</th>
 				<td>
 					<textarea  rows="30" cols="70" name="post_content"></textarea>
 				</td>
+			</tr>
+			<tr>
+				<th height="40">파일 첨부</th>
+				<td><input type="file" name="post_file" multiple="multiple" accept=".jpeg , .jpg , .png , .gif"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
