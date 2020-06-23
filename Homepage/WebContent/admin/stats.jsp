@@ -19,4 +19,4 @@
 
 </div>
 
-<jsp:include page="/template/footer.jsp"></jsp:include>
+<jsp:include page="/template/footer.jsp"></jsp:include>#
