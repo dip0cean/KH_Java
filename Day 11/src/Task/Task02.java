@@ -10,7 +10,7 @@ public class Task02 {
 
 //		 입력
 		Random r = new Random();
-		int gameLevel = 5;
+		int gameLevel = 7;
 		int num = 1;
 		int[][] bingo = new int[gameLevel][gameLevel];
 		int save;

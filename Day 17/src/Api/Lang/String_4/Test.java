@@ -16,7 +16,7 @@ public class Test {
 		//	불필요한 여백 제거
 		String url = "                              HTTP://WWW.NAVER.COM";
 
-		System.out.println(url.trim()); // .trim() > 불필요한 여백 제거
+		System.out.println(url.trim()); //  .trim() > 불필요한 여백 제거
 		System.out.println(url.toLowerCase()); // url 소문자로 만들어 버리기
 		
 		//	치환 (텍스트 편집 기능)
