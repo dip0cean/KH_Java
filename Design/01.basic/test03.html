@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        h3 {
+            color: gray;
+        }
+
+        /* 선택자 : Selector > 첫번째 h3 를 지정*/
+        h3:first-child {
+            color: aqua;
+        }
+
+        /* h3 마지막 태그 색상 변경*/
+
+        h3:last-child {
+            background-color: aquamarine;
+            color: darkorchid;
+        }
+
+        /* 
+            h2 태그 중에서 중간에 있는 것들을 선택하고 싶은 경우
+            - 순서는 1부터 시작
+            - 패턴 지정 가능
+                - 2n : 짝수
+                - 2n - 1 : 홀수
+        
+        */
+        h3:nth-child(2n) {
+            color: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+    <h3>Hello World!</h3>
+</body></html>

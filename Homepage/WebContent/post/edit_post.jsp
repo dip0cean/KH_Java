@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="homepage.beans.dao.PostFileDAO"%>
+<%@page import="homepage.beans.dto.PostFileDTO"%>
 <%@page import="homepage.beans.dto.PostDTO"%>
 <%@page import="homepage.beans.dao.PostDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -37,7 +40,7 @@
 					maxlength="100" value="<%=pdto.getPost_title() %>"></td>
 			</tr>
 			<tr>
-				<th rowspan="10">내용</th>
+				<th>내용</th>
 				<td><textarea rows="30" cols="70" name="post_content"><%=pdto.getPost_content() %></textarea>
 				</td>
 			</tr>

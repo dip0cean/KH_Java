@@ -33,6 +33,7 @@ public class Score {
 		this.math = math;
 	}
 
+
 //	출력 메소드	
 	void output() {
 		this.sum = this.kor + this.eng + this.math;
