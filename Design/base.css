@@ -133,3 +133,254 @@
     background-color: bisque;
     cursor: pointer;
 }
+
+/*
+    모달(modal) 스타일
+    - 모달은 다음과 같은 형태로 구성되어야 한다.
+    <div class="modal-wrap">
+        <div class="modal">
+        </div>
+    </div>
+
+    모달을 보여주고 싶다면 .modal-wrap 에 .on 을 추가한다.
+    <div class="modal-wrap on">
+        <div class="modal">
+        </div>
+    <div>
+*/
+.modal-wrap {
+    /* 모달은 기본적으로표시가 되면 안된다. */
+    display: none;
+
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    /* opacity 의 투명도는 내용물도 같이 투명화됨. */
+    /* opacity: 80%; */
+
+
+}
+
+.modal-wrap.on {
+    display: block;
+}
+
+.modal {
+    background-color: white;
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    /* 중앙에 배치하기 위한 코드 */
+    top: 50%;
+    left: 50%;
+
+    /* 
+        방법1 : margin 을 이용
+        - 폭을 반드시 알아야함.
+        - 모든 브라우저에서 지원
+    */
+    /*
+    margin-top: -200px;
+    margin-left: -200px;
+    */
+
+    /* 
+        방법2 : 이동 스타일을 사용하는 경우
+        - 이동할 때 기준이 자기 자신이므로 폭을 몰라도 됨.
+        - 지원하지 않는 브라우저가 있음.
+    */
+    transform: translate(-50%, -50%);
+}
+
+/* 
+    메뉴 스타일
+    - 메뉴와 같은 계층형 구조는 ul / li 로 구현
+    - list-style : none; 으로 앞에 점을 제거
+*/
+.menu,
+.menu ul {
+    margin: 0px;
+    padding: 0px;
+    background-color: bisque;
+    list-style: none;
+}
+
+.menu li {
+    position: relative;
+    padding: 1rem;
+    font-size: 15px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menu > li {
+    display: inline-block;
+}
+
+.menu li:hover {
+    background-color: lemonchiffon;
+}
+
+.menu a {
+    color: lightslategray;
+    text-decoration: none;
+}
+
+.menu > li:hover > a {
+    color: darkseagreen;
+}
+
+/*
+    확장 스타일 : 메뉴를 상단에 붙이고 싶은 경우
+*/
+.menu.menu-fixed {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+}
+
+/* 2단 스타일 */
+.menu > li ul {
+    position: absolute;
+    left: 0px;
+    top: 100%;
+}
+
+.menu > li ul {
+    display: none;
+}
+
+.menu li:hover > ul {
+    display: block;
+}
+
+/* 3단 스타일 */
+.menu > li > ul > li ul {
+    top: 0;
+    left: 100%;
+}
+
+
+/* html 설정 초기화 */
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+body[test] main,
+body[test] header,
+body[test] nav,
+body[test] section,
+body[test] footer,
+body[test] article,
+body[test] div,
+body[test] span,
+body[test] p,
+body[test] label,
+body[test] aside,
+body[test] table {
+    border: 1px dotted black;
+}
+
+/* div 를 이용한 section 공간 정리 */
+article {
+    margin: auto;
+}
+
+article.w-100 {
+    width: 100%;
+}
+
+article.w-95 {
+    width: 95%;
+}
+
+article.w-90 {
+    width: 90%;
+}
+
+article.w-85 {
+    width: 85%;
+}
+
+article.w-80 {
+    width: 80%;
+}
+
+article.w-75 {
+    width: 75%;
+}
+
+article.w-70 {
+    width: 70%;
+}
+
+article.w-65 {
+    width: 65%;
+}
+
+article.w-60 {
+    width: 60%;
+}
+
+article.w-55 {
+    width: 55%;
+}
+
+article.w-50 {
+    width: 50%;
+}
+
+article.w-45 {
+    width: 45%;
+}
+
+article.w-40 {
+    width: 40%;
+}
+
+article.w-35 {
+    width: 35%;
+}
+
+article.w-30 {
+    width: 30%;
+}
+
+article.w-25 {
+    width: 25%;
+}
+
+article.w-20 {
+    width: 20%;
+}
+
+article.w-15 {
+    width: 15%;
+}
+
+article.w-10 {
+    width: 10%;
+}
+
+/*
+    컨텐츠 내부의 줄(row) 스타일
+    - 기본 간격 : 10px (상하 margin)
+*/
+article > div.row {
+    margin: 10px 0px;
+}
+
+/* 여백 설정이 필요할 때 사용할 수 있는 공간 */
+div.row-empty {
+    height: 20px;
+}

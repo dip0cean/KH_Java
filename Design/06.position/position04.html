@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list 를 이용한 메뉴 만들기</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /* 
+            메뉴 스타일
+            - 메뉴와 같은 계층형 구조는 ul / li 로 구현
+            - list-style : none; 으로 앞에 점을 제거
+        */
+        .menu {
+            margin: 0px;
+            padding: 0px;
+            background-color: bisque;
+        }
+
+        .menu>li {
+            padding: 1rem;
+            list-style: none;
+            font-size: 15px;
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .menu li:hover {
+            background-color: lemonchiffon;
+        }
+
+        .menu a {
+            color: lightslategray;
+            text-decoration: none;
+        }
+
+        .menu>li:hover>a {
+            color: darkseagreen;
+        }
+        
+        /*
+            확장 스타일 : 메뉴를 상단에 붙이고 싶은 경우
+        */
+        
+        .menu.menu-fixed {
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+        }
+        
+        body {
+            height: 50000px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 메뉴 만들기 -->
+    <ul class="menu menu-fixed">
+        <li><a href="">HOME</a></li>
+        <li><a href="">JOIN</a></li>
+        <li><a href="">LOGIN</a></li>
+        <li><a href="">BOARD</a></li>
+    </ul>
+</body></html>
