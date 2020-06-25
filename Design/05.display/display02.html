@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>label : for</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /* 체크가 되어 있을 경우에만 메뉴가 표시되도록 디자인 코드 구헌 */
+        label {
+            cursor: pointer;
+        }
+
+        #menu,
+        .menu-wrap {
+            display: none;
+        }
+
+        #menu:checked+.menu-wrap {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        체크 여부에 따라 메뉴를 표시
+    -->
+    <label for="menu">메뉴</label>
+    <input type="checkbox" id="menu">
+
+    <ul class="menu-wrap">
+        <li>
+            오늘의 첫 번째 메뉴다.
+        </li>
+        <li>
+            오늘의 두 번째 메뉴다.
+        </li>
+        <li>
+            오늘의 세 번째 메뉴다.
+        </li>
+    </ul>
+
+</body></html>

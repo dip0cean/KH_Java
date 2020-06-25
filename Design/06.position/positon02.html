@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>absolute vs fixed</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /*
+            화면에 스크롤을 만들기 위해 의도적으로 높이를 매우 크게 부여
+        */
+        body {
+            height: 50000px;
+        }
+        
+        .a, .b {
+            top: 100px;
+            right: 100px;
+        }
+        
+        .a {
+            position: absolute;
+            background-color: bisque;
+        }
+        
+        .b {
+            position: fixed;
+            background-color: orangered;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">Absolute</div>
+    <div class="b">Fixed</div>
+</body>
+</html>
