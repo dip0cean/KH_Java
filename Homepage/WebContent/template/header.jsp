@@ -6,11 +6,54 @@
 <head>
 <meta charset="UTF-8">
 <title>놀러와용! 성헌의 숲!</title>
+<link rel="stylesheet" type="text/css" href="base.css">
 <style type="text/css">
-	a:link { color: green; text-decoration: none;}
- 	a:visited { color: green; text-decoration: none;}
-	a:hover { color: skyblue; text-decoration: none;}
-
+a:link { color: green; text-decoration: none;}
+a:visited { color: green; text-decoration: none;}
+a:hover { color: skyblue; text-decoration: none;}
+	
+	.navi,
+	.navi ul {
+		padding: 0px;
+		margin: 0px;
+		list-style: none;
+		cursor: pointer;
+	}
+	
+	.navi li {
+		width: 200px;
+		padding: 0.4rem;
+		position: relative;
+	}
+	
+	.navi>li {
+		display: inline-block;
+	}
+	
+	.navi li:hover {
+		background-color: springgreen;
+	}
+	
+	.navi>li ul {
+		position: absolute;
+		top: 100%;
+		left: 0px;
+	}
+	
+	.navi>li ul {
+		display: none;
+	}
+	
+	.navi>li:hover>ul {
+		display: block;
+		opacity: 0.5;
+	}
+	
+	.navi a {
+		font-size: 34px;
+		text-decoration: none;
+		color: gray;
+	}
 </style>
 </head>
 <body>

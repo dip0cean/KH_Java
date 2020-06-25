@@ -18,36 +18,46 @@
 %>
 
 <div>
-
+	<ul class="navi">
 	<%if(isLogin) {%>
-	
-		<font size="5" color="black">
-		
-			<a href="<%=rootPath %>/member/logout.do"> Logout </a>
-			<a href="<%=rootPath %>/member/mypage.jsp"> My page </a>
+		<li><a href="<%=rootPath %>/member/logout.do"> Logout </a></li>
+		<li><a href="<%=rootPath %>/member/mypage.jsp"> My page </a></li>
 			
 			<!-- 관리자 계정일 경우 -->
-			<%if(mdto.getAccess_auth().equals("운영자")) { %>
+		<%if(mdto.getAccess_auth().equals("운영자")) { %>
 			
-			<a href="<%=rootPath %>/admin/home.jsp"> Setting </a>
+		<li><a href="<%=rootPath %>/admin/home.jsp"> Setting </a></li>
 			
 			<%} %>
 			
-			<a href="<%=rootPath %>/post/board.jsp?page=1"> Board </a>	
+		<li>
+			<a href="<%=rootPath %>/post/board.jsp?page=1"> Board </a>
+			<ul>
+				<li><a href="<%=rootPath %>/post/board.jsp?go=공지"> 공지 </a></li>
+				<li><a href="<%=rootPath %>/post/board.jsp?go=일반"> 일반 </a></li>
+				<li><a href="<%=rootPath %>/post/board.jsp?go=정보"> 정보 </a></li>
+				<li><a href="<%=rootPath %>/post/board.jsp?go=질문"> 질문 </a></li>
+			</ul>
+		</li>
 			
-		</font>
 		
 		<%} else {%>
 		
-		<font size="5" color="black">
 		
-			<a href="<%=rootPath %>/user/join.jsp"> Join </a>
-			<a href="<%=rootPath %>/user/login.jsp"> Login </a>
+		<li><a href="<%=rootPath %>/user/join.jsp"> Join </a></li>
+		<li><a href="<%=rootPath %>/user/login.jsp"> Login </a></li>
+		<li>
 			<a href="<%=rootPath %>/post/board.jsp?page=1">Board</a>
+			<ul>
+				<li><a href=""> 공지 </a></li>
+				<li><a href=""> 일반 </a></li>
+				<li><a href=""> 정보 </a></li>
+				<li><a href=""> 질문 </a></li>
+			</ul>
+		</li>
 			
-		</font>
-		
 	<%} %>
+	</ul>	
 	
 </div>
 <br>
