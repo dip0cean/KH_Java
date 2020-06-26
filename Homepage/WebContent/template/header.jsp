@@ -56,7 +56,7 @@ a:hover { color: skyblue; text-decoration: none;}
 	}
 </style>
 </head>
-<body>
+<body test>
 	<!-- 화면 배치는 테이블로 하면 안되지만 빠른 구현을 위해 테이블로 하고, 추후에 div로 교체 -->
 	<div align="center">
 		<table>
