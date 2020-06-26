@@ -257,67 +257,76 @@
 				</tr>
 				<tr>
 					<td colspan="6" align="center">
-					
-					<%if(startBlock > 1) { %>
-						<%if(isSearch) { %>
-							<%if(go == null) { %>
-								<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[이전]</a>
-							<%} else { %>
-								<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">[이전]</a>	
-							<%} %>
-						<%} else {%>
-							<%if(go == null) { %>
-								<a href="board.jsp?page=<%=startBlock - 1%>">[이전]</a>
-							<%} else {%>
-								<a href="board.jsp?page=<%=startBlock - 1%>go=<%=go%>">[이전]</a>
-							<%} %>
-						<%} %>
-					<%} %>	
-							<%for(long i = startBlock; i <= endBlock; i ++) { %>
-								<%if(isSearch) {%>
+						<div class="page-number-highlight">
+							<%if(startBlock > 1) { %>
+								<%if(isSearch) { %>
 									<%if(go == null) { %>
-										<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>"><%=i %></a>
+										<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">&lt;</a>
 									<%} else { %>
-										<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>"><%=i %></a>
+										<a href="board.jsp?page=<%=startBlock - 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">&lt;</a>	
 									<%} %>
-								<%} else { %>
+								<%} else {%>
 									<%if(go == null) { %>
-										<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>"><%=i %></a>
-									<%} else { %>
-										<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&go=<%=go%>"><%=i %></a>
+										<a href="board.jsp?page=<%=startBlock - 1%>">&lt;</a>
+									<%} else {%>
+										<a href="board.jsp?page=<%=startBlock - 1%>go=<%=go%>">&lt;</a>
 									<%} %>
 								<%} %>
+							<%} %>	
+									<%for(long i = startBlock; i <= endBlock; i ++) { %>
+										<%
+											String path;
+											if(pageNum == i) {
+												path = "class='on'";
+											} else {
+												path = "";
+											}
+										
+										%>
+											<%if(isSearch) {%>
+												<%if(go == null) { %>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>" <%=path %>><%=i %></a>
+												<%} else { %>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>" <%=path %>><%=i %></a>
+												<%} %>
+											<%} else { %>
+												<%if(go == null) { %>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>" <%=path %>><%=i %></a>
+												<%} else { %>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&go=<%=go%>" <%=path %>><%=i %></a>
+												<%} %>
+											<%} %>
+										<%} %>
+				
+						<%if(pageCount > endBlock) { %>		
+							<%if(isSearch) { %>
+								<%if(go == null) { %>
+									<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">&gt;</a>
+								<%} else { %>
+									<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">&gt;</a>
+								<%} %>
+							<%} else {%>
+								<%if(go == null) { %>
+									<a href="board.jsp?page=<%=endBlock + 1%>">&gt;</a>
+								<%} else { %>
+									<a href="board.jsp?page=<%=endBlock + 1%>&go=<%=go%>">&gt;</a>
+								<%} %>
 							<%} %>
-					
-					<%if(pageCount > endBlock) { %>		
-						<%if(isSearch) { %>
-							<%if(go == null) { %>
-								<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>">[다음]</a>
-							<%} else { %>
-								<a href="board.jsp?page=<%=endBlock + 1%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>">[다음]</a>
-							<%} %>
-						<%} else {%>
-							<%if(go == null) { %>
-								<a href="board.jsp?page=<%=endBlock + 1%>">[다음]</a>
-							<%} else { %>
-								<a href="board.jsp?page=<%=endBlock + 1%>&go=<%=go%>">[다음]</a>
-							<%} %>
-						<%} %>
-					<%} %>	
-					
+						<%} %>	
+						</div>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
-	
+	<div class="row-empty"></div>
 	<div class="row center">	
 		<table>
 			<tr>
 				<td>
 					<form action="board.jsp" method="post">
 				
-						<select name="post_sub">
+						<select class="form-input search-select" name="post_sub">
 					
 							<option disabled="disabled">선택</option>
 				
@@ -332,7 +341,7 @@
 							<option value="member_nick">닉네임</option>
 					
 						</select>
-						<input type="text" name="post_title" placeholder="검색어">
+						<input type="text" class="form-input search-box" name="post_title" placeholder="검색어">
 						
 						<%if(request.getParameter("go") != null) { %>
 							
@@ -340,7 +349,7 @@
 						
 						<%} %>
 						
-						<input type="submit" value="검색">
+						<input class="btm" type="submit" value="검색">
 					
 					</form>
 				</td>

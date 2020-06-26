@@ -4,8 +4,9 @@
     -    style 태그 내부에 작성하는 내용만 기입
 */
 @charset "UTF-8";
+
 @font-face {
-	font-family:D2Coding;
+	font-family: D2Coding;
 	src: url("../font/D2Coding-Ver1.3.2-20180524.ttf");
 }
 
@@ -498,7 +499,7 @@ table.form-input {
 }
 
 .subtitle {
-	fon-size: 40px !important;
+	font-size: 34px !important;
 }
 
 .mypage th {
@@ -542,4 +543,29 @@ table.form-input {
 
 .float-box>.float-right {
 	float: right;
+}
+
+.page-number-highlight a {
+	display: inline-block;
+	padding: 0.5rem;
+	min-width: 2.5rem;
+	text-align: center;
+	border: 1px solid transparent;
+	border-radius: 15px;
+}
+
+.page-number-highlight a:hover, .page-number-highlight.on {
+	border-radius: 15px;
+	background-color: rgba(30, 170, 60, 0.5);
+}
+
+.form-input.search-box, .form-input.search-select {
+	height: 2.5rem;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.form-input.search-select {
+	padding: 0px;
+	width: 5rem;
 }

@@ -8,7 +8,7 @@
 <title>놀러와용! 성헌의 숲!</title>
 <link rel="stylesheet" type="text/css" href="base.css">
 <style type="text/css">
-a:link { color: green; text-decoration: none;}
+a:link { color: green; tㅣext-decoration: none;}
 a:visited { color: green; text-decoration: none;}
 a:hover { color: skyblue; text-decoration: none;}
 	

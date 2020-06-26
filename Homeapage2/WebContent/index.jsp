@@ -17,6 +17,9 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <article class="w-100">	
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
 	<div class="row center">
 		<h3>
 	
@@ -35,9 +38,15 @@
 		</font>
 	</h3>
 	</div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
 	<div class="row center">
-		<img class="main-img" alt="동물의 숲" src="./image/성헌의 숲.png">
+		<img class="img img-circle img-shadow main-img" alt="동물의 숲" src="./image/성헌의 숲.png">
 	</div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
 </article>	
 
 <%-- <%@ include file="/template/footer.jsp" %> --%>
