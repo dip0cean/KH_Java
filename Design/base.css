@@ -384,3 +384,31 @@ article > div.row {
 div.row-empty {
     height: 20px;
 }
+ .menu-list > .menu-item {
+    width:33.3333%;
+    display: inline-block;
+}
+
+.float-box::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+/*
+    float 확장 스타일링
+    - .float-left > 왼쪽으로 배치되도록 구현
+    - .float-right > 오른쪽으로 배치되도록 구현
+    - 내부 영역도 자체적으로 구현
+*/
+.float-box.float-left>* {
+    float: left;
+}
+.float-box.float-right>* {
+    float: right;
+}
+.float-box>.float-left {
+    float: left;
+}
+.float-box>.float-right {
+    float: right;
+}

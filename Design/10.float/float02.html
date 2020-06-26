@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Float 사용</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        .menu-list > .menu-item {
+            width: 33.3333%;
+            float: left;
+        }
+    </style>
+</head>
+<body test>
+    <!--
+        float 속성을 이용하여 가로 배치를 구현
+        - 연속적으로 배치되어야 할 항목에 float:left 또는 float:right 를 설정
+        - 컴포넌트가 공중에 떠서 배치가 된다. (레이아웃 무시 가능)
+    -->
+    <h1>메뉴를 골라보세용!</h1>
+    <div class="menu-list">
+        <div class="menu-item">
+            <h3>치킨</h3>
+            <p>치킨은 맛있어 맛있으면 바나나 바나나는 길어</p>
+        </div>
+        <div class="menu-item">
+            <h3>피자</h3>
+            <p>길면은 기차 기차는 빨라 빠르면 피자헛</p>
+        </div>
+        <div class="menu-item">
+            <h3>햄버거</h3>
+        </div>
+    </div>
+    <!--
+        float 사용 후 clear 수행
+        - clear: left > float:left 정리
+        - clear: right > float:right 정리
+        - clear: both > 좌우 다 정리
+    -->
+    <div style="clear:left"></div>
+    <p>
+        오늘은 무얼 먹을까나? <br>
+        개발자 : 심또망
+    </p>
+</body>
+</html>

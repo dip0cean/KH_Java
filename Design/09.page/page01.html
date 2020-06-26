@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /*
+            pagination 스타일
+        */
+        .pagination a {
+            color:gray;
+            text-decoration: none;
+            display: inline-block;
+            padding:0.5rem;
+            min-width: 2.5rem;
+            text-align: center;
+            border:1px solid transparent;
+        }
+        .pagination a:hover,/*마우스 올라감*/
+        .pagination .on {/*활성화 */
+            border:1px solid gray;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div class="pagination">
+        <a href="#">&lt;</a>
+        <a href="#" class="on">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">7</a>
+        <a href="#">8</a>
+        <a href="#">9</a>
+        <a href="#">10</a>
+        <a href="#">&gt;</a>
+    </div>
+</body>
+</html>

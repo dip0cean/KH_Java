@@ -4,6 +4,10 @@
     -    style 태그 내부에 작성하는 내용만 기입
 */
 @charset "UTF-8";
+@font-face {
+	font-family:D2Coding;
+	src: url("../font/D2Coding-Ver1.3.2-20180524.ttf");
+}
 
 /*
     공통 적용 css
@@ -470,6 +474,7 @@ table {
 	font-size: 16px;
 	font-weight: bolder;
 	color: rgb(30, 170, 60, 0.5);
+	cursor: pointer;
 }
 
 .btm:hover {
@@ -509,4 +514,32 @@ table.form-input {
 
 .mypage.btm {
 	width: 150px;
+}
+
+/*
+    float 확장 스타일링
+    - .float-left > 왼쪽으로 배치되도록 구현
+    - .float-right > 오른쪽으로 배치되도록 구현
+    - 내부 영역도 자체적으로 구현
+*/
+.float-box::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.float-box.float-left>* {
+	float: left;
+}
+
+.float-box.float-right>* {
+	float: right;
+}
+
+.float-box>.float-left {
+	float: left;
+}
+
+.float-box>.float-right {
+	float: right;
 }
