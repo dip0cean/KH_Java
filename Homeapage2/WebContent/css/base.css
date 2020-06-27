@@ -462,6 +462,7 @@ table {
 	font-weight: bolder;
 	background-color: bisque;
 	cursor: pointer;
+	background-color: bisque;
 }
 
 .trans:hover {
@@ -573,8 +574,8 @@ table.form-input {
 	width: 5rem;
 }
 
-.reply.form-input,
-.post.form-input {
+.reply.form-input, .post.form-input, .post-title.form-input,
+	.post-content.form-input, .post-sub.form-input {
 	background-color: bisque !important;
 	color: rgb(30, 170, 60) !important;
 }
@@ -600,4 +601,25 @@ table.form-input {
 	background-color: transparent;
 	font-weight: bolder;
 	font-size: 18px;
+}
+
+.post-title.form-input,
+.post-file.form-input {
+	width: 100%;
+}
+
+.post-content.form-input {
+	width: 100%;
+	height: 450px;
+	resize: none;
+}
+
+.post-sub.form-input {
+	padding: 0px;
+	width: 50%;
+}
+
+.post-file.form-input {
+	padding: 3px;
+	height: 3rem;
 }
