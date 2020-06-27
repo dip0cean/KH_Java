@@ -16,7 +16,6 @@
 	PostDAO pdao = new PostDAO();
 	PostDTO getParameter = new PostDTO();
 	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
-	MemberDTO member_nick = new MemberDTO();
 	MemberDAO mdao = new MemberDAO();
 	ReplyDAO rdao = new ReplyDAO();
 	List<PostDTO> list;
@@ -194,9 +193,11 @@
 				</tr>	
 				<%} else {%> 
 					<%for(PostDTO pdto : list) {%>
-							<%count = rdao.replyCount(pdto.getPost_no()); %>
-							<%member_nick = mdao.get(pdto.getPost_id()); %>
-							<%boolean post_file = !pfdao.getList(pdto.getPost_no()).isEmpty(); %>
+							<%
+								count = rdao.replyCount(pdto.getPost_no());
+								String member_nick = mdao.get(pdto.getPost_id()).getMember_nick();
+								boolean post_file = !pfdao.getList(pdto.getPost_no()).isEmpty(); 
+							%>
 							<tr height="40">
 				
 								<td align="center"><%=pdto.getPost_no() %></td>
@@ -211,9 +212,12 @@
 										<%} %>
 										<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png" width="15" height="15">
 									<%} %>
-										<%=pdto.getPost_title() %><font size="3" color="gray"><b>    (<%=count %>)</b></font>
+										<%=pdto.getPost_title() %>
+										<%if(count > 0) { %>
+											<font size="3" color="gray"><b>    (<%=count %>)</b></font>
+										<%} %>
 										<%if(post_file) { %>
-										<img alt="파일" src="<%=request.getContextPath()%>/image/download.png" width="15" height="15">
+											<img alt="파일" src="<%=request.getContextPath()%>/image/download.png" width="15" height="15">
 										<%} %>
 									</a>
 								</td>
@@ -222,7 +226,7 @@
 	<%-- 							<td>depth<%=pdto.getDepth() %> --%>
 								<%if(pdto.getPost_id() != null) { %>
 				
-									<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>&go=<%=request.getContextPath()%>/post/board.jsp"><%=member_nick.getMember_nick() %></a></td>
+									<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>&go=<%=request.getContextPath()%>/post/board.jsp"><%=member_nick %></a></td>
 				
 								<%}  else {%>
 				

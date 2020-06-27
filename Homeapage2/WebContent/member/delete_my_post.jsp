@@ -60,7 +60,7 @@
 			pdto.setPost_id(mdto.getMember_id());
 			pdto.setPost_sub(post_sub);
 			pdto.setPost_title(post_title);
-			list = pdao.searchPost(pdto, start, end);
+			list = pdao.searchMyPost(pdto, start, end);
 			keyword = post_title;
 			
 			pageListSize = pdao.getPostCount(post_sub, post_title);
@@ -203,12 +203,13 @@
 		</table>
 		</form>
 		<div class="row-empty"></div>
-		<div class="row">
+		<div class="row center">
 			<table>
 					<tr>
-						<td colspan="6" align="center">
+						<td>
 						<br>
 						<form action="delete_my_post.jsp" method="get">
+							<input type="hidden" name="post_id" value="<%=mdto.getMember_id() %>">
 							<select class="form-input search-select" name="post_sub">
 							
 								<option disabled="disabled">선택</option>

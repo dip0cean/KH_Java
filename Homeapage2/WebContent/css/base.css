@@ -435,7 +435,7 @@ table {
 .id, .pw, .trans, .form-input {
 	width: 450px;
 	height: 3rem;
-	margin: 10px;
+	margin: 5px;
 	border: 1px solid transparent;
 	border-radius: 15px;
 }
@@ -467,9 +467,9 @@ table {
 }
 
 .btm {
-	width: 95px;
+	width: auto;
 	height: 2.5rem;
-	margin: 10px;
+	margin: 5px;
 	border: 1px solid transparent;
 	border-radius: 15px;
 	font-size: 16px;
@@ -494,12 +494,12 @@ table.form-input {
 }
 
 .title {
-	font-size: 42px !important;
+	font-size: 38px !important;
 	color: #535353 !important;
 }
 
 .subtitle {
-	font-size: 34px !important;
+	font-size: 32px !important;
 }
 
 .mypage th {

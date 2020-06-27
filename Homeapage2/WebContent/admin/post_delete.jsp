@@ -1,3 +1,5 @@
+<%@page import="homepage.beans.dao.PostFileDAO"%>
+<%@page import="homepage.beans.dao.ReplyDAO"%>
 <%@page import="homepage.beans.dao.MemberDAO"%>
 <%@page import="homepage.beans.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
@@ -9,8 +11,9 @@
 <%
 	PostDAO pdao = new PostDAO();
 	PostDTO setPost = new PostDTO();
-	MemberDTO mdto = (MemberDTO) session.getAttribute("userinfo");
 	MemberDAO mdao = new MemberDAO();
+	ReplyDAO rdao = new ReplyDAO();
+	PostFileDAO pfdao = new PostFileDAO();
 	
 	List<PostDTO> list;
 	
@@ -21,7 +24,6 @@
 	String board_title = go;
 	String sub_title = board_title;
 	
-	mdto = mdao.get(mdto.getMember_id());
 	boolean isSearch = post_sub != null && post_title != null;
 	
 	long count;
@@ -134,12 +136,12 @@
 						<a href="post_delete.jsp?go=정보">정보</a>
 						<a href="post_delete.jsp?go=질문">질문</a>
 					</th>
-				</tr>
-				<tr>
-					<td>
-						<div class="row-empty"></div>
-					</td>
 				</tr>	
+				<tr>
+					<th colspan="7">
+						<h3><font color="orange"><i>삭제할 게시물을 선택해주세요.</i></font></h3>
+					</th>
+				</tr>
 				<tr>
 					<td colspan="7">
 						<hr>
@@ -166,6 +168,12 @@
 				</tr>	
 				<%} else {%>
 					<%for(PostDTO pdto : list) {%>
+						<%
+							count = rdao.replyCount(pdto.getPost_no());
+							String member_nick = mdao.get(pdto.getPost_id()).getMember_nick();
+							boolean post_file = !pfdao.getList(pdto.getPost_no()).isEmpty();
+							
+						%>
 							<tr height="40">
 								<td align="center"><input type="checkbox" name="post_no" value="<%=pdto.getPost_no()%>"></td>
 								
@@ -173,11 +181,27 @@
 								
 								<td align="center"><%=pdto.getPost_sub() %></td>
 								
-								<td><a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=pdto.getPost_no() %>"><%=pdto.getPost_title() %></a></td>
+								<td>
+									<a href="<%=request.getContextPath() %>/post/post.jsp?post_no=<%=pdto.getPost_no() %>">
+										<%if(pdto.getDepth() != 0 ) { %>
+											<%for(int i = 1; i <= pdto.getDepth(); i++ ) { %>
+												&emsp;
+											<%} %>
+											<img alt="답글" src="<%=request.getContextPath()%>/image/reply.png" width="15" height="15">
+										<%} %>										
+										<%=pdto.getPost_title() %>
+										<%if(count > 0) { %>
+											<font size="3" color="gray"><b>    (<%=count %>)</b></font>	
+										<%} %>
+										<%if(post_file) { %>
+											<img alt="파일" src="<%=request.getContextPath()%>/image/download.png" width="15" height="15">
+										<%} %>
+									</a>
+								</td>
 								
 								<%if(pdto.getPost_id() != null) { %>
 								
-									<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=pdto.getPost_id() %></a></td>
+									<td align="center"><a href="<%=request.getContextPath() %>/member/userinfo.jsp?member_id=<%=pdto.getPost_id()%>"><%=member_nick %></a></td>
 								
 								<%}  else {%>
 									

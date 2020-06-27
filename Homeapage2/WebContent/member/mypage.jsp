@@ -79,20 +79,22 @@
 				<th>최종 로그인</th>
 				<td height="80"><%=mdto.getAccess_login()%></td>
 		</tbody>
-	</table>
-	<br>
-	<br> 
-	<a href="search_my_post.jsp?post_id=<%=mdto.getMember_id()%>"><input class="mypage btm" type="button" value="작성글 조회"></a> 
-	<a href="search_my_reply.jsp?member_id=<%=mdto.getMember_id()%>"><input class="mypage btm" type="button" value="댓글 조회"></a> 
-	<a href="check.jsp?go=edit_userinfo.jsp"><input class="mypage btm" type="button" value="정보 수정"></a> 
-	<a href="check.jsp?go=edit_pw.jsp"><input class="mypage btm" type="button" value="비밀번호 수정"></a>
-	<%
-		if (!mdto.getAccess_auth().equals("운영자")) {
-	%>
-	<a href="check.jsp?go=exit.jsp"><input type="button" value="회원 탈퇴"></a>
-	<%
-		}
-	%>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<div class="row-empty"></div>
+					<div class="row-empty"></div>
+					<a href="search_my_post.jsp?post_id=<%=mdto.getMember_id()%>"><input class="mypage btm" type="button" value="작성글 조회"></a> 
+					<a href="search_my_reply.jsp?member_id=<%=mdto.getMember_id()%>"><input class="mypage btm" type="button" value="댓글 조회"></a> 
+					<a href="check.jsp?go=edit_userinfo.jsp"><input class="mypage btm" type="button" value="정보 수정"></a> 
+					<a href="check.jsp?go=edit_pw.jsp"><input class="mypage btm" type="button" value="비밀번호 수정"></a>
+					<%if (!mdto.getAccess_auth().equals("운영자")) {%>
+						<a href="check.jsp?go=exit.jsp"><input type="button" value="회원 탈퇴"></a>
+					<%} %>
+				</td>
+			</tr>
+		</tfoot>
+	</table> 
 	<div class="row-empty"></div>
 	<div class="row-empty"></div>
 </article>
