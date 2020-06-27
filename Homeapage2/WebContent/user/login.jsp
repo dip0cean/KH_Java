@@ -28,7 +28,12 @@
 				<div class="row center">
 					<input class="pw input-cursor" type="password" name="member_pw" placeholder="PW"required>
 				</div>
-				
+				<div class="row center">
+					<a href="join.jsp"><input class="btm" type="button" value="Join"></a>
+					<a href="find_id.jsp"><input class="btm" type="button" value="Find ID"></a>
+					<a href="find_pw.jsp"><input class="btm" type="button" value="Find PW"></a>
+				</div>
+				<div class="row-empty"></div>
 				<div class="row center">	
 					<input class="trans"type="submit" value="Login">
 				</div>	
@@ -36,12 +41,6 @@
 		</div>
 	<div class="row-empty"></div>
 	<div class="row-empty"></div>	
-		<div class="row center">
-			<a href="join.jsp"><input class="btm" type="button" value="Join"></a>
-			<a href="find_id.jsp"><input class="btm" type="button" value="Find ID"></a>
-			<a href="find_pw.jsp"><input class="btm" type="button" value="Find PW"></a>
-		</div>
-	<div class="row-empty"></div>
 	<div class="row-empty"></div>	
 </article>
 <jsp:include page="/template/footer.jsp"></jsp:include>
