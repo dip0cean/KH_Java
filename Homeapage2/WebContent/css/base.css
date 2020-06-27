@@ -554,9 +554,10 @@ table.form-input {
 	border-radius: 15px;
 }
 
-.page-number-highlight a:hover, .page-number-highlight.on {
-	border-radius: 15px;
-	background-color: rgba(30, 170, 60, 0.5);
+.page-number-highlight a:hover, .page-number-highlight .on {
+	border-radius: 15px !important;
+	background-color: rgba(30, 170, 60, 0.5) !important;
+	color: bisque !important;
 }
 
 .form-input.search-box, .form-input.search-select {

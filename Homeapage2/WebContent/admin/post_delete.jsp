@@ -56,7 +56,7 @@
 	
 	if(go != null) {
 		list = pdao.boardPost(go, start, end);
-		pageListSize = pdao.getPostCount(post_sub);
+		pageListSize = pdao.getPostCount(go);
 		
 		if(isSearch && post_sub.equals("member_nick")){
 			// 전체 게시판에서 아이디로 검색 시
@@ -69,6 +69,7 @@
 		} else if(isSearch && !post_sub.equals("member_nick")) {
 			// 전체 게시판에서 제목 및 말머리로 검색 시
 			go = post_sub;
+			board_title = post_sub;
 			setPost.setPost_sub(post_sub);
 			setPost.setPost_title(post_title);
 			list = pdao.searchPost(setPost, start, end);
@@ -134,7 +135,16 @@
 						<a href="post_delete.jsp?go=질문">질문</a>
 					</th>
 				</tr>
-				<tr><td colspan="7"><hr></td></tr>
+				<tr>
+					<td>
+						<div class="row-empty"></div>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="7">
+						<hr>
+					</td>
+				</tr>
 				<tr>
 				
 					<th>선택</th>
@@ -150,7 +160,7 @@
 			<tbody>
 				<%if(list.isEmpty()) { %>
 				<tr>
-					<th colspan="6">
+					<th colspan="7">
 						<i><b>게시글을 조회할 수 없습니다.</b></i>
 					</th>
 				</tr>	
@@ -184,7 +194,7 @@
 				<%} %>
 				<tr>
 					<td>
-						<input type="hidden" name="go" value="post_delete.jsp">
+						<input type="hidden" name="goto" value="post_delete.jsp">
 					</td>
 				</tr>	
 			</tbody>
@@ -214,30 +224,30 @@
 									<%if(go == null) { %>
 										<a href="post_delete.jsp?page=<%=startBlock - 1%>">&lt;</a>
 									<%} else {%>
-										<a href="post_delete.jsp?page=<%=startBlock - 1%>go=<%=go%>">&lt;</a>
+										<a href="post_delete.jsp?page=<%=startBlock - 1%>&go=<%=go%>">&lt;</a>
 									<%} %>
 								<%} %>
 							<%} %>	
 									<%for(long i = startBlock; i <= endBlock; i ++) { %>
 										<%
-											String path;
-											if(pageNum == i) {
-												path = "class='on'";
+											String prop;
+											if(i == pageNum) {
+												prop = "class='on'";
 											} else {
-												path = "";
+												prop = "";
 											}
 										%>
 										<%if(isSearch) {%>
 											<%if(go == null) { %>
-												<a href="post_delete.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>" <%=path %>><%=i %></a>
+												<a href="post_delete.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>" <%=prop %>><%=i %></a>
 											<%} else { %>
-												<a href="post_delete.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>" <%=path %>><%=i %></a>
+												<a href="post_delete.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>" <%=prop %>><%=i %></a>
 											<%} %>
 										<%} else { %>
 											<%if(go == null) { %>
-												<a href="post_delete.jsp?page=<%=i%>" <%=path %>><%=i %></a>
+												<a href="post_delete.jsp?page=<%=i%>" <%=prop %>><%=i %></a>
 											<%} else { %>
-												<a href="post_delete.jsp?page=<%=i%>&go=<%=go%>" <%=path %>><%=i %></a>
+												<a href="post_delete.jsp?page=<%=i%>&go=<%=go%>" <%=prop %>><%=i %></a>
 											<%} %>
 										<%} %>
 									<%} %>
@@ -287,6 +297,9 @@
 						
 						</select>
 					<input type="text" class="form-input search-box" name="post_title" placeholder="제목">
+					<%if(go != null) { %>
+						<input type="hidden" name="go" value="<%=go %>">
+					<%} %>
 					<input type="submit" class="btm" value="검색">
 				</form>
 			</tr>

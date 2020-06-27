@@ -175,17 +175,17 @@
 						
 						<%for(long i = startBlock; i <= endBlock; i++) { %>
 							<%
-								String path;
+								String prop;
 								if(pageNum == i) {
-									path = "class='on'";
+									prop = "class='on'";
 								} else {
-									path = "";
+									prop = "";
 								}
 							%>
 								<%if(isSearch) { %>
-									<a href="delete_my_post.jsp?post_sub=<%=post_sub%>&post_title=<%=post_title%>&page=<%=i%>" <%=path %>><%=i %></a>
+									<a href="delete_my_post.jsp?post_sub=<%=post_sub%>&post_title=<%=post_title%>&page=<%=i%>" <%=prop %>><%=i %></a>
 								<%} else { %>
-									<a href="delete_my_post.jsp?page=<%=i%>" <%=path %>><%=i %></a>
+									<a href="delete_my_post.jsp?page=<%=i%>" <%=prop %>><%=i %></a>
 								<%} %>
 						<%} %>	
 							

@@ -29,7 +29,7 @@ public class AdminPostDeleteServlet extends HttpServlet {
 
 			}
 			
-			resp.sendRedirect(req.getParameter("go"));
+			resp.sendRedirect(req.getParameter("goto"));
 
 		} catch (Exception e) {
 

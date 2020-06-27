@@ -156,11 +156,11 @@
 				</tr>
 				<tr>
 					<th colspan="6" class="subtitle">
-						<a href="board.jsp">전체</a>
-						<a href="board.jsp?go=공지">공지</a>
-						<a href="board.jsp?go=일반">일반</a>
-						<a href="board.jsp?go=정보">정보</a>
-						<a href="board.jsp?go=질문">질문</a>
+						<a href="board.jsp?page=<%=pageNum%>">전체</a>
+						<a href="board.jsp?go=공지&page=<%=pageNum%>">공지</a>
+						<a href="board.jsp?go=일반&page=<%=pageNum%>">일반</a>
+						<a href="board.jsp?go=정보&page=<%=pageNum%>">정보</a>
+						<a href="board.jsp?go=질문&page=<%=pageNum%>">질문</a>
 					</th>
 				</tr>
 				<tr>
@@ -275,25 +275,25 @@
 							<%} %>	
 									<%for(long i = startBlock; i <= endBlock; i ++) { %>
 										<%
-											String path;
-											if(pageNum == i) {
-												path = "class='on'";
+											String prop;
+											if(i == pageNum) {
+												prop = "on";
 											} else {
-												path = "";
+												prop = "";
 											}
 										
 										%>
 											<%if(isSearch) {%>
 												<%if(go == null) { %>
-													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>" <%=path %>><%=i %></a>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>" class="<%=prop %>"><%=i %></a>
 												<%} else { %>
-													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>" <%=path %>><%=i %></a>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&post_sub=<%=post_sub%>&post_title=<%=post_title%>&go=<%=go%>" class="<%=prop %>"><%=i %></a>
 												<%} %>
 											<%} else { %>
 												<%if(go == null) { %>
-													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>" <%=path %>><%=i %></a>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>" class="<%=prop %>"><%=i %></a>
 												<%} else { %>
-													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&go=<%=go%>" <%=path %>><%=i %></a>
+													<a href="<%=request.getContextPath()%>/post/board.jsp?page=<%=i%>&go=<%=go%>" class="<%=prop %>"><%=i %></a>
 												<%} %>
 											<%} %>
 										<%} %>
