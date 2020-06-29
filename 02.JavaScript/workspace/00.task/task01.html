@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <script>
+        function idFilter() {
+            var id = document.querySelector(".id").value;
+            var regex = /^[a-z0-9]{5,13}$/gi;
+            var isValid = regex.test(id);
+            var idCheck = document.querySelector(".idCheck");
+
+            if (isValid) {
+                idCheck.classList.add("yes");
+                idCheck.style.display = "block";
+                idCheck.textContent = "멋진 아이디네요!";
+            } else {
+                idCheck.classList.remove("yes");
+                idCheck.textContent = "아이디를 다시 입력해주세요."
+            }
+        }
+
+    </script>
+    <style>
+        main {
+            width: 1038px;
+            margin: auto;
+        }
+
+        article {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h2 {
+            display: inline-block;
+        }
+
+        label {
+            text-align: left;
+            display: block;
+        }
+
+        input[name=id],
+        input[name=pw],
+        input[name=pw2] {
+            width: 500px;
+            display: inline-block;
+        }
+
+        label.form-input {
+            margin: 5px;
+            padding: 0px;
+            height: 1.5rem;
+            text-align: center;
+            width: 150px;
+            background-color: bisque;
+            color: forestgreen;
+        }
+        
+        .idCheck {
+            color: red;
+        }
+        
+        .idCheck.yes {
+            display: block;
+            color: forestgreen;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <form action="" method="post">
+            <article class="w-55 center">
+                <div class="row">
+                    <h2 class="title">회원가입</h2>
+                </div>
+                <div class="row">
+                    <label class="form-input">아이디</label>
+                    <input type="text" class="id input-cursor" name="id" placeholder="아이디" onblur="idFilter();" maxlength="12">
+                </div>
+                <div class="row">
+                    <span class="idCheck" style="display: none;"></span>
+                </div>
+                <div class="row">
+                    <label class="form-input">비밀번호</label>
+                    <input type="password" class="pw input-cursor" name="pw" placeholder="비밀번호">
+                    <span></span>
+                </div>
+                <div class="row">
+                    <label class="form-input">비밀번호 확인</label>
+                    <input type="password" class="pw input-cursor" name="pw2" placeholder="비밀번호 확인">
+                    <span></span>
+                </div>
+                <div class="row">
+                    <input type="submit" class="btm" value="회원가입">
+                </div>
+            </article>
+        </form>
+    </main>
+</body>
+
+</html>
