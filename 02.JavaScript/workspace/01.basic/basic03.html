@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS 데이터 계산</title>
+    <script>   
+        var chicken = 3000;
+        var pizza = 5000;
+        var pickle = 500;
+        var price = chicken + pizza + pickle;
+        console.log("price = " + price);
+        
+        // 주의사항 : JS 는 나눗셈 결과가 계산기처럼 나온다.
+        console.log(10 / 3); // 자바 : 3 / JS : 3.333...
+        
+        // 정수형 계산을 하고 싶다면 계산 후 변환 과정을 거쳐야 함.
+        // - parseInt() > 정수 형태로 변환
+        // - parseFloat() > 실수 형태로 변환
+        var a = 10 / 3;
+        var b = parseInt(10 / 3);
+        console.log("a = " + a);
+        console.log("b = " + b);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
