@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정규 표현식(Regular Expression)</title>
+    <script>
+        // 목표 : 이름이 한글 2 ~ 7 자 이내인 경우만 정상, 나머지는 이상으로 판정
+        // 정규 표현식 : ^[가-힣]{2,7}&
+        // 1. 정규표현식과 입력값을 준비한다.
+        // 2. 정규표현식으로 입력값을 검사한다.
+        // 3. 결과에 따라 원하는 메세지를 출력한다.
+        function checkName() {
+            // 정규표현식은 표시하는 방법이 다르다.
+            // " >  X   /  >  O
+            var regex = /^[가-힣]{2,7}$/;
+            var name = document.querySelector(".user-input").value;
+            var isValid = regex.test(name); // regex 를 이용하여 name 을 검사하는 명령
+            var span = document.querySelector(".user-input + span");
+
+            /* 
+                2. CSS로 클래스를 구현해두고 추가 혹은 삭제를 통해 처리
+                - 둘 다 숨김 처리한 뒤 원하는 상황에 맞는 메세지만 출력
+                - 둘 다 숨김 처리하는 것은 .on 클래스 삭제
+                - 클래스 명단을 확인하고 싶을 경우. classList 를 사용
+            */
+            var correct = document.querySelector(".user-input ~ .correct");
+            var incorrect = document.querySelector(".user-input ~ .incorrect");
+
+            correct.classList.remove("on");
+            incorrect.classList.remove("on");
+
+            if (isValid) {
+                correct.classList.add("on");
+                incorrect.classList.remove("on");
+            } else {
+                correct.classList.remove("on");
+                incorrect.classList.add("on");
+            }
+        }
+    </script>
+    <style>
+        /*
+            .correct 와 .incorrect 는 기본적으로 표시하지 않도록 설정
+            - 활성화 상태(.on) 가 되면 표시하는 것으로 구현
+        */
+
+        .correct,
+        .incorrect {
+            display: none;
+        }
+
+        .correct.on,
+        .incorrect.on {
+            display: inline;
+        }
+        
+        .correct {
+            color: deepskyblue;
+        }
+        
+        .incorrect {
+            color: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        정규 표현식 : 문자열 형식을 검사할 수 있는 식
+        - 일반적으로 아이디, 이메일, 비밀번호, 카드번호, 날짜 전화번호 등
+    -->
+    <div>
+        <input type="text" class="user-input" placeholder="이름 입력" oninput="checkName();">
+        <span class="correct">멋진 이름이네요!</span>
+        <span class="incorrect">이름은 한글 2~7자 이내로 입력해주시기 바랍니다.</span>
+    </div>
+</body></html>

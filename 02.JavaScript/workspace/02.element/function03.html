@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVENT TEST</title>
+    <script>
+        function total() {
+            var count = document.querySelector(".count").value;
+            var price = count * 15000;
+            var totalPrice = document.querySelector(".totalPrice");
+            totalPrice.value = price;
+            console.log(price);
+
+        }
+    </script>
+</head>
+
+<body>
+   <!--
+       문제 1. 상품 개수를 입력하고 결제 금액을 console 로 출력
+   -->
+    <h2>주문할 상품의 개수를 입력하세요.</h2>
+    <input type="number" class="count" placeholder="개수"> 개
+    &emsp;
+
+    <hr>
+    <input type="text" class="totalPrice" placeholder="결제 금액" readonly>  원
+     <button onclick="total();">확인</button>
+
+</body></html>

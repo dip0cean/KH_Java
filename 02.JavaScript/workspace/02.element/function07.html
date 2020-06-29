@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <script>
+        function idFilter() {
+            var id = document.querySelector("input[name=id]").value;
+            var len = id.length;
+            var result = len >= 8 && len <= 20;
+            var span = document.querySelector("input[name=id] + span");
+            if (!result) {
+                span.textContent = "아이디는 8~20자 이내";
+            } else {
+                span.textContent = "";
+            }
+        }
+
+        function pwFilter() {
+            var pw = document.querySelector("input[name=pw]").value.length;
+            var result = pw >= 8 && pw <= 16;
+            var span = document.querySelector("input[name=pw] + span");
+
+            if (!result) {
+                span.textContent = "비밀번호는 8~16자 이내";
+            } else {
+                span.textContent = "";
+            }
+        }
+        
+        function pwCheck() {
+            var pw = document.querySelector("input[name=pw]").value;
+            var pw2 = document.querySelector(".pw2").value;
+            var span = document.querySelector(".pw2 + span");
+            
+            var isPw = pw == pw2;
+            
+            if(!isPw) {
+                span.textContent = "비밀번호가 일치하지 않습니다.";
+            } else {
+                span.textContent = "";
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: D2Coding;
+        }
+        
+        main {
+            width: 1038px;
+        }
+
+        span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="center">
+        <article class="w-45">
+            <form action="" method="post">
+                <div class="row center">
+                    <h2>회원가입</h2>
+                </div>
+                <div class="row center">
+                    <input type="text" class="form-input" name="id" placeholder="아이디" onblur="idFilter();" maxlength="20">
+                    <span></span>
+                </div>
+                <div class="row center">
+                    <input type="password" class="form-input" name="pw" placeholder="비밀번호" onblur="pwFilter();" maxlength="16">
+                    <span></span>
+                </div>
+                <div class="row center">
+                    <input type="password" class="pw pw2" placeholder="비밀번호 재확인" onblur="pwCheck();" maxlength="16">
+                    <span></span>
+                </div>
+                <div class="row center">
+                    <input type="submit" class="btm" name="go" value="가입하기">
+                </div>
+            </form>
+        </article>
+    </main>
+</body></html>

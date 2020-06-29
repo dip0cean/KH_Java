@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>더 많은 이벤트 테스트</title>
+    <script>
+        function ballon(count) {
+            var totalCount = document.querySelector(".totalCount");
+            totalCount.value = parseInt(totalCount.value) + count;
+            
+            var totalPrice = document.querySelector(".totalPrice");
+            totalPrice.value = totalCount.value * 100;
+        }
+        
+        function deleteBallon() {
+            var totalCount = document.querySelector(".totalCount");
+            var totalPrice = document.querySelector(".totalPrice");
+            totalCount.value = 0;
+            totalPrice.value = 0;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>별풍선</h2>
+    <button onclick="ballon(1);">1개</button>
+    <button onclick="ballon(10);">10개</button>
+    <button onclick="ballon(100);">100개</button>
+    <button onclick="deleteBallon();">지우기</button>
+    <hr>
+    <p>충전할 별풍선 개수는</p>
+    <p>총<input type="text" class="totalCount" value="0" readonly> 개 이며,</p>
+    <p>결제 금액은 <input type="text" class="totalPrice" readonly> 원 입니다.</p>
+</body></html>

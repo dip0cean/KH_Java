@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>보안패드 만들기</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <script>
+        function padNum(num) {
+            var pw = document.querySelector(".pw");
+            pw.value = pw.value + num;
+        }
+
+        function deletNum() {
+            /*  
+                1의 자리 빼서 지우기
+                var pw = document.querySelector(".pw");
+                var one = parseInt(pw.value) % 10;
+                var result = (pw.value - one) / 10;
+                pw.value = result;
+            */
+
+            /*
+                slice 함수로 문자열 지우기
+            */
+            var pw = document.querySelector(".pw");
+            pw.value = pw.value.slice(0, -1);
+        }
+
+        function resetNum() {
+            var pw = document.querySelector(".pw");
+            pw.value = "";
+        }
+    </script>
+    <style>
+        main {
+            width: 350px;
+        }
+        
+        .pw {
+            margin: 10px;
+            width: 300px;
+            height: 3rem;
+        }
+
+        .number button {
+            width: 5rem;
+            margin: 5px;
+        }
+        
+        .restart.btm {
+            width: 250px;
+            background-color: rgba(30, 170, 60, 0.5);
+            color: bisque;            
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <article class="w-100 center">
+            <div class="row">
+                <input type="text" class="pw" placeholder="보안코드 입력" readonly>
+            </div>
+            <div class="number row">
+                <button class="btm" onclick="padNum(1);">1</button>
+                <button class="btm" onclick="padNum(2);">2</button>
+                <button class="btm" onclick="padNum(3);">3</button>
+            </div>
+            <div class="number row">
+                <button class="btm" onclick="padNum(4);">4</button>
+                <button class="btm" onclick="padNum(5);">5</button>
+                <button class="btm" onclick="padNum(6);">6</button>
+            </div>
+            <div class="number row">
+                <button class="btm" onclick="padNum(7);">7</button>
+                <button class="btm" onclick="padNum(8);">8</button>
+                <button class="btm" onclick="padNum(9);">9</button>
+            </div>
+            <div class="number row">
+                <button class="btm" onclick="deletNum();">지우기</button>
+                <button class="btm" onclick="padNum(0);">0</button>
+                <button class="btm" onclick="resetNum();">초기화</button>
+            </div>
+            <div class="row">
+                <button class="restart btm">재배열</button>
+            </div>
+        </article>
+    </main>
+</body></html>

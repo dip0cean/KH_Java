@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정규 표현식(Regular Expression)</title>
+    <script>
+        // 목표 : 이름이 한글 2 ~ 7 자 이내인 경우만 정상, 나머지는 이상으로 판정
+        // 정규 표현식 : ^[가-힣]{2,7}&
+        // 1. 정규표현식과 입력값을 준비한다.
+        // 2. 정규표현식으로 입력값을 검사한다.
+        // 3. 결과에 따라 원하는 메세지를 출력한다.
+        function checkName() {
+            // 정규표현식은 표시하는 방법이 다르다.
+            // " >  X   /  >  O
+            var regex = /^[가-힣]{2,7}$/;
+            var name = document.querySelector(".user-input").value;
+            var isValid = regex.test(name); // regex 를 이용하여 name 을 검사하는 명령
+            var span = document.querySelector(".user-input + span");
+
+            /* 
+                1. 스타일 속성 직접 제어
+                - 둘다 숨김 처리한 뒤 원하는 상황에 맞는 메세지만 출력
+            */
+            var correct = document.querySelector(".user-input ~ .correct");
+            var incorrect = document.querySelector(".user-input ~ .incorrect");
+            correct.style.display = "none";
+            incorrect.style.display = "none";
+            if (isValid) {
+                correct.style.display = "inline";
+            } else {
+                incorrect.style.display = "inline";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!--
+        정규 표현식 : 문자열 형식을 검사할 수 있는 식
+        - 일반적으로 아이디, 이메일, 비밀번호, 카드번호, 날짜 전화번호 등
+    -->
+    <div>
+        <input type="text" class="user-input" placeholder="이름 입력" oninput="checkName();">
+        <span class="correct" style="display: none;">멋진 이름이네요!</span>
+        <span class="incorrect" style="display: none;">이름은 한글 2~7자 이내로 입력해주시기 바랍니다.</span>
+    </div>
+</body></html>
