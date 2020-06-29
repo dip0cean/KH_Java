@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2단 메뉴 만들기</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /* 
+            메뉴 스타일
+            - 메뉴와 같은 계층형 구조는 ul / li 로 구현
+            - list-style : none; 으로 앞에 점을 제거
+        */
+
+        .menu,
+        .menu ul {
+            margin: 0px;
+            padding: 0px;
+            background-color: bisque;
+            list-style: none;
+        }
+
+        .menu li {
+            position: relative;
+            padding: 1rem;
+            font-size: 15px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .menu>li {
+            display: inline-block;
+        }
+
+        .menu li:hover {
+            background-color: lemonchiffon;
+        }
+
+        .menu a {
+            color: lightslategray;
+            text-decoration: none;
+        }
+
+        .menu>li:hover>a {
+            color: darkseagreen;
+        }
+
+        /*
+            확장 스타일 : 메뉴를 상단에 붙이고 싶은 경우
+        */
+
+        .menu.menu-fixed {
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+        }
+
+        /* 2단 스타일 */
+
+        .menu>li ul {
+            position: absolute;
+            left: 0px;
+            top: 100%;
+        }
+
+        .menu>li ul {
+            display: none;
+        }
+
+        .menu li:hover>ul {
+            display: block;
+        }
+
+        /* 3단 스타일 */
+        .menu>li>ul>li ul {
+            top: 0;
+            left: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 메뉴 만들기 -->
+    <ul class="menu menu-fixed">
+        <li><a href="">HOME</a></li>
+        <li><a href="">JOIN</a></li>
+        <li><a href="">LOGIN</a></li>
+        <li>
+            <a href="">BOARD</a>
+            <ul>
+                <li>
+                    <a href="">중고 거래</a>
+                    <ul>
+                        <li><a href="">가전 / 전자</a></li>
+                        <li><a href="">취미 / 서적</a></li>
+                        <li><a href="">이르 / 메라</a></li>
+                        <li><a href="">왔다 / 갔다</a></li>
+                        <li><a href="">요리 / 조리</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">동네 홍보</a>
+                    <ul>
+                        <li><a href="">자동차</a></li>
+                        <li><a href="">가게 홍보</a></li>
+                        <li><a href="">과외/행사</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">속닥 속닥</a>
+                    <ul>
+                        <li><a href="">자유</a></li>
+                        <li><a href="">질문</a></li>
+                        <li><a href="">후기</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body></html>

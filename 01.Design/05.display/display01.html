@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>디스플레이 속성 제어 01</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        div {
+            display: inline-block;
+            width: 1000px;
+        }
+        
+        span {
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        Display > 표시 속성
+        - 태그마다 고유한 display 방식이 존재
+        - block > 한 줄에 한 개 출력
+            - block 은 폭 설정이 가능
+        - inline > 한 줄에 여러 개 출력 가능
+            - inline 은 폭 설정이 불가 (자동 설정)
+            - inline-block 은 폭 설정이 가능
+        - none > 출력하지 않음
+    -->
+    <div>
+        block
+    </div>
+    <div>
+        inline
+    </div>
+    <div>
+        inline-block
+    </div>
+    
+    <!--
+        p > 문단을 의미하는 태그
+        - block 속성으로 문서 작업을 위해 사용한다.
+    -->
+    <p>p 태그는 문단을 의미한다.</p>
+    <p>p 태그는 문단이기 때문에 자동으로 위아래 공백이 생긴다.</p>
+    <p>p 태그는 block 속성이며, 문서 작성에서 사용한다.</p>
+    
+    <!--
+        span > inline 속성의 태그
+        - 특정 요소를 감싸는 태그이다.
+        - 문서의 모양을 파괴하지 않고, 영역 설정이 가능하다.
+    -->
+    <span>span 태그는 inline 태그이다.</span>
+    <span>span 태그는 inline 태그이다.</span>
+    <span>span 태그는 inline 태그이다.</span>
+    
+    <p>
+        성헌이 배고파요. <span>피자</span> 사주세요.
+    </p>
+    
+    <!--
+        label > inline 속성 (span과 동일)
+        - for 기능을 이용한 타겟 선택이 가능
+    -->
+    <label>label 태그는 inline 속성인가.</label>
+    <label>label 태그는 inline 속성이다.</label>
+    <label>label 태그는 inline 속성이다.</label>
+    
+    <hr>
+    
+    <!--
+        id 는 무조건 한 개만 부여가 가능하며,
+        페이지 내에서 중복되는 id 를 부여할 수 없다.
+        (식별기호의 성향이 강하다.)
+    -->
+    <input type="checkbox" id="agree">
+    <label for="agree">동의합니다.</label>
+</body>
+</html>

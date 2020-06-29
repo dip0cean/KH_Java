@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>가상 선택자(Pseudo Selector)</title>
+    <link rel="stylesheet"  type="text/css" href="../base.css">
+    <style>
+        /*
+            가상 선택자(pseudo selector)
+            - 모든 영역은 기본적으로 2개의 가상 영역 선택 가능
+            - before, after 영역
+        */
+        div {
+            background-color: yellow;
+        }
+        
+        div::before {
+            content:"befor 영역";
+            background-color: red;
+        }
+        
+        div::after {
+            content:"after 영역";
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        div 태그 내용
+    </div>
+</body>
+</html>

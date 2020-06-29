@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position : 이해</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        div {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+        }
+
+        .a {
+            background-color: orangered;
+            top: 50px;
+            right: 50px;
+            z-index: 3;
+        }
+
+        .b {
+            background-color: coral;
+            top: 100px;
+            right: 100px;
+            z-index: 2;
+        }
+
+        .c {
+            background-color: bisque;
+            top: 150px;
+            right: 150px;
+            z-index: 1;
+        }
+
+        article {
+            position: relative;
+            background-color: gray;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+      배치 형태가 작성 순서와 일치하는 이유가 뭘까?
+      - static : 기본값 / 좌-우 , 상-하 쌓이는 형식
+      - relative : static 에서 약간의 위치를 변형할 수 있는 형식
+      
+      - absolute : 절대적인 위치에 고정시키는 형식
+      - fixed : 화면의 특정 위치에 고정시키는 형식
+      
+      - relative, absolute, fixed 상태일 때는 다음 옵션 부여 가능
+        - top
+        - bottom
+        - left
+        - right
+      - z - index > 높이의 순서  
+        - 층수의 개념으로 이해
+        - 기본값이 0
+        - statice 인 경우에는 absolute 가 될 수 없다.
+        - relative, absolute, fixed 인 경우만 absolute 항목을 가둬둘 수 있다.
+  -->
+    <!--
+        article 은 div의 변형(시멘틱 태그)
+    -->
+    <article>
+        <div class="a">1초라도 안보이면</div>
+        <div class="b">2렇게 허전한데</div>
+        <div class="c">3초는 억덕계 기다려~</div>
+    </article>
+</body></html>

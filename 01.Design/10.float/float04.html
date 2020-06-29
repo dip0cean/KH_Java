@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자 한번 해보자</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        /*
+            float 영역 스타일링
+            - .float-box 가 끝나면 반드시 clear:both 실행
+        */
+        .float-box::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        /*
+            float 확장 스타일링
+            - .float-left > 왼쪽으로 배치되도록 구현
+            - .float-right > 오른쪽으로 배치되도록 구현
+            - 내부 영역도 자체적으로 구현
+        */
+        .float-box.float-left>* {
+            float: left;
+        }
+
+        .float-box.float-right>* {
+            float: right;
+        }
+
+        .float-box>.float-left {
+            float: left;
+        }
+
+        .float-box>.float-right {
+            float: right;
+        }
+
+        .menu-item {
+            width: 33.3333%;
+        }
+    </style>
+</head>
+
+<body test>
+    <div class="menu-list float-box float-right">
+        <div class="menu-item">
+            <h3>피자</h3>
+            <p>존맛탱</p>
+        </div>
+        <div class="menu-item">
+            <h3>햄버거</h3>
+        </div>
+        <div class="menu-item">
+            <h3>치킨</h3>
+        </div>
+    </div>
+    <p>
+        오늘은 무얼 먹을까나? <br>
+        개발자 : 심또망
+    </p>
+    <div class="float-box">
+        <div class="float-left" style="width:200px; background-color:yellow;">좌측메뉴</div>
+        <div class="float-right" style="width:100px; background-color:blue;">우측메뉴</div>
+    </div>
+    
+</body></html>

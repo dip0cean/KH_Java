@@ -1,0 +1,625 @@
+/*
+    공용 스타일 파일 (css 파일)
+    -    html 에서 사용할 수 있는 공용 디자인 코드를 작성
+    -    style 태그 내부에 작성하는 내용만 기입
+*/
+@charset "UTF-8";
+
+@font-face {
+	font-family: D2Coding;
+	src: url("../font/D2Coding-Ver1.3.2-20180524.ttf");
+}
+
+/*
+    공통 적용 css
+    -   box-sizing : 폭 계산과 관련된 옵션
+    -   font-family : 페이지 전체 글꼴과 관련된 옵션
+*/
+* {
+	box-sizing: border-box;
+	font-family: D2Coding;
+}
+
+/*
+    이미지 관련 스타일
+    -   기본 스타일은 .img
+    -   확장 스타일은 4가지로 분류
+        -    .img-border : 테두리 생성
+        -    .img-shadow : 그림자 생성
+        -    .img-transparent : 이미지 선명도
+        -    .img-round : 모서리 둥글게
+        -    .img-circle : 원형
+*/
+.img {
+	
+}
+
+.img.img-border {
+	border: 1px solid transparent;
+}
+
+.img.img-border:hover {
+	border-color: black;
+}
+
+.img.img-shadow:hover {
+	box-shadow: 0px 0px 30px 2px #333;
+}
+
+.img.img-transparent {
+	opacity: 0.5;
+}
+
+.img.img-transparent:hover {
+	opacity: 1;
+}
+
+.img.img-circle {
+	border-radius: 50%;
+}
+
+.img.img-round {
+	border-radius: 50px;
+}
+
+.table {
+	font-size: 35px;
+	width: 100%;
+}
+
+/*
+     rem
+    - 글자 한개의 높이에 해당하는 크기
+ */
+/*
+    범위 제한
+        
+    [1] 직계 자식 태그만 선택
+    .table > tr > th > td : 각각의 태그에 종속되어 있는 태그를 
+    [2] 후손 태그 전체 선택
+    .table td : 클래스의 태그 전체
+*/
+.table>thead>tr>th, .table>thead>tr>td, .table>tbody>tr>th, .table>tbody>tr>td,
+	.table>tfoot>tr>th, .table>tfoot>tr>td {
+	padding: 0.5rem;
+	text-align: center;
+}
+
+/*
+   확장 스타일 1 > .table-border
+*/
+.table.table-border {
+	border: 5px solid orange;
+	/* 테두리 병합 */
+	border-collapse: collapse;
+}
+
+.table.table-border>thead>tr>th, .table.table-border>thead>tr>td, .table.table-border>tbody>tr>th,
+	.table.table-border>tbody>tr>td, .table.table-border>tfoot>tr>th,
+	.table.table-border>tfoot>tr>td {
+	border: 3px solid orange;
+}
+
+/*
+    확장 스타일 2 > .table-side
+*/
+.table.table-side, .table.table-side>thead {
+	border-top: 5px solid orange;
+	border-bottom: 5px solid orange;
+	border-collapse: collapse;
+}
+
+.table.table-side>tbody>tr {
+	border-bottom: 3px solid orange;
+}
+
+/*
+    확장 스타일 3 > .table-stripe
+*/
+.table.table-stripe>tbody>tr:nth-child(2n) {
+	background-color: bisque;
+}
+
+.table.table-stripe>thead>tr {
+	background-color: burlywood;
+}
+
+/*
+    확장 스타일 4 > .table-hover
+*/
+.table.table-hover>tbody>tr:hover {
+	background-color: bisque;
+	cursor: pointer;
+}
+
+/*
+    모달(modal) 스타일
+    - 모달은 다음과 같은 형태로 구성되어야 한다.
+    <div class="modal-wrap">
+        <div class="modal">
+        </div>
+    </div>
+
+    모달을 보여주고 싶다면 .modal-wrap 에 .on 을 추가한다.
+    <div class="modal-wrap on">
+        <div class="modal">
+        </div>
+    <div>
+*/
+.modal-wrap {
+	/* 모달은 기본적으로표시가 되면 안된다. */
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* opacity 의 투명도는 내용물도 같이 투명화됨. */
+	/* opacity: 80%; */
+}
+
+.modal-wrap.on {
+	display: block;
+}
+
+.modal {
+	background-color: white;
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	/* 중앙에 배치하기 위한 코드 */
+	top: 50%;
+	left: 50%;
+	/* 
+        방법1 : margin 을 이용
+        - 폭을 반드시 알아야함.
+        - 모든 브라우저에서 지원
+    */
+	/*
+    margin-top: -200px;
+    margin-left: -200px;
+    */
+	/* 
+        방법2 : 이동 스타일을 사용하는 경우
+        - 이동할 때 기준이 자기 자신이므로 폭을 몰라도 됨.
+        - 지원하지 않는 브라우저가 있음.
+    */
+	transform: translate(-50%, -50%);
+}
+
+/* 
+    메뉴 스타일
+    - 메뉴와 같은 계층형 구조는 ul / li 로 구현
+    - list-style : none; 으로 앞에 점을 제거
+*/
+.menu, .menu ul {
+	margin: 0px;
+	padding: 0px;
+	background-color: bisque;
+	list-style: none;
+}
+
+.menu li {
+	position: relative;
+	padding: 1rem;
+	font-size: 15px;
+	width: 150px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.menu>li {
+	display: inline-block;
+}
+
+.menu li:hover {
+	background-color: lemonchiffon;
+}
+
+.menu a {
+	color: lightslategray;
+	text-decoration: none;
+}
+
+.menu>li:hover>a {
+	color: darkseagreen;
+}
+
+/*
+    확장 스타일 : 메뉴를 상단에 붙이고 싶은 경우
+*/
+.menu.menu-fixed {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+}
+
+/* 2단 스타일 */
+.menu>li ul {
+	position: absolute;
+	left: 0px;
+	top: 100%;
+}
+
+.menu>li ul {
+	display: none;
+}
+
+.menu li:hover>ul {
+	display: block;
+}
+
+/* 3단 스타일 */
+.menu>li>ul>li ul {
+	top: 0;
+	left: 100%;
+}
+
+/* html 설정 초기화 */
+html, body {
+	margin: 0px;
+	padding: 0px;
+}
+
+body[test] main, body[test] header, body[test] nav, body[test] section,
+	body[test] footer, body[test] article, body[test] div, body[test] span,
+	body[test] p, body[test] label, body[test] aside, body[test] table {
+	border: 1px dotted black;
+}
+
+/* div 를 이용한 section 공간 정리 */
+article {
+	margin: auto;
+}
+
+article.w-100 {
+	width: 100%;
+}
+
+article.w-95 {
+	width: 95%;
+}
+
+article.w-90 {
+	width: 90%;
+}
+
+article.w-85 {
+	width: 85%;
+}
+
+article.w-80 {
+	width: 80%;
+}
+
+article.w-75 {
+	width: 75%;
+}
+
+article.w-70 {
+	width: 70%;
+}
+
+article.w-65 {
+	width: 65%;
+}
+
+article.w-60 {
+	width: 60%;
+}
+
+article.w-55 {
+	width: 55%;
+}
+
+article.w-50 {
+	width: 50%;
+}
+
+article.w-45 {
+	width: 45%;
+}
+
+article.w-40 {
+	width: 40%;
+}
+
+article.w-35 {
+	width: 35%;
+}
+
+article.w-30 {
+	width: 30%;
+}
+
+article.w-25 {
+	width: 25%;
+}
+
+article.w-20 {
+	width: 20%;
+}
+
+article.w-15 {
+	width: 15%;
+}
+
+article.w-10 {
+	width: 10%;
+}
+
+/*
+    컨텐츠 내부의 줄(row) 스타일
+    - 기본 간격 : 10px (상하 margin)
+*/
+article>div.row {
+	margin: 10px 0px;
+}
+
+/* 여백 설정이 필요할 때 사용할 수 있는 공간 */
+div.row-empty {
+	height: 20px;
+}
+
+.navi, .navi ul {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	cursor: pointer;
+}
+
+.navi li {
+	width: 200px;
+	padding: 0.4rem;
+	position: relative;
+}
+
+.navi>li {
+	display: inline-block;
+}
+
+.navi li:hover {
+	background-color: rgba(30, 170, 60, 0.5);
+	border-radius: 15px;
+}
+
+.navi>li ul {
+	position: absolute;
+	top: 100%;
+	left: 0px;
+}
+
+.navi>li ul {
+	display: none;
+}
+
+.navi>li:hover>ul {
+	display: block;
+	background-color: rgba(255, 228, 196, 0.8);
+	border-radius: 15px;
+}
+
+.navi a {
+	font-size: 24px;
+	text-decoration: none;
+	color: gray;
+}
+
+.navi>li>ul a {
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+.left {
+	text-align: left !important;
+}
+
+.center {
+	text-align: center !important;
+}
+
+.right {
+	text-align: right !important;
+}
+
+.main-img {
+	width: 100%;
+}
+
+table {
+	width: 100%;
+}
+
+.id, .pw, .trans, .form-input {
+	width: 450px;
+	height: 3rem;
+	margin: 5px;
+	border: 1px solid transparent;
+	border-radius: 15px;
+}
+
+.id, .pw, .form-input {
+	padding-left: 40px;
+	color: bisque;
+	font-weight: bolder;
+	font-size: 18px;
+	background-color: rgba(30, 170, 60, 0.5);
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: 10px 11px;
+	font-size: 18px;
+}
+
+.input-cursor:hover {
+	background-color: lightgreen;
+}
+
+.trans {
+	color: rgba(30, 170, 60, 0.5);
+	font-size: 32px;
+	font-weight: bolder;
+	background-color: bisque;
+	cursor: pointer;
+	background-color: bisque;
+}
+
+.trans:hover {
+	background-color: rgba(30, 170, 60, 0.5);
+}
+
+.btm {
+	width: auto;
+	height: 2.5rem;
+	margin: 5px;
+	border: 1px solid transparent;
+	border-radius: 15px;
+	font-size: 16px;
+	font-weight: bolder;
+	color: rgb(30, 170, 60, 0.5);
+	cursor: pointer;
+}
+
+.btm:hover {
+	background-color: rgba(30, 170, 60, 0.5);
+	color: white;
+}
+
+textarea.intro-input {
+	height: 150px;
+	resize: inherit;
+}
+
+table.form-input {
+	padding: 20px;
+	width: 100%;
+}
+
+.title {
+	font-size: 38px !important;
+	color: #535353 !important;
+}
+
+.subtitle {
+	font-size: 32px !important;
+}
+
+.mypage th {
+	font-size: 18px;
+	color: #535353;
+}
+
+.mypage td {
+	font-weight: bolder;
+	font-size: 24px;
+	color: bisque;
+}
+
+.mypage.btm {
+	width: 150px;
+}
+
+/*
+    float 확장 스타일링
+    - .float-left > 왼쪽으로 배치되도록 구현
+    - .float-right > 오른쪽으로 배치되도록 구현
+    - 내부 영역도 자체적으로 구현
+*/
+.float-box::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.float-box.float-left>* {
+	float: left;
+}
+
+.float-box.float-right>* {
+	float: right;
+}
+
+.float-box>.float-left {
+	float: left;
+}
+
+.float-box>.float-right {
+	float: right;
+}
+
+.page-number-highlight a {
+	display: inline-block;
+	padding: 0.5rem;
+	min-width: 2.5rem;
+	text-align: center;
+	border: 1px solid transparent;
+	border-radius: 15px;
+}
+
+.page-number-highlight a:hover, .page-number-highlight .on {
+	border-radius: 15px !important;
+	background-color: rgba(30, 170, 60, 0.5) !important;
+	color: bisque !important;
+}
+
+.form-input.search-box, .form-input.search-select {
+	height: 2.5rem;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.form-input.search-select {
+	padding: 0px;
+	width: 5rem;
+}
+
+.reply.form-input, .post.form-input, .post-title.form-input,
+	.post-content.form-input, .post-sub.form-input {
+	background-color: bisque !important;
+	color: rgb(30, 170, 60) !important;
+}
+
+.form-input.reply-input {
+	padding: 15px;
+	resize: none;
+	width: 100%;
+	resize: none;
+	width: 100%;
+	height: 250px;
+	background-color: rgba(30, 170, 60, 0.5);
+}
+
+.reply-input {
+	width: 100%;
+	height: 175px;
+	border: none;
+	resize: none;
+	color: bisque;
+	font-weight: bolder;
+	font-size: 18px;
+	background-color: transparent;
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+.post-title.form-input,
+.post-file.form-input {
+	width: 100%;
+}
+
+.post-content.form-input {
+	width: 100%;
+	height: 450px;
+	resize: none;
+}
+
+.post-sub.form-input {
+	padding: 0px;
+	width: 50%;
+}
+
+.post-file.form-input {
+	padding: 3px;
+	height: 3rem;
+}

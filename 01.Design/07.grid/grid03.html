@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>내부 영역 구성 요소 스타일링^-^</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        main {
+            width: 1038;
+            margin: auto;
+        }
+
+        article h1,
+        article h2,
+        article h3,
+        article h4,
+        article h5,
+        article h6 {
+            text-align: center;
+        }
+
+        .form-input, .form-btm {
+            width: 100%;
+            padding: 0.8rem;
+            outline: none;
+            border: 1px solid dodgerblue;
+            border-radius: 10px;
+        }
+
+        .form-input:focus {
+            border-color: lightseagreen;
+        }
+        
+        .form-btm {
+            padding: 1.2rem;
+            font-size: 24px;
+            color: white;
+            border: none;
+            background-color: dodgerblue;
+            cursor: pointer;
+        }
+        
+        .form-btm:hover {
+            color:azure;
+            background-color: lightseagreen;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+
+        </header>
+
+        <nav>
+
+        </nav>
+
+        <section>
+            <div class="row-empty"></div>
+            <div class="row-empty"></div>
+            
+            <form action="" method="post">
+            <article class="w-40">
+                <div class="row">
+                    <h2>로그인</h2>
+                </div>
+                <div class="row">
+                    <input class="form-input" type="text" placeholder="아이디">
+                </div>
+                <div class="row">
+                    <input class="form-input" type="password" placeholder="패스워드">
+                </div>
+                <div class="row">
+                    <input type="checkbox" id="save-id">
+                    <label for="save-id">자동 로그인</label>
+                </div>
+                <div class="row">
+                    <input class="form-btm" type="submit" value="로그인">
+                </div>
+                <div class="row">
+                    <a href="">아이디 찾기</a>
+                </div>
+                <div class="row">
+                    <a href="">패스워드 찾기</a>
+                </div>
+            </article>
+            </form>
+
+            <div class="row-empty"></div>
+            <div class="row-empty"></div>
+
+        </section>
+
+        <footer>
+
+        </footer>
+    </main>
+</body></html>
