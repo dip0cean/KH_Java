@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="base.css">
+    <style>
+        div {
+            box-sizing: border-box;
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+         }
+
+        .menu2,
+        .menu2 ul {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .menu2 li {
+            position: relative;
+            padding: 3rem;
+            margin: 0px;
+            font-size: 24px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .menu2>li {
+            display:inline-block;
+        }
+
+        .menu2 li:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .menu2>li ul {
+            position: absolute;
+            top: 100%;
+            left: 0px;
+        }
+
+        .menu2>li ul {
+            display: none;
+        }
+
+        .menu2>li:hover>ul {
+            background-color: white;
+            color: black;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="menu2">
+            <li>JOIN</li>
+            <li>LOGIN</li>
+            <li>
+                BOARD
+                <ul>
+                    <li>공지</li>
+                    <li>일반</li>
+                    <li>정보</li>
+                    <li>질문</li>
+                </ul>
+            </li>
+            <li>SETTING</li>
+        </ul>
+    </div>
+</body>
+</html>
