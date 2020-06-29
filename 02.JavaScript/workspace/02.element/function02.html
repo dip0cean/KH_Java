@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>본격적인 태그 제어!</title>
+    <script>
+        function calc() {
+            var a = document.querySelector(".a").value; // 태그 객체
+            var b = document.querySelector(".b").value;
+            var c = document.querySelector(".c").value;
+
+            var air = a * 1000000;
+            var pro13 = b * 2000000;
+            var pro16 = c * 3000000;
+            
+            var result = air + pro13 + pro16;
+            console.log("총 결제 금액 : " + result + "원");
+            
+            var d = document.querySelector(".d");
+            d.value = result + "원";
+        }
+    </script>
+</head>
+
+<body>
+    <input class="a" type="text" placeholder="맥북 에어"> * 1,000,000 원
+    <br>
+    <br>
+    <input class="b" type="text" placeholder="맥북 프로 13인치"> * 2,000,000 원
+    <br>
+    <br>
+    <input class="c" type="text" placeholder="맥북 프로 16인치"> * 3,000,000 원
+    <br>
+    <br>
+    <input class="d" type="text" placeholder="결과">
+    <br>   
+    <br>    
+    <button onclick="calc();">총 결제 금액 확인</button>
+</body></html>
