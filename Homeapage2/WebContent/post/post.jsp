@@ -65,7 +65,7 @@
 	<div class="row-empty"></div>
 	
 	<div class="row">
-		<table class="form-input">
+		<table class="mypage form-input">
 			<thead>
 				<tr>
 					<th colspan="6">

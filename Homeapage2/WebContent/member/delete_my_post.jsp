@@ -230,7 +230,11 @@
 				</table>
 			</div>
 		<br>
-	</div>	
+	</div>
+	
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>
+	<div class="row-empty"></div>		
 </article>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

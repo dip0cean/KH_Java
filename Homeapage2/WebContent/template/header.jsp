@@ -27,7 +27,7 @@ a:hover { color: bisque; text-decoration: none;}
 	<main>
 		<header>
 			<div align="center">
-				<a href="<%=request.getContextPath()%>"><img alt="로고" src="/Homepage/image/동숲로고.png" width="150" height="150"></a>
+				<a href="<%=request.getContextPath()%>"><img alt="로고" src="<%=request.getContextPath()%>/image/동숲로고.png" width="150" height="150"></a>
 			</div>
 		</header>
 		
