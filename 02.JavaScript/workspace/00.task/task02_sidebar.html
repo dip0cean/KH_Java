@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Side Bar Test</title>
+    <style>
+        .menu,
+        .container {
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .menu {
+            position: fixed;
+            width: 150px;
+            background-color: darkseagreen;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            margin-left: -150px;
+        }
+
+        .menu.active {
+            margin-left: 0px;
+        }
+
+        .container {
+            margin-left: 0px;
+            position: absolute
+        }
+
+        .menu.active+.container {
+            margin-left: 150px;
+        }
+
+    </style>
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector(".menu");
+            menu.classList.toggle("active");
+        }
+
+    </script>
+</head>
+
+<body>
+    <aside class="menu">
+        <button>버튼 1</button>
+        <button>버튼 2</button>
+        <button>버튼 3</button>
+        <button>버튼 4</button>
+    </aside>
+
+    <section class="container">
+        <button onclick="toggleMenu();">&#8801;</button>
+    </section>
+</body>
+
+</html>
