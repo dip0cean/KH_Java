@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>사이드바</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            background-color: white;
+            border: 1px solid transparent;
+        }
+
+        .sidebar,
+        .container {
+            /*
+                transition > 애니메이션 설정
+                - linear : 시작부터 끝가지 동일한 속도로 진행
+                - ease-in-out : 처음과 끝이 빠르게 진행
+                - ease-in : 처음만 빠르게
+                - ease-out : 끝만 빠르게
+            */
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .sidebar {
+            background-color: bisque;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            width: 150px;
+
+            margin-left: -150px;
+        }
+
+        .sidebar.active {
+            margin-left: 0px;
+        }
+
+        .container {
+            background-color: lightblue;
+            position: absolute;
+            margin-left: 0px;
+        }
+
+        .sidebar.active+.container {
+            margin-left: 150px;
+        }
+    </style>
+    <script>
+        // 목표 : .sidebar 에 .active 를 추가하거나 제거한다.
+        // -    추가하거나 제거 > 토글 명령을 사용.
+        function toggleSidebar() {
+            var sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <aside class="sidebar">
+            사이드바
+        </aside>
+
+        <section class="container">
+            <button onclick="toggleSidebar();">&#8801;</button>
+        </section>
+    </main>
+</body></html>

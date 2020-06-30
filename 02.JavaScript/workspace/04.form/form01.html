@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>form 테스트</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <script>
+        // 아이디 검사 > 반드시 true 또는 false 를 반환 > checkForm 에서 사용 가능
+        // true > 아이디 적합 / false > 아이디 부적합 
+        // g(global) : 1회성 검사가 아닌 지속적인 전체 검사를 수행
+        // i(ignorecase) : 대 / 소문자 구분 없이 검사
+        // m(mutiline) : 매 줄마다 형식 검사를 수행
+        function checkId() {
+            var regex = /[a-z0-9]{8,20}/g;
+            var id = document.querySelector("input[name=id]").value;
+
+            var isValid = regex.test(id);
+
+            return isValid;
+        }
+
+        function cautionId(isValid) {
+            var idTag = document.querySelector("input[name=id]");
+
+            if (isValid) {
+                idTag.classList.remove("no");
+                idTag.classList.add("yes");
+            } else {
+                idTag.classList.remove("yes");
+                idTag.classList.add("no");
+            }
+        }
+
+        // 비밀번호 검사 > 반드시 true 또는 false 를 반환 > checkForm 에서 사용 가능
+        function checkPw() {
+            var regex = /[a-zA-Z0-9]{8,16}/g;
+            var pw = document.querySelector("input[name=pw]").value;
+
+            var isValid = regex.test(pw);
+
+            return isValid;
+        }
+
+        function cautionPw(isValid) {
+            var pwTag = document.querySelector("input[name=pw]");
+
+            pwTag.classList.remove("yes");
+            pwTag.classList.remove("no");
+            if (isValid) {
+                pwTag.classList.add("yes");
+            } else {
+                pwTag.classList.add("no");
+            }
+        }
+
+        function checkForm() {
+
+            var cId = checkId();
+            var cPw = checkPw();
+
+            if (!cId) {
+                cautionId(cId);
+            }
+
+            if (!cPw) {
+                cautionPw(cPw);
+            }
+            return cId && cPw;
+        }
+
+    </script>
+    <style>
+        .form-input.yes {
+            background-color: cornflowerblue;
+        }
+
+        .form-input.no {
+            background-color: crimson;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!--
+       목표 : form 에서 전송 전에 검사를 수행하고 마음에 안들면 전송 중지
+       
+       required 다음의 문제점을 가지고 있다.
+       1. 모양이 브라우저마다 다르다.
+       2. 내가 원하는 메세지를 부여할 수 없다.
+       
+       해결 방법 : form 전송 될 때 각각의 입력창을 검사하고 전송할지 말지를 결정
+       - onsubmit 이벤트에서 return 이후에 적는 결과에 따라 전송을 결정
+       
+   -->
+    <main>
+        <article class="w-55 center">
+            <!-- return checkForm(); -checkForm 함수의 실행 결과에 따라 전송 여부를 판정 -->
+            <div>
+                <h2>회원가입</h2>
+            </div>
+            <form action="https://www.naver.com" method="get" onsubmit="return checkForm();">
+                <div class="row">
+                    <input type="text" class="form-input" name="id" placeholder="아이디">
+                </div>
+                <div class="row">
+                    <input type="password" class="form-input" name="pw" placeholder="비밀번호">
+                </div>
+                <div>
+                    <input type="submit" class="btm" value="가입하기">
+                </div>
+            </form>
+        </article>
+    </main>
+</body>
+
+</html>

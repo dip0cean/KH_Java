@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: D2Coding;
+	src: url("D2Coding-Ver1.3.2-20180524.ttf");
+}
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    height: 5000px;
+}
+
+/*
+            로딩 슬라이더 스타일
+        */
+.slider-wrap {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    height: 10px;
+    background-color: white;
+}
+
+.slider-wrap > .slider {
+    background-color: darkseagreen;
+    height: 100%;
+    width: 20%;
+}

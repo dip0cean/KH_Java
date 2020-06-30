@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로 케 이 션</title>
+    <script>
+        /*
+            location 은 window 에 속해 있는 "주소창" 제어 객체
+            - 주소창의 내용은 href 라는 속성에 저장된다.
+        */
+        console.log(window.location);
+
+        function google() {
+            location.href = "https://www.google.com/";
+        }
+        
+        function move(url) {
+            location.href = url;
+        }
+        
+        function refresh() {
+            location.reload();
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="google();">구글로 이동</button>
+    
+    <button onclick="move('https://www.naver.com');">어디로든 문</button>
+    
+    <button onclick="refresh();">새로고침</button>
+</body></html>

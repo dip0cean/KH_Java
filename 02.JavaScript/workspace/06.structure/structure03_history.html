@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>히 스 토 리</title>
+    <script>
+        /*
+            history 객체는 뒤로가기, 앞으로 가기 등을 제어.
+            - 기록이 없는 경우 이동할 수 없다.
+            - history.back(n);
+            - history.go(n);
+        */
+        console.log(window.history);
+    </script>
+</head>
+<body>
+    <button onclick="history.back();">한 페이지 전</button>
+    <button onclick="history.go(-2);">두 페이지 전</button>
+</body>
+</html>

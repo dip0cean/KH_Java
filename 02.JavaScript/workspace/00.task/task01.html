@@ -28,12 +28,7 @@
             width: 1038px;
             margin: auto;
         }
-
-        article {
-            margin: 0px;
-            padding: 0px;
-        }
-
+        
         h2 {
             display: inline-block;
         }
@@ -59,11 +54,11 @@
             background-color: bisque;
             color: forestgreen;
         }
-        
+
         .idCheck {
             color: red;
         }
-        
+
         .idCheck.yes {
             display: block;
             color: forestgreen;
@@ -72,19 +67,25 @@
     </style>
 </head>
 
-<body>
+<body test>
+   <!--
+       목표 : form 에서 전송 전에 검사를 수행하고 마음에 안들면 전송 중지
+       
+       required 다음의 문제점을 가지고 있다.
+       1. 모양이 브라우저마다 다르다.
+       2. 내가 원하는 메세지를 부여할 수 없다.
+       
+       해결 방법 : form 전송 될 때 각각의 입력창을 검사하고 전송할지 말지를 결정
+   -->
     <main>
-        <form action="" method="post">
-            <article class="w-55 center">
+        <article class="w-55 center">
+            <form action="" method="post">
                 <div class="row">
                     <h2 class="title">회원가입</h2>
                 </div>
                 <div class="row">
                     <label class="form-input">아이디</label>
-                    <input type="text" class="id input-cursor" name="id" placeholder="아이디" onblur="idFilter();" maxlength="12">
-                </div>
-                <div class="row">
-                    <span class="idCheck" style="display: none;"></span>
+                    <input type="text" class="id input-cursor" name="id" placeholder="아이디" onblur="idFilter();" maxlength="12"> <span class="idCheck" style="display: none;"></span>
                 </div>
                 <div class="row">
                     <label class="form-input">비밀번호</label>
@@ -99,8 +100,8 @@
                 <div class="row">
                     <input type="submit" class="btm" value="회원가입">
                 </div>
-            </article>
-        </form>
+            </form>
+        </article>
     </main>
 </body>
 

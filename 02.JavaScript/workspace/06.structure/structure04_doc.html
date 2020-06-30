@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        /*
+            document > 문서를 제어하기 위한 객체
+            - .querySelector() > CSS 선택자를 이용하여 태그를 1개만 불러온다.
+            - .querySelectorAll() > CSS 선택자를 이용하여 해당 태그 모두를 불러온다.
+            - .getElementById() > id 를 이용하여 태그를 1개 불러오는 명령
+            - .getElementsByTagName() > 태그명을 이용하여 태그를 여러개 불러오는 명령
+            - .getElementsByClassName() > 클래스명을 이용하여 태그를 여러개 불러오는 명령
+        */
+        console.log(document);
+
+        function changeColor() {
+            var div = document.getElementsByClassName("test")[0];
+            div.classList.add("bisque");
+        }
+
+        function changeColor2() {
+            var div2 = document.getElementById("test");
+            div2.classList.add("blue");
+        }
+
+        function changeColor3() {
+            // 기존 명령으로 id 를 선택하여 처리
+            // var tag = document.querySelector("#test2");
+            // tag.classList.add("bisque");
+            // 구버전을 지원하는 명령으로 처리
+            var tag = document.getElementById("test2");
+            tag.classList.add("blue");
+        }
+    </script>
+    <style>
+        .bisque {
+            color: bisque;
+        }
+
+        .blue {
+            color: deepskyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="changeColor();">버튼1</button>
+    <button onclick="changeColor2();">버튼2</button>
+    <button onclick="changeColor3();">버튼3</button>
+
+    <div class="test">테스트1</div>
+    <div id="test">테스트2</div>
+    <div id="test2">테스트3</div>
+</body></html>

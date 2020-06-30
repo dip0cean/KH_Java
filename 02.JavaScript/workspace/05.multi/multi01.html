@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>다 중 요 소</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <script>
+        function changeList() {
+            /*
+                1. select-all 의  상태 불러오기
+                2. 1번의 결과를 이용해 모든 select-item 에 check 여부 결정
+                
+                * document.querySelector() 로는 태그를 1개 밖에 선택할 수 없다.
+                    > document.querySelectorAll() 태그로 모두 선택
+            */
+            var checkbox = document.querySelector(".select-all").checked;
+
+            var selectItem = document.querySelectorAll(".select-item");
+
+            for (var i in selectItem) {
+                selectItem[i].checked = checkbox;
+            }
+        }
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" class="select-all" onchange="changeList();">전체선택
+    <hr>
+    <div>
+        <input type="checkbox" class="select-item"> 항목1
+    </div>
+    <div>
+        <input type="checkbox" class="select-item"> 항목2
+    </div>
+    <div>
+        <input type="checkbox" class="select-item"> 항목3
+    </div>
+    <div>
+        <input type="checkbox" class="select-item"> 항목4
+    </div>
+    <div>
+        <input type="checkbox" class="select-item"> 항목5
+    </div>
+
+</body></html>

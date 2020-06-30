@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자바스크립트 구조</title>
+    <script>
+        /*
+            자바 스크립트(javascript) 는 ?? 을 위한 언어
+            - window : 창을 제어할 수 있는 내장객체 > 생략 가능
+                - alert() : 알림창
+                - confirm() : 확인창
+                - open() : 새 창 열기
+        */
+
+        console.log(window);
+        /* 
+            alert 객체
+            window.alert("알림창1");
+            alert("알림창2");
+        */
+
+        /*
+            confirm 객체
+            var choice = window.confirm("정말 종료하시겠습니까?");
+            console.log("정말 종료하시겠습니까?" + choice);
+            confirm("실행하시겠습니까?");
+        */
+        
+        /*
+            open 객체
+        */
+        window.open("https://www.naver.com/"); // 새 탭 열기(차단가능)
+        open("https://www.naver.com/","test","width=500, height=500"); // 새 창 열기
+        
+        /*
+            내장 객체를 이용하면 특정 시점에 대한 예약 코드 진행이 가능
+        */
+        /*
+        function testCode() {
+            console.log("hellow! this is test code!")
+        }
+        
+        window.onload = testCode; // window 가 onload 됐을 때 testCode 함수가 실행되도록 예약해라!
+        */
+        
+        window.onload = function() {
+            console.log("헬로 좁밥스크립트~");
+        }
+    </script>
+</head>
+
+<body>
+</body></html>

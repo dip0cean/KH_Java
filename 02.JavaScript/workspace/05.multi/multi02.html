@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글자크기 조절</title>
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <style>
+    </style>
+    <script>
+        var s = 16;
+
+        function textSize(size) {
+            var lyrics = document.querySelectorAll(".lyrics");
+            for (var i = 0; i < lyrics.length; i++) {
+                lyrics[i].style.fontSize = size + "px";
+            }
+            
+            var fontSize = document.querySelector(".font-size");
+            fontSize.textContent = size;
+        }
+        
+        // +
+        function increaseFontSize() {
+            if (s < 30) {
+                s++;
+                textSize(s);
+            }
+        }
+
+        // -
+        function decreaseFontSize() {
+            if (s > 5) {
+                s--;
+                textSize(s);
+            }
+        }
+    </script>
+</head>
+
+<body test>
+    <main>
+        <article class="w-55 center">
+           <div class="row">
+               현재크기 : <span class="font-size">16</span> px
+           </div>
+            <div class="row">
+                <button onclick="increaseFontSize();">+1</button>
+                <button onclick="decreaseFontSize();">-1</button>
+            </div>
+            <div class="row">
+                <span class="lyrics">애국가 1절</span>
+            </div>
+            <div>
+                <span class="lyrics">애국가 2절</span>
+            </div>
+            <div class="row">
+                <span class="lyrics">애국가 3절</span>
+            </div>
+            <div class="row">
+                <span class="lyrics">애국가 4절</span>
+            </div>
+        </article>
+    </main>
+</body></html>
