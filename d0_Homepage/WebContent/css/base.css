@@ -446,9 +446,6 @@ table {
 	font-weight: bolder;
 	font-size: 18px;
 	background-color: rgba(30, 170, 60, 0.5);
-	background-repeat: no-repeat;
-	background-size: 20px;
-	background-position: 10px 11px;
 	font-size: 18px;
 }
 
@@ -603,8 +600,7 @@ table.form-input {
 	font-size: 18px;
 }
 
-.post-title.form-input,
-.post-file.form-input {
+.post-title.form-input, .post-file.form-input {
 	width: 100%;
 }
 
