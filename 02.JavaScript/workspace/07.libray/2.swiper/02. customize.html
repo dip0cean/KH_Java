@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SWIPER TEST</title>
+    <link rel="stylesheet" type="text/css" href="./1.css/swiper.min.css">
+    <style>
+        .swiper-container {
+            width: 600px;
+            min-height: 200px;
+            max-height: 300px;
+        }
+
+        .swiper-container .swiper-slide,
+        .swiper-container .swiper-slide>img {
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            max-height: 300px;
+        }
+    </style>
+    <script src="./2.js/swiper.min.js"></script>
+    <script>
+        /*
+            window.onload > 창의 로딩이 완료되었을 때 실행할 코드를 예약
+        */
+        window.onload = function() {
+            // swiper 관련 js 코드 작성
+
+            // var mySwiper = new Swiper(선택자, 옵션);
+            var mySwiper = new Swiper('.swiper-container', {
+                // direction > 표현 방식 (수직 / 수평)                
+                direction: 'horizontal',
+                // 첫과 끝페이지 연결 여부
+                loop: true,
+
+                // 자동 이미지 페이지 전환
+                autoplay: {
+                    delay: 2000,
+                },
+
+                //pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                },
+
+                // Navigation
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                // scrollbar
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                },
+
+                // 커서 모양 변경
+                grabCursor: true,
+
+                /* 슬라이드 효과
+                    effect: 'coverflow'
+                    effect: 'cube'
+                    effect: 'fade'
+                    effect: 'flip'
+                    effect: 'slider'
+                */
+                effect: 'fade'
+
+            });
+
+        };
+    </script>
+</head>
+
+<body>
+    <!-- 이미지 슬라이더 영역 -->
+    <div class="swiper-container">
+        <!-- 필수 영역 -->
+        <div class="swiper-wrapper">
+            <!-- 배치되는 이미지 혹은 화면 (슬라이더) -->
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9099.jpg?strip=all">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9722.jpg?strip=all">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9888.jpg?strip=all">
+            </div>
+        </div>
+        <!-- pagination 이 필요하다면 (선택) -->
+        <div class="swiper-pagination"></div>
+
+        <!-- navigation button 이 필요하다면 (선택) -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- scrollbar 가 필요하다면 (선택) -->
+        <!-- <div class="swiper-scrollbar"></div>-->
+    </div>
+</body></html>

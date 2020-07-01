@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var address = [
+            {
+                name:"서울시", children:[
+                    {name : "종로구", children:[
+                        {name : "관철동"},
+                        {name : "혜화동"}
+                    ]},
+                    {name : "은평구", children:[]},
+                    {name : "서대문구", children:[]},
+                    {name : "영등포구", children:[
+                        {name : "선유동"},
+                        {name : "당산동"}
+                    ]},
+                ]
+            },
+            {
+                name:"부산광역시", children:[]
+            }
+        ];
+        
+        
+        window.onload = function(){
+            for(var i=0; i < address.length; i++){
+                var opt = document.createElement("option");
+                opt.textContent = address[i].name;
+                document.querySelector(".city").appendChild(opt);    
+            }
+        };
+        
+        function changeArea(){
+            var area = document.querySelector(".area");
+            area.innerHTML = "";
+            
+            var opt = document.createElement("option");
+            opt.textContent = "군/구";
+            area.appendChild(opt);
+            
+            var cityChoice = document.querySelector(".city").value;
+            //cityChoice에 해당하는 name을 찾아서 children을 area에 추가
+            var list;
+            for(var i=0; i < address.length; i++){
+                if(cityChoice == address[i].name){
+                    list = address[i].children;
+                }
+            }
+            
+            if(!list){
+                return;
+            }
+            
+            for(var i=0; i < list.length; i++){
+                opt = document.createElement("option");
+                opt.textContent = list[i].name;
+                area.appendChild(opt);
+            }
+        }
+    </script>
+</head>
+<body>
+    <select class="city" onchange="changeArea();">
+        <option value="">시</option>
+    </select>
+    <select class="area">
+        <option>군/구</option>
+    </select>
+    <select>
+        <option>동/면/리</option>
+    </select>
+</body>
+</html>

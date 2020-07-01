@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SWIPER TEST</title>
+    <link rel="stylesheet" type="text/css" href="./1.css/swiper.min.css">
+    <style>
+        img {
+            width: 100%;
+        }
+        
+        .swiper-container {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
+    <script src="./2.js/swiper.min.js"></script>
+    <script>
+        /*
+            window.onload > 창의 로딩이 완료되었을 때 실행할 코드를 예약
+        */
+        window.onload = function() {
+            // swiper 관련 js 코드 작성
+
+            // var mySwiper = new Swiper(선택자, 옵션);
+            var mySwiper = new Swiper('.swiper-container', {
+                // Optional parameters
+                direction: 'vertical',
+                loop: true,
+
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                // And if we need scrollbar
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                },
+            })
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 이미지 슬라이더 영역 -->
+    <div class="swiper-container">
+        <!-- 필수 영역 -->
+        <div class="swiper-wrapper">
+            <!-- 배치되는 이미지 혹은 화면 (슬라이더) -->
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9099.jpg?strip=all">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9722.jpg?strip=all">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://i2.wp.com/caps.pictures/198/8-neighbor-totoro/full/neighbor-totoro-disneyscreencaps.com-9888.jpg?strip=all">
+            </div>
+        </div>
+        <!-- pagination 이 필요하다면 (선택) -->
+        <!--<div class="swiper-pagination"></div>-->
+
+        <!-- navigation button 이 필요하다면 (선택) -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- scrollbar 가 필요하다면 (선택) -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+</body></html>
