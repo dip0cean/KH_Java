@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag 생성</title>
+</head>
+
+<body>
+    <button onclick="createImg();">이미지 생성!</button>
+    <hr>
+    <div class="result"></div>
+
+    <script>
+        /*
+            태그 생성 명령
+            > document.createElement("태그(요소)명")'
+        */
+        function createImg() {
+            
+            // 이미지 태그 생성
+            var imgTag = document.createElement("img");
+            
+            // 태그 속성 설정
+            imgTag.setAttribute("src","http://placeimg.com/100/100/tech");
+            imgTag.setAttribute("width","50");
+            imgTag.setAttribute("height","50");
+            // 생성한 태그 배치
+            var divTag = document.querySelector(".result");
+            
+            divTag.appendChild(imgTag);
+        }
+    </script>
+</body></html>

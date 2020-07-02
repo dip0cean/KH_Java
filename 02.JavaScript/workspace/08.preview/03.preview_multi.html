@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiple</title>
+    <style>
+        .preview-wrap>img {
+            width: 100px;
+            height: auto;
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 파일 선택창 -->
+    <input type="file" name="f" accept=".png , .jpg , .jpeg , . gif" multiple onchange="preview();">
+
+    <!-- 이미지 미리보기가 추가될 영역 -->
+    <div class="preview-wrap"></div>
+
+    <!-- JS -->
+    <script>
+        function preview() {
+            var fileTag = document.querySelector("input[name=f]");
+
+            var divTag = document.querySelector(".preview-wrap");
+
+            if (fileTag.files.length) {
+
+                divTag.innerHTML = "";
+
+                for (var i = 0; i < fileTag.files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function(data) {
+
+                        var imgTag = document.createElement("img");
+                        imgTag.setAttribute("src", data.target.result);
+                        divTag.appendChild(imgTag);
+
+                    };
+                    reader.readAsDataURL(fileTag.files[i]);
+                }
+
+            } else {
+
+                divTag.innerHTML = "";
+            }
+        }
+    </script>
+</body></html>

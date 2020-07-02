@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>멀티 Picker</title>
+    <script src="./js/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/lightpick.css">
+</head>
+
+<body>
+    <input type="text" class="picker-start">
+    <input type="text" class="picker-end">
+
+    <script src="./js/lightpick.js"></script>
+    <script>
+        window.onload = function() {
+            var options = {
+                field: document.querySelector(".picker-start"),
+
+                secondField: document.querySelector(".picker-end"),
+
+                format: 'YYYY-MM-DD',
+
+                numberOfMonths: 2,
+
+                minDate: moment(new Date()).add(1, 'days'),
+                
+                inline: true,
+                
+                firstDay: 7,
+                
+                // 앞의 날짜에서 뒤의 날짜 선택 불가
+                selectForward: true,
+                // 뒤의 날짜에서 앞의 날짜 선택 불가
+                selectBackward: false,
+                
+                disableWeekends: true,
+                
+                disableDates: [
+                    '2020-07-08'
+                ],
+
+                onSelect: function(start,end) {
+                    if(!start || !end) return;
+                    var days = end.diff(start,'days') + 1;
+                    console.log(days);
+                }
+
+            };
+
+            var picker = new Lightpick(options);
+        }
+    </script>
+</body></html>

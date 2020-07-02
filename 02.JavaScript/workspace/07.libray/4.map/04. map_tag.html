@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>태그 생성</title>
+</head>
+
+<body>
+    <textarea id="my-input" oninput="textCopy();"></textarea>
+    <hr>
+    <h5>InnerHTML</h5>
+    <div class="html"></div>
+    <hr>
+    <h5>textContent</h5>
+    <div class="text"></div>
+
+    <script>
+        function textCopy() {
+            // textArea 에 입력한 글자를 각각 다른 방식으로 복사하여 전달
+            /*var value = document.querySelector("#my-input").value;*/
+            var value = document.getElementById("my-input").value;
+            
+            var a = document.querySelector(".html");
+            var b = document.querySelector(".text");
+            
+            a.innerHTML = value;
+            b.textContent = value;
+        }
+    </script>
+</body></html>

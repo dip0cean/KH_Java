@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 미리보기</title>
+</head>
+
+<body>
+    <!-- 
+        사진을 선택하려면 파일 선택 태그가 있어야 한다. 
+        (주의) input[type=file] 에는 절대로 value 를 줄 수 없다. (보안)
+    -->
+    <input type="file" accept=".jpg, .gif, .png, .jpeg" name="f" multiple onchange="preview()">
+    <button onclick="deleteFile();">삭제</button>
+    <img>
+
+    <script>
+        /*
+            이미지 선택시 실행할 미리보기 함수
+            1. onchange 이므로 파일이 추가되거나 취소될 때 모두 실행
+            2. 파일이 추가되는 경우를 조건으로 감지 (선택과 취소의 논리값이 다르게)
+            3. 읽기 도구를 생성 (FileReader)
+            4. 다 읽은 경우에는 미리보기를 표시할 수 있도록 예약(Call Back)
+        */
+
+        function preview() {
+            /*console.log("preview 실행!");*/
+
+            var fileTag = document.querySelector("input[name=f]");
+
+            /* 
+                File 태그에 파일이 선택되었는지 안되었는지 확인
+                console.log(fileTag.files);
+             */
+
+            if (fileTag.files.length > 0) {
+                var reader = new FileReader(fileTag.files[0]);
+                reader.onload = function(data) { // data 는 읽을 파일의 내용
+                    // 미리보기를 구현
+                    var imgTag = document.querySelector("img");
+                    imgTag.src = data.target.result;
+                };
+                reader.readAsDataURL(fileTag.files[0]);
+            } else {
+                var imgTag = document.querySelector("img");
+                imgTag.src = "";
+            }
+        };
+
+        function deleteFile() {
+            var fileTag = document.querySelector("input[name=f]");
+            console.log(fileTag.files[0])
+        }
+    </script>
+</body></html>
