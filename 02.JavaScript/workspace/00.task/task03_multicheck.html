@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>멀티 체크</title>
+    <style>
+        .master-box {
+            color: dodgerblue;
+            padding: 20px;
+            background-color: pink;
+            border: 2px solid red;
+        }
+        
+        .select {
+            display: block;
+        }
+        
+        .select:nth-child(2n) {
+            margin-left: 150px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="master-box">
+        <input type="checkbox" onchange="selectBox();" class="master"> 전체 선택
+    </div>
+    <hr>
+    <div class="select-box">
+        <input type="checkbox" class="select"> 1번 박스
+        <input type="checkbox" class="select"> 2번 박스
+        <input type="checkbox" class="select"> 3번 박스
+        <input type="checkbox" class="select"> 4번 박스
+        <input type="checkbox" class="select"> 5번 박스
+        <input type="checkbox" class="select"> 6번 박스
+        <input type="checkbox" class="select"> 7번 박스
+    </div>
+    <script>
+        function selectBox() {
+            var master = document.querySelector(".master").checked;
+            var select = document.querySelectorAll(".select");
+            
+            for(var i in select) {
+                select[i].checked = master;
+            }
+        }
+    </script>
+</body></html>
