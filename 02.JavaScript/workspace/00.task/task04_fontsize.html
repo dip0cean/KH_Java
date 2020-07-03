@@ -2,52 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>버튼으로 폰트크기 조절</title>
+    <title>폰트 사이즈 조정</title>
 </head>
 
 <body>
     <div>
-        <div>
-            <button onclick="plus();">+2</button>
-            <button onclick="minus();">-2</button>
-        </div>
-        <div>
-            현재 <span class="sizeValue">?</span> px 입니다.
-        </div>
-        <div class="text">안녕하세요.</div>
-        <div class="text">안녕하세요.</div>
-        <div class="text">안녕하세요.</div>
-        <div class="text">안녕하세요.</div>
-        <div class="text">안녕하세요.</div>
+        <button onclick="plus();">+</button>
+        <button onclick="minus();">-</button>
+        현재 <span>15</span>px
     </div>
+    <div class="text">안녕하세요1</div>
+    <div class="text">안녕하세요2</div>
+    <div class="text">안녕하세요3</div>
+    <div class="text">안녕하세요4</div>
+    <div class="text">안녕하세요5</div>
+    <div class="text">안녕하세요6</div>
+    <div class="text">안녕하세요7</div>
 
     <script>
         var s = 15;
 
-        function textSize(size) {
+        function fontSize(size) {
             var text = document.querySelectorAll(".text");
-
             for (var i = 0; i < text.length; i++) {
                 text[i].style.fontSize = size + "px";
             }
-
-            var sizeValue = document.querySelector(".sizeValue");
-
-            sizeValue.textContent = size;
-        };
+        }
 
         function plus() {
-            if (s < 73) {
-                s = s + 2;
-                textSize(s);
+            if (s < 31) {
+                s++;
+                fontSize(s);
             }
-        };
+        }
 
         function minus() {
-            if (s > 14) {
-                s = s - 2;
-                textSize(s);
+            if (s > 10) {
+                s--;
+                fontSize(s);
             }
-        };
+        }
     </script>
 </body></html>

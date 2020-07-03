@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en" >
+
+<head>
+
+    <meta charset="UTF-8" >
+
+    <style> 
+
+        #box { 
+
+            width:150px; 
+
+            height:150px; 
+
+            background-color: black; 
+
+        } 
+
+        #box.red{ background-color:red; } 
+
+        #box.orange{ background-color:orange; } 
+
+        #box.yellow{ background-color:yellow; } 
+
+        #box.green{ background-color:green; } 
+
+        #box.blue{ background-color:blue; }
+
+    </style>
+
+    
+
+    <script>
+
+        function changeColor(color){
+
+            var box  = document.getElementById("box");
+
+            box.classList = "";
+
+            box.classList.add(color);
+
+            
+
+            var el  = document.querySelector(".color");
+
+            el.textContent = color;
+
+            el.style.color = color;
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <button onclick="changeColor('red');">red</button>
+
+    <button onclick="changeColor('orange');">orange</button>
+
+    <button onclick="changeColor('yellow');">yellow</button>
+
+    <button onclick="changeColor('green');">green</button>
+
+    <button onclick="changeColor('blue');">blue</button>
+
+    
+
+    <br><br>
+
+    
+
+    <div id="box"></div>
+
+    
+
+    <p>선택한 색상은 <stong class="color">black</stong>입니다.</p>
+
+</body>
+
+</html>
