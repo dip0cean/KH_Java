@@ -56,14 +56,15 @@
 
         function checkForm() {
 
-            var cId = checkId();
-            var cPw = checkPw();
+ 
 
             if (!cId) {
+                alert("다시 입력");
                 cautionId(cId);
             }
 
             if (!cPw) {
+                alert("다시 입력");
                 cautionPw(cPw);
             }
             return cId && cPw;

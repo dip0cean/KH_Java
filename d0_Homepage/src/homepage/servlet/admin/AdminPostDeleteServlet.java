@@ -22,7 +22,7 @@ public class AdminPostDeleteServlet extends HttpServlet {
 			PostDAO pdao = new PostDAO();
 
 			for (int i = 0; i < parameter.length; i++) {
-
+				System.out.println(parameter[i]);
 				long post_no = Long.parseLong(parameter[i]);
 
 				pdao.deletePost(post_no);

@@ -35,4 +35,3 @@ a:hover { color: bisque; text-decoration: none;}
 			<jsp:include page="/template/navi.jsp"></jsp:include>
 		</nav>
 		<section>
-		
