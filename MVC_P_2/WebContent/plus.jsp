@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>더하기를 서블릿에서 받아와보자</title>
 </head>
 <body>
-	<h1>Hello JSP World!</h1>
-	<h2>hello : <%=request.getAttribute("hello") %></h2>
-	<h2>hello : ${hello}</h2>
+	<h1>더하기를 서블릿에서 받아와보자</h1>
+	<h3>a + b = ${plus }</h3>
 </body>
 </html>
