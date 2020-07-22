@@ -20,6 +20,7 @@
 	
 		// 세션에 데이터를 추가
 		session.setAttribute("id", "admin");
+		session.setAttribute("auth","관리자");
 	%>
 	<!-- requestScope > req 내에 있는 내장 객체를 불러오는 명령어 > 생략 가능 -->
 	<h1>a = ${requestScope.a }</h1>
