@@ -16,4 +16,19 @@ public class TestController {
 	public String test() {
 		return "/WEB-INF/views/test.jsp";
 	}
+
+	@RequestMapping(value = "/check")
+	public String check() {
+		return "/WEB-INF/views/check.jsp";
+	}
+
+	@RequestMapping(value = "/member")
+	public String member() {
+		return "/WEB-INF/views/member.jsp";
+	}
+
+	@RequestMapping(value = "/board")
+	public String board() {
+		return "/WEB-INF/views/board.jsp";
+	}
 }
