@@ -1,7 +1,5 @@
 package com.d0.spring_07.entity;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 public class StudentDTO {
 	private String name;
 	private int age;
@@ -10,10 +8,6 @@ public class StudentDTO {
 
 	public StudentDTO() {
 		super();
-	}
-	
-	public StudentDTO(@ModelAttribute String a) {
-		
 	}
 
 	public String getName() {
