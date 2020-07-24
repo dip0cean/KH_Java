@@ -17,7 +17,7 @@ public class BoardController {
 
 	@GetMapping("/post")
 	public String write() {
-		return "write";
+		return "redirect:/board/post";
 	}
 
 	@PostMapping("/post")

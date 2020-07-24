@@ -22,6 +22,6 @@ public class MemberController {
 	public String login_finish(@ModelAttribute MemberDTO mdto) {
 		System.out.println(mdto.getId());
 		System.out.println(mdto.getPw());
-		return "login_finish";
+		return "redirect:/";
 	}
 }
