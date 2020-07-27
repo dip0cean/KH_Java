@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- myBatis 를 운용하기 위한 설정이 있다면 이 곳에 작성 -->
+	
+	<!-- properties : 변수 -->
+	<properties></properties>
+	
+	<!-- settings : 런타임 시 myBatis 의 행위를 조정하기 위한 값 -->
+	<!-- -> 실행 중 반영되어야 할 규칙을 지정 -->
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="autoMappingBehavior" value="FULL"/>
+	</settings>
+	
+	<!-- typeAliasses : 클래스에 부여하는 별칭 -->
+	<typeAliases>
+		<typeAlias type="com.d0.mybatis.entity.StudentDTO" alias="student"/>
+	</typeAliases>
+</configuration>
