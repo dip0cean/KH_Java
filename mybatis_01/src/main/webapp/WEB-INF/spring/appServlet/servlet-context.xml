@@ -29,16 +29,16 @@
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"></beans:property>
         <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
-        <beans:property name="username" value="C##DO"></beans:property>
-        <beans:property name="password" value="C##DO"></beans:property>
+        <beans:property name="username" value="c##kh"></beans:property>
+        <beans:property name="password" value="c##kh"></beans:property>
     </beans:bean>
 
     <!-- DBCP 등록 -->
     <beans:bean id="dbcpSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"></beans:property>
         <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"></beans:property>
-        <beans:property name="username" value="C##DO"></beans:property>
-        <beans:property name="password" value="C##DO"></beans:property>
+        <beans:property name="username" value="c##kh"></beans:property>
+        <beans:property name="password" value="c##kh"></beans:property>
 
         <beans:property name="maxTotal" value="20"></beans:property>
         <beans:property name="maxIdle" value="10"></beans:property>
@@ -54,9 +54,9 @@
      	<!-- 연결을 위한 도구를 참조 설정 -->
      	<beans:property name="dataSource" ref="dbcpSource"></beans:property>
      	<!-- MyBatis 설정 파일의 위치를 설정 -->
-     	<beans:property name="configLocation" value="classpath:/com/d0/batis/mybatis-config.xml"></beans:property>
+     	<beans:property name="configLocation" value="classpath:/com/d0/mybatis/batis/mybatis-config.xml"></beans:property>
      	<!-- 실제 실행할 명령 파일 위치를 설정 -->
-     	<beans:property name="mapperLocations" value="명령파일위치"></beans:property>
+     	<beans:property name="mapperLocations" value="classpath:/com/d0/mybatis/batis/**/*-mapper.xml"></beans:property>
      </beans:bean>
      
      <!-- MyBatis Spring 등록 -->
