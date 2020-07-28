@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 회원 테이블 -->
+<mapper namespace="member">
+	<!-- 회원 등록 -->
+	<insert id="regist" parameterType="member">
+		INSERT INTO MEMBER VALUES(#{member_id},#{member_pw},#{member_nick},#{post},#{base_addr},#{extra_addr},#{member_birth},#{member_phone},#{member_intro},'일반',SYSDATE,SYSDATE)
+	</insert>
+	
+	<!-- 전체 회원 조회 -->
+	<select id="getList" resultType="member">
+		SELECT * FROM MEMBER ORDER BY MEMBER_ID
+	</select>
+	
+	<!-- 회원 단일 조회 (아이디 중복검사)-->
+	<select id="getId" resultType="member" parameterType="String">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+</mapper>

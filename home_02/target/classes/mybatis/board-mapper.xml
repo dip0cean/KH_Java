@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- 게시판 테이블 -->
+ <mapper namespace="board">
+ 
+ 	<!-- 게시글 작성 -->
+ 	<insert id="insert">
+ 		INSERT INTO BOARD VALUES()
+ 	</insert>
+ 	
+ 	<!-- 게시글 시퀀스 번호 받아오기 -->
+ 	<select id="boardSequence" resultType="board">
+ 		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+ 	</select>
+ 	
+ 	<!-- 게시글 번호 > 게시글 상세 내용 -->
+ 	<select id="getBoardDetail" resultType="board">
+ 		SELECT * FROM BOARD WHERE BOARD_NO = #{board_no}
+ 	</select>
+ </mapper>
