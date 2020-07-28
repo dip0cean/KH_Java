@@ -58,15 +58,31 @@ public class BoardController {
 	// 검색 기능 구현
 	@PostMapping("/search")
 	public String search(Model model, @RequestParam String type, @RequestParam String keyword) {
+		System.out.println(type);
+		System.out.println(keyword);
+
 		Map<String, String> param = new HashMap<String, String>();
-		
+
 		param.put("type", type);
 		param.put("keyword", keyword);
-		
+
 		List<BoardDTO> list = sqlSession.selectList("board.search", param);
-		
+
 		model.addAttribute("list", list);
+
+		return "board/list";
+	}
+
+	// 게시글 리스트 + 검색 기능 구현
+	@RequestMapping("/union")
+	public String union(Model model, @RequestParam(required = false) String type, @RequestParam(required = false) String keyword) {
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		List<BoardDTO> list = sqlSession.selectList("board.unionList", map);
+		model.addAttribute("list", list);
 		return "board/list";
 	}
 

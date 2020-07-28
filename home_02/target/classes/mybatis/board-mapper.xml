@@ -8,7 +8,8 @@
 
 	<!-- 게시글 시퀀스 번호 발급 -->
 	<select id="squence" resultType="int">
-		SELECT BOARD_SEQ.NEXTVAL FROM BOARD
+		SELECT BOARD_SEQ.NEXTVAL FROM
+		BOARD
 	</select>
 
 	<!-- 게시글 작성 -->
@@ -29,20 +30,28 @@
 
 	<!-- 게시글 전체 조회 -->
 	<select id="getList" resultType="board">
-		SELECT * FROM BOARD ORDER BY BOARD_NO DESC
+		SELECT * FROM BOARD ORDER BY
+		BOARD_NO DESC
 	</select>
 
 	<!-- 게시글 번호 > 게시글 상세 내용 -->
 	<select id="getBoardDetail" resultType="board">
-		SELECT * FROM BOARD WHERE BOARD_NO = #{board_no}
+		SELECT * FROM BOARD WHERE
+		BOARD_NO = #{board_no}
 	</select>
-	
+
 	<!-- 게시글 검색 -->
-	<select id="search" parameterMap="map" resultType="board">
-		<!-- 
-			$ > 정적 형태 > 글자 그대로
-			# > 동적 형태 > 알아서
-		 -->
-		SELECT * FROM BOARD WHERE INSTR(${type},#{keyword}) > 0 ORDER BY BOARD_NO DESC
+	<select id="search" parameterType="map" resultType="board">
+		SELECT * FROM
+		BOARD WHERE INSTR(${type},#{keyword}) > 0 ORDER BY BOARD_NO DESC
+	</select>
+
+	<!-- 조건부 게시글 검색 -->
+	<select id="unionList" resultType="board" parameterType="map">
+		SELECT * FROM BOARD
+		<if test="type != null and keyword != null">
+			WHERE INSTR(${type},#{keyword}) > 0
+		</if>
+		ORDER BY BOARD_NO DESC
 	</select>
 </mapper>

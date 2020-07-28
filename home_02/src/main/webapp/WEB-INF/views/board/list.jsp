@@ -9,6 +9,14 @@
 </head>
 <body>
 	<h1>게시글 리스트</h1>
+	<form action="union" method="post">
+		<select name="type">
+			<option value="board_title">제목</option>
+			<option value="boatd_writer">작성자</option>
+		</select>
+		<input type="text" name="keyword" placeholder="검색어를 입력해주세요." value="${param.keyword }">
+		<input type="submit" value="검색">
+	</form>
 	<c:choose>
 		<c:when test="${not empty list }">
 			<table border="1">
@@ -36,14 +44,5 @@
 			<h3>게시글이 없습니다.</h3>
 		</c:otherwise>
 	</c:choose>
-	
-	<form>
-		<select name="type">
-			<option value="board_title">제목</option>
-			<option value="boatd_writer">작성자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색어를 입력해주세요.">
-		<input type="submit" value="검색">
-	</form>
 </body>
 </html>
