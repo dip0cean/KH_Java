@@ -82,7 +82,9 @@ public class BoardController {
 		map.put("keyword", keyword);
 		
 		List<BoardDTO> list = sqlSession.selectList("board.unionList", map);
+		
 		model.addAttribute("list", list);
+		
 		return "board/list";
 	}
 

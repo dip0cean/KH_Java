@@ -8,8 +8,7 @@
 
 	<!-- 게시글 시퀀스 번호 발급 -->
 	<select id="squence" resultType="int">
-		SELECT BOARD_SEQ.NEXTVAL FROM
-		BOARD
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
 	</select>
 
 	<!-- 게시글 작성 -->

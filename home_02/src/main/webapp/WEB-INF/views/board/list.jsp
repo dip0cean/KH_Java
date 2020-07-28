@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>게시글 리스트</h1>
-	<form action="union" method="post">
+	<fo    rm action="union" method="post">
 		<select name="type">
 			<option value="board_title">제목</option>
 			<option value="boatd_writer">작성자</option>
