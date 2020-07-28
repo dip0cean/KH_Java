@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
  <!-- 회원 테이블 -->
 <mapper namespace="member">
 	<!-- 회원 등록 -->
@@ -11,7 +12,7 @@
 	
 	<!-- 전체 회원 조회 -->
 	<select id="getList" resultType="member">
-		SELECT * FROM MEMBER ORDER BY MEMBER_ID
+		SELECT * FROM MEMBER ORDER BY MEMBER_JOIN DESC
 	</select>
 	
 	<!-- 회원 단일 조회 (아이디 중복검사)-->

@@ -2,22 +2,47 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
- <!-- 게시판 테이블 -->
- <mapper namespace="board">
- 
- 	<!-- 게시글 작성 -->
- 	<insert id="insert">
- 		INSERT INTO BOARD VALUES()
- 	</insert>
- 	
- 	<!-- 게시글 시퀀스 번호 받아오기 -->
- 	<select id="boardSequence" resultType="board">
- 		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
- 	</select>
- 	
- 	<!-- 게시글 번호 > 게시글 상세 내용 -->
- 	<select id="getBoardDetail" resultType="board">
- 		SELECT * FROM BOARD WHERE BOARD_NO = #{board_no}
- 	</select>
- </mapper>
+
+<!-- 게시판 테이블 -->
+<mapper namespace="board">
+
+	<!-- 게시글 시퀀스 번호 발급 -->
+	<select id="squence" resultType="int">
+		SELECT BOARD_SEQ.NEXTVAL FROM BOARD
+	</select>
+
+	<!-- 게시글 작성 -->
+	<insert id="insert" parameterType="board">
+		INSERT INTO BOARD VALUES(
+		#{board_no},
+		#{board_head},
+		#{board_title},
+		#{board_writer},
+		#{board_content},
+		SYSDATE,
+		0,
+		0,
+		#{group_no},
+		0,
+		null)
+	</insert>
+
+	<!-- 게시글 전체 조회 -->
+	<select id="getList" resultType="board">
+		SELECT * FROM BOARD ORDER BY BOARD_NO DESC
+	</select>
+
+	<!-- 게시글 번호 > 게시글 상세 내용 -->
+	<select id="getBoardDetail" resultType="board">
+		SELECT * FROM BOARD WHERE BOARD_NO = #{board_no}
+	</select>
+	
+	<!-- 게시글 검색 -->
+	<select id="search" parameterMap="map" resultType="board">
+		<!-- 
+			$ > 정적 형태 > 글자 그대로
+			# > 동적 형태 > 알아서
+		 -->
+		SELECT * FROM BOARD WHERE INSTR(${type},#{keyword}) > 0 ORDER BY BOARD_NO DESC
+	</select>
+</mapper>
