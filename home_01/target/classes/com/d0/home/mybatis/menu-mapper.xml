@@ -12,4 +12,8 @@
 	<insert id="insert" parameterType="menu">
 		INSERT INTO MENU(NAME,PRICE,SORT) VALUES(#{name},#{price},#{sort})
 	</insert>
+	
+	<select id="getList" resultType="menu">
+		SELECT * FROM MENU ORDER BY NAME ASC
+	</select>
 </mapper>
