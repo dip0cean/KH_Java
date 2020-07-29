@@ -19,4 +19,14 @@
 	<select id="getId" resultType="member" parameterType="String">
 		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
 	</select>
+	
+	<!-- 로그인 1  -->
+	<select id="login1" resultType="int" parameterType="member">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
+	</select>
+	
+	<!-- 로그인 2 -->
+	<select id="login2" resultType="member" parameterType="member">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
+	</select>
 </mapper>

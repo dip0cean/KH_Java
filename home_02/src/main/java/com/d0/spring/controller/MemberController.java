@@ -1,5 +1,6 @@
 package com.d0.spring.controller;
 
+import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,5 +45,28 @@ public class MemberController {
 			// 해당 아이디가 있다면 회원가입 페이지로 이동
 			return "redirect:join?error";
 		}
+	}
+
+	// 로그인
+	@GetMapping("/login")
+	public String login() {
+		return "member/login";
+	}
+
+	// 로그인 실행
+	@PostMapping("/login")
+	public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+		MemberDTO login = sqlSession.selectOne("member.login2", memberDTO);
+
+		if (login != null) {
+			session.setAttribute("memberLogin", login);
+			
+			MemberDTO m = (MemberDTO) session.getAttribute("memberLogin");
+			System.out.println(m.getMember_id());
+			return "redirect:/";
+		} else {
+			return "redirect:login?error";
+		}
+
 	}
 }
