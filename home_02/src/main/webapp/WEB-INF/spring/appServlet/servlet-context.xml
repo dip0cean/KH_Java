@@ -10,6 +10,7 @@
 
     <!-- DispatcherServlet Context: defines this servlet's request-processing
         infrastructure -->
+    <context:component-scan base-package="com.d0.spring" />
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven />
@@ -68,8 +69,13 @@
         <!-- Dependency Injection > 필요한 도구를 주입한다는 의미 -->
         <beans:property name="dataSource" ref="dataSource"></beans:property>
     </beans:bean>
-    <context:component-scan base-package="com.d0.spring" />
-
+    
+    <!-- 
+    	단방향 암호화 중에서 BCrypt 라는 방식을 쓸 수 있도록 해주는 도구
+     -->
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		
+	</beans:bean>
 
 
 </beans:beans>

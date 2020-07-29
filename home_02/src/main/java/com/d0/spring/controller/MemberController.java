@@ -3,6 +3,7 @@ package com.d0.spring.controller;
 import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,9 @@ public class MemberController {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	@Autowired
+	private PasswordEncoder encoder;
 
 	// 회원가입 페이지 (get)
 	@GetMapping("/regist")
@@ -37,6 +41,10 @@ public class MemberController {
 		MemberDTO find = sqlSession.selectOne("member.getId", memberDTO.getMember_id());
 
 		if (find == null) {
+			// 가입 전 비밀번호 암호화
+			// encoder.encode(비밀번호) --> 암호화된 비밀번호
+			memberDTO.setMember_pw(encoder.encode(memberDTO.getMember_pw()));
+
 			// 해당 아이디가 없다면 가입
 			sqlSession.insert("member.regist", memberDTO);
 
@@ -53,24 +61,31 @@ public class MemberController {
 		return "member/login";
 	}
 
-	// 로그인 실행
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
-		MemberDTO login = sqlSession.selectOne("member.login2", memberDTO);
+		// 1. DB 에서 해당 회원의 정보를 모두 불러온다.
+		MemberDTO find = sqlSession.selectOne("member.getId", memberDTO.getMember_id());
 
-		if (login != null) {
-			session.setAttribute("memberLogin", login);
-			return "redirect:/";
-		} else {
-			return "redirect:login?error";
+		if (find != null) {
+			// 2. 아이디가 있을 경우 비밀번호 비교를 수행한다. (encoder 이용)
+			// encoder.matches(입력pw, dbpw);
+			boolean pass = encoder.matches(memberDTO.getMember_pw(), find.getMember_pw());
+
+			if (pass) {
+				// 3. 비밀번호 비교
+				session.setAttribute("memberLogin", find);
+				return "redirect:/";
+			}
 		}
+		
+		return "redirect:login?error";
 	}
 
 	// 로그아웃
 	@PostMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("memberLogin");
-		
+
 		return "redirect:/";
 	}
 }
