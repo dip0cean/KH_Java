@@ -14,7 +14,7 @@ public class BoardDAOImp implements BoardDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	// 게시글 작성
 	@Override
 	public int boardWrite(BoardDTO boardDTO) {
@@ -36,7 +36,7 @@ public class BoardDAOImp implements BoardDAO {
 	@Override
 	public List<BoardDTO> getList() {
 		List<BoardDTO> list = sqlSession.selectList("board.getList");
-		
+
 		return list;
 	}
 
@@ -44,7 +44,7 @@ public class BoardDAOImp implements BoardDAO {
 	@Override
 	public List<BoardDTO> search(Map<String, String> param) {
 		List<BoardDTO> list = sqlSession.selectList("board.search", param);
-		
+
 		return list;
 	}
 
@@ -52,7 +52,14 @@ public class BoardDAOImp implements BoardDAO {
 	@Override
 	public List<BoardDTO> union(Map<String, Object> param) {
 		List<BoardDTO> list = sqlSession.selectList("board.unionList", param);
-		
+
 		return list;
+	}
+
+	// 게시글 상세 페이지
+	public BoardDTO boardDetail(int board_no) {
+		BoardDTO board = sqlSession.selectOne("board.detail", board_no);
+		
+		return board;
 	}
 }

@@ -9,14 +9,15 @@
 </head>
 <body>
 	<h1>게시글 리스트</h1>
-	<fo    rm action="union" method="post">
+	<form action="union" method="post">
 		<select name="type">
 			<option value="board_title">제목</option>
-			<option value="boatd_writer">작성자</option>
+			<option value="board_writer">작성자</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어를 입력해주세요." value="${param.keyword }">
 		<input type="submit" value="검색">
 	</form>
+	<a href="write"><button>게시글 작성</button></a>
 	<c:choose>
 		<c:when test="${not empty list }">
 			<table border="1">
@@ -33,7 +34,7 @@
 						<tr>
 							<td>${board.board_no }</td>
 							<td>${board.board_head }</td>
-							<td>${board.board_title }</td>
+							<td><a href="detail?board_no=${board.board_no }">${board.board_title }</a></td>
 							<td>${board.board_writer }</td>
 						</tr>
 					</c:forEach>

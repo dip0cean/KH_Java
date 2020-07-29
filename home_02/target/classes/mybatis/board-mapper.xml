@@ -32,6 +32,11 @@
 		SELECT * FROM BOARD ORDER BY
 		BOARD_NO DESC
 	</select>
+	
+	<!-- 게시글 상세 페이지 -->
+	<select id="detail" resultType="board" parameterType="int">
+		SELECT * FROM BOARD WHERE BOARD_NO = #{board_no}
+	</select>
 
 	<!-- 게시글 번호 > 게시글 상세 내용 -->
 	<select id="getBoardDetail" resultType="board">

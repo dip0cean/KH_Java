@@ -10,6 +10,9 @@ public interface BoardDAO {
 	// 게시글 등록
 	int boardWrite(BoardDTO boardDTO);
 	
+	// 게시글 상세 페이지
+	BoardDTO boardDetail(int board_no);
+	
 	// 전체 게시글 조회
 	List<BoardDTO> getList();
 	
