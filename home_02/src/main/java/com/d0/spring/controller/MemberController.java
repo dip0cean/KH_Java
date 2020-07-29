@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.d0.spring.entity.MemberDTO;
+import com.d0.spring.repository.MemberDAO;
 
 @Controller
 @RequestMapping("/member")
@@ -21,6 +22,9 @@ public class MemberController {
 
 	@Autowired
 	private PasswordEncoder encoder;
+
+	@Autowired
+	private MemberDAO memberDAO;
 
 	// 회원가입 페이지 (get)
 	@GetMapping("/regist")
@@ -37,22 +41,13 @@ public class MemberController {
 	// 회원가입 메소드 > 아이디 검사
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute MemberDTO memberDTO) {
+		boolean result = memberDAO.join(memberDTO);
 
-		MemberDTO find = sqlSession.selectOne("member.getId", memberDTO.getMember_id());
-
-		if (find == null) {
-			// 가입 전 비밀번호 암호화
-			// encoder.encode(비밀번호) --> 암호화된 비밀번호
-			memberDTO.setMember_pw(encoder.encode(memberDTO.getMember_pw()));
-
-			// 해당 아이디가 없다면 가입
-			sqlSession.insert("member.regist", memberDTO);
-
-			return "redirect:regist_finish";
-		} else {
-			// 해당 아이디가 있다면 회원가입 페이지로 이동
-			return "redirect:join?error";
+		if (result) {
+			return "redirect:/";
 		}
+
+		return "redirect:regist";
 	}
 
 	// 로그인
@@ -63,22 +58,15 @@ public class MemberController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
-		// 1. DB 에서 해당 회원의 정보를 모두 불러온다.
-		MemberDTO find = sqlSession.selectOne("member.getId", memberDTO.getMember_id());
-
-		if (find != null) {
-			// 2. 아이디가 있을 경우 비밀번호 비교를 수행한다. (encoder 이용)
-			// encoder.matches(입력pw, dbpw);
-			boolean pass = encoder.matches(memberDTO.getMember_pw(), find.getMember_pw());
-
-			if (pass) {
-				// 3. 비밀번호 비교
-				session.setAttribute("memberLogin", find);
-				return "redirect:/";
-			}
-		}
+		boolean result = memberDAO.login(memberDTO);
 		
+		if (result) {
+			session.setAttribute("memberLogin", memberDTO);
+			return "redirect:/";
+		}
+
 		return "redirect:login?error";
+
 	}
 
 	// 로그아웃
