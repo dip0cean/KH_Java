@@ -1,6 +1,6 @@
 package com.d0.spring.repository;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.d0.spring.entity.MemberDTO;
 
 @Repository
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAOImp implements MemberDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -18,6 +18,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private PasswordEncoder encoder;
 
+	// 회원가입
 	@Override
 	public boolean join(MemberDTO memberDTO) {
 
@@ -38,6 +39,7 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 	}
 
+	// 로그인
 	@Override
 	public boolean login(MemberDTO memberDTO) {
 		// 1. DB 에서 해당 회원의 정보를 모두 불러온다.
@@ -55,6 +57,15 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 
 		return false;
+	}
+
+	// 관리자 - 회원목록 리스트
+	@Override
+	public List<MemberDTO> getList() {
+		
+		List<MemberDTO> list = sqlSession.selectList("member.getList");
+
+		return list;
 	}
 
 }

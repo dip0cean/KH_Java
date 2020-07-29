@@ -1,9 +1,7 @@
 package com.d0.spring.controller;
 
 import javax.servlet.http.HttpSession;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,12 +14,6 @@ import com.d0.spring.repository.MemberDAO;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-
-	@Autowired
-	private SqlSession sqlSession;
-
-	@Autowired
-	private PasswordEncoder encoder;
 
 	@Autowired
 	private MemberDAO memberDAO;
@@ -56,10 +48,11 @@ public class MemberController {
 		return "member/login";
 	}
 
+	// 로그인 연산
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
 		boolean result = memberDAO.login(memberDTO);
-		
+
 		if (result) {
 			session.setAttribute("memberLogin", memberDTO);
 			return "redirect:/";

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.d0.spring.entity.BoardDTO;
+import com.d0.spring.repository.BoardDAO;
+import com.d0.spring.repository.BoardDAOImp;
 
 @Controller
 @RequestMapping("/board")
@@ -22,6 +24,9 @@ public class BoardController {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private BoardDAO boardDAO;
 
 	// 게시글 등록 페이지
 	@GetMapping("/insert")
@@ -32,24 +37,15 @@ public class BoardController {
 	// 게시글 등록 메소드
 	@PostMapping("/insert")
 	public String boardInsert(@ModelAttribute BoardDTO boardDTO) {
-		// 시퀀스 번호 발급
-		int board_no = sqlSession.selectOne("board.squence");
-
-		// 부여받은 시퀀스 번호 == 게시글 번호 / 그룹 번호
-		boardDTO.setBoard_no(board_no);
-		boardDTO.setGroup_no(board_no);
-
-		// boardDTO 객체를 DB에 전송
-		sqlSession.insert("board.insert", boardDTO);
-
-		// 게시글 작성 이후 해당 게시글로 이동
-		return "board/board_detail?post_no=" + board_no;
+		int board_no = boardDAO.boardWrite(boardDTO);
+		
+		return "board/board?board_no=" + board_no;
 	}
 
 	// 전체 게시글 조회
 	@GetMapping("/list")
 	public String getList(Model model) {
-		List<BoardDTO> list = sqlSession.selectList("board.getList");
+		List<BoardDTO> list = boardDAO.getList();
 		model.addAttribute("list", list);
 
 		return "board/list";
@@ -58,15 +54,13 @@ public class BoardController {
 	// 검색 기능 구현
 	@PostMapping("/search")
 	public String search(Model model, @RequestParam String type, @RequestParam String keyword) {
-		System.out.println(type);
-		System.out.println(keyword);
 
 		Map<String, String> param = new HashMap<String, String>();
 
 		param.put("type", type);
 		param.put("keyword", keyword);
 
-		List<BoardDTO> list = sqlSession.selectList("board.search", param);
+		List<BoardDTO> list = boardDAO.search(param);
 
 		model.addAttribute("list", list);
 
@@ -81,7 +75,7 @@ public class BoardController {
 		map.put("type", type);
 		map.put("keyword", keyword);
 		
-		List<BoardDTO> list = sqlSession.selectList("board.unionList", map);
+		List<BoardDTO> list = boardDAO.union(map);
 		
 		model.addAttribute("list", list);
 		

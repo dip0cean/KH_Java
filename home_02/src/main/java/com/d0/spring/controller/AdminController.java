@@ -10,20 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.d0.spring.entity.MemberDTO;
+import com.d0.spring.repository.MemberDAO;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
-	private SqlSession sqlSession;
+	private MemberDAO memberDAO;
 	
 	@GetMapping("/list")
 	public String getList(Model model) {
 		
-		List<MemberDTO> list = sqlSession.selectList("member.getList");
+		List<MemberDTO> list = memberDAO.getList();
 		
-		model.addAttribute("getList",list);
+		model.addAttribute("getList", list);
 		
 		return "admin/list";
 	}
