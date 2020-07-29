@@ -60,13 +60,17 @@ public class MemberController {
 
 		if (login != null) {
 			session.setAttribute("memberLogin", login);
-			
-			MemberDTO m = (MemberDTO) session.getAttribute("memberLogin");
-			System.out.println(m.getMember_id());
 			return "redirect:/";
 		} else {
 			return "redirect:login?error";
 		}
+	}
 
+	// 로그아웃
+	@PostMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("memberLogin");
+		
+		return "redirect:/";
 	}
 }

@@ -10,6 +10,10 @@
 	Hello !
 	<c:if test="${not empty memberLogin }">
 		${memberLogin.member_id } 님, 환영환영!
+		
+		<form action="member/logout" method="post">
+			<input type="submit" value="logout">
+		</form>
 	</c:if>
 </h1>
 
