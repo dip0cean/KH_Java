@@ -57,9 +57,29 @@ public class BoardDAOImp implements BoardDAO {
 	}
 
 	// 게시글 상세 페이지
+	@Override
 	public BoardDTO boardDetail(int board_no) {
 		BoardDTO board = sqlSession.selectOne("board.detail", board_no);
-		
+
 		return board;
 	}
+
+	// 게시글 상세 페이지 + 조회수
+	@Override
+	public BoardDTO boardDetailRead(int board_no) {
+		sqlSession.update("read", board_no);
+
+		BoardDTO board = sqlSession.selectOne("board.detail", board_no);
+		return board;
+	}
+
+	// 게시글 삭제
+	@Override
+	public boolean boardDelete(BoardDTO boardDTO) {
+		int deleteCount = sqlSession.delete("delete", boardDTO);
+		boolean result = deleteCount > 0;
+		
+		return result;
+	}
+
 }

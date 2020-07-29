@@ -58,4 +58,14 @@
 		</if>
 		ORDER BY BOARD_NO DESC
 	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="read" parameterType="int">
+		UPDATE BOARD SET BOARD_READ = BOARD_READ + 1 WHERE BOARD_NO = #{board_no}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="board">
+		DELETE BOARD WHERE BOARD_NO = ${board_no} AND BOARD_WRITER = #{board_writer}
+	</delete>
 </mapper>

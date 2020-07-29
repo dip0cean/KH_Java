@@ -43,7 +43,8 @@ public class BoardController {
 	@RequestMapping("/detail")
 	public String boardDetail(Model model, @RequestParam int board_no) {
 
-		BoardDTO boardDetail = boardDAO.boardDetail(board_no);
+		BoardDTO boardDetail = boardDAO.boardDetailRead(board_no);
+
 		model.addAttribute("boardDetail", boardDetail);
 		System.out.println("게시글 상세 페이지 로딩 성공");
 		return "board/detail";
@@ -88,6 +89,19 @@ public class BoardController {
 		model.addAttribute("list", list);
 
 		return "board/list";
+	}
+
+	// 게시글 삭제
+	@PostMapping("/delete")
+	public String delete(@ModelAttribute BoardDTO boardDTO) {
+		boolean result = boardDAO.boardDelete(boardDTO);
+		
+		if(result) {
+			return "redirect:union";
+		}
+		
+		return "redirect:detail?board_no=" + boardDTO.getBoard_no();
+		
 	}
 
 }
