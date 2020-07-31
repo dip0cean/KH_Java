@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="gallery">
+  	<!-- 시퀀스 발급 -->
+  	<select id="seq" resultType="long">
+  		SELECT GALLERY_SEQ.NEXTVAL FROM DUAL
+  	</select>
+  	
+  	<!-- 사진 등록 -->
+  	<insert id="insert" parameterType="gallery">
+  		INSERT INTO GALLERY VALUES(#{no}, #{title}, #{explain}, #{fname}, #{fsize}, #{ftype}, SYSDATE)
+  	</insert>
+  	
+  	<!-- 단일 조회 -->
+  	<select id="get" resultType="gallery" parameterType="long">
+  		SELECT * FROM GALLERY WHERE NO = #{no}
+  	</select>
+  	
+  	<!-- 전체 사진 조회 -->
+  	<select id="list" resultType="gallery">
+  		SELECT * FROM GALLERY
+  	</select>
+  </mapper>
