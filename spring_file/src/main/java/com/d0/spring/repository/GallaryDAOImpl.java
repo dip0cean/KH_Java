@@ -18,9 +18,11 @@ public class GallaryDAOImpl implements GallaryDAO {
 	}
 
 	@Override
-	public void insert(GallaryDTO gallaryDTO) {
+	public long insert(GallaryDTO gallaryDTO) {
 		gallaryDTO.setNo(this.seq());
-		
+
 		sqlSession.insert("upload.insert", gallaryDTO);
+
+		return gallaryDTO.getNo();
 	}
 }

@@ -32,15 +32,16 @@ public class GallaryController {
 		if (gallaryVO.isFileExist()) {
 
 			for (MultipartFile file : gallaryVO.getF()) {
-				File target = new File("D:/upload", file.getOriginalFilename());
-				file.transferTo(target);
 				
 				gallaryVO.setFname(file.getOriginalFilename());
 				gallaryVO.setFtype(file.getContentType());
 				gallaryVO.setFsize(file.getSize());
 				
 				GallaryDTO gallaryDTO = new GallaryDTO(gallaryVO);
-				gallaryDAO.insert(gallaryDTO);
+				long no = gallaryDAO.insert(gallaryDTO);
+				
+				File target = new File("D:/upload", String.valueOf(no));
+				file.transferTo(target);
 			}
 		}
 
