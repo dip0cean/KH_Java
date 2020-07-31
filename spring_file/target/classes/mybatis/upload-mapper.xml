@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="upload">
+<mapper namespace="file">
 	<!-- 시퀀스 발급 -->
 	<select id="seq" resultType="long">
 		SELECT GALLARY_SEQ.NEXTVAL FROM DUAL
@@ -12,4 +12,9 @@
 	<insert id="insert" parameterType="gallary">
 		INSERT INTO GALLARY VALUES(#{no}, #{title}, #{explain}, #{fname}, #{fsize}, #{ftype}, SYSDATE)
 	</insert>
+	
+	<!-- 이미지 단일 조회 -->
+	<select id="get" resultType="gallary" parameterType="long">
+		SELECT * FROM GALLARY WHERE NO = #{no}
+	</select>
 </mapper>

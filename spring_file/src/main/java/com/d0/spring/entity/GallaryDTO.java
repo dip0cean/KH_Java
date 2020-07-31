@@ -1,6 +1,6 @@
 package com.d0.spring.entity;
 
-import com.d0.spring.vo.GallaryVO;
+import org.springframework.web.multipart.MultipartFile;
 
 public class GallaryDTO {
 	private long no;
@@ -11,15 +11,12 @@ public class GallaryDTO {
 	private String ftype;
 	private String when;
 
-	public GallaryDTO(GallaryVO gallaryVO) {
-		this.setNo(gallaryVO.getNo());
-		this.setTitle(gallaryVO.getTitle());
-		this.setExplain(gallaryVO.getExplain());
-		this.setFname(gallaryVO.getFname());
-		this.setFsize(gallaryVO.getFsize());
-		this.setFtype(gallaryVO.getFtype());
+	public void settingDB(MultipartFile file) throws Exception {
+		this.setFname(file.getOriginalFilename());
+		this.setFsize(file.getSize());
+		this.setFtype(file.getContentType());
 	}
-	
+
 	public long getNo() {
 		return no;
 	}

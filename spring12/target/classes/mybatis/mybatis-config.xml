@@ -10,8 +10,8 @@
 		<setting name="lazyLoadingEnabled" value="true" />
 		<setting name="autoMappingBehavior" value="FULL" />                  
 	</settings>
-
+	
 	<typeAliases>
-<!-- 		<typeAlias type="com.d0.spring.entity.MenuDTO" alias="menu" /> -->
+		<typeAlias type="com.d0.spring.controller.FileUploadController" alias="fileUpload"/>
 	</typeAliases>
 </configuration>

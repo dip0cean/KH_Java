@@ -14,15 +14,22 @@ public class GallaryDAOImpl implements GallaryDAO {
 
 	@Override
 	public long seq() {
-		return sqlSession.selectOne("upload.seq");
+		return sqlSession.selectOne("file.seq");
 	}
 
 	@Override
 	public long insert(GallaryDTO gallaryDTO) {
 		gallaryDTO.setNo(this.seq());
 
-		sqlSession.insert("upload.insert", gallaryDTO);
+		sqlSession.insert("file.insert", gallaryDTO);
 
 		return gallaryDTO.getNo();
+	}
+	
+	// 다운로드
+	@Override
+	public GallaryDTO get(long no) {
+		GallaryDTO gallaryDTO = sqlSession.selectOne("file.get", no);
+		return gallaryDTO;
 	}
 }
