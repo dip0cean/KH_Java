@@ -1,7 +1,6 @@
 package com.d0.gallery.controller;
 
 import java.net.URLEncoder;
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
