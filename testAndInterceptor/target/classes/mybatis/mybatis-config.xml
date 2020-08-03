@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+	<typeAliases>
+		<!-- GalleryDTO -->
+		<typeAlias type="com.d0.spring.entity.GalleryDTO" alias="gallery"/>
+		
+		<!-- MemberDTO -->
+		<typeAlias type="com.d0.spring.entity.MemberDTO" alias="member"/>
+	</typeAliases>
+ </configuration>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<!-- 시퀀스 발급 -->
+	<select id="seq" resultType="int">
+		SELECT MEMBER_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 회원 가입 -->
+	<insert id="join" parameterType="member">
+		INSERT INTO MEMBER VALUES(#{no}, #{name}, #{age}, #{score}, SYSDATE)
+	</insert>
+</mapper>
