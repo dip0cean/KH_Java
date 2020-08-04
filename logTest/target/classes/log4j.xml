@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!-- 
+	Log4J 의 설정 파일
+	
+	[1] Log4J 의 메세지 체계
+	- TRACE > 프로그램 내에서 발생하는 모든 사소한 작업을 기록
+	- DEBUG > 개발할 때 필요에 의해서 확인해야 할 부분에 대한 기록
+	- INFO > 사용자에게 알려줘야 할 정보에 대한 기록
+	- WARN > 실행은 되지만 문제가 생길 소지가 있을 경우에 대한 기록
+	- ERROR > 실행이 안되는 경우에 대한 기록
+	- FATAL > 시스템에 치명적인 오류의 기록(작성 불가)
+ -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Application Loggers -->
+	<logger name="com.d0.spring">
+		<level value="info" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>
