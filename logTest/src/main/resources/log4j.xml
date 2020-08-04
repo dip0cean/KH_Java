@@ -10,6 +10,17 @@
 	- WARN > 실행은 되지만 문제가 생길 소지가 있을 경우에 대한 기록
 	- ERROR > 실행이 안되는 경우에 대한 기록
 	- FATAL > 시스템에 치명적인 오류의 기록(작성 불가)
+	
+	[2] 설정 태그와 역할
+	- logger > 로깅을 수행하기 위한 도구(Logger) 설정
+	- root > 전반적인 로깅 설정 (logger 에서 설정하고 남은 것들에 대한 설정)
+	- appender > 로깅의 대상을 설정하는 도구
+	
+	[3] 메세지 레이아웃
+	- %p > 메세지 레벨 (prority)
+	- %c > 카테고리 정보(category) > 로깅이 발생한 대상의 정보
+	- %m > 메세지(message) > 실제 로깅 메세지
+	- %n > 개행(newline) > \n 을 의미 (줄바꿈)
  -->
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
@@ -22,11 +33,11 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.d0.spring">
+<!-- 	<logger name="com.d0.spring">
 		<level value="info" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
+	3rdparty Loggers
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -41,11 +52,11 @@
 
 	<logger name="org.springframework.web">
 		<level value="info" />
-	</logger>
+	</logger> -->
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 	
