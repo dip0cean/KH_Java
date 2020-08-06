@@ -1,5 +1,7 @@
 package com.d0.spring;
 
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
@@ -10,7 +12,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,43 +20,30 @@ import lombok.extern.slf4j.Slf4j;
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" }) // 설정파일 위치 정보
 @WebAppConfiguration // 웹과 관련된 설정 무시
 @Slf4j
-public class Email04 {
-
-	// Mime Message 보내기
-	// - html 형태의 메일 전송
-	// - 첨부파일 전송
+public class Email05 {
 
 	@Autowired
 	private JavaMailSender sender;
 
 	@Test
 	public void test() throws Exception {
-		// log.debug("sender = " + sender);
+		// Mime Message 를 이용한 파일 첨부
+		// - javax.actvation.DataSource > 파일 정보!
 		log.debug("sender = {}", sender);
 
-		// Mime Message 생성
 		MimeMessage message = sender.createMimeMessage();
 
-		// Mime Message 는 형태가 복잡하기 때문에 Helper 도구 존재
-		MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
-
-		// helper 에 정보 설정
-		String[] to = { "dip.0cean@daum.net" };
+		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+		
+		String[] to = {"dip.0cean@daum.net"};
 		helper.setTo(to);
+		helper.setSubject("파일 전송 테스트");
+		helper.setText("<h1>환영합니다.</h1> <br><br> <p style='color: red;'>저희 사이트에 가입해주셔서 감사합니다.</p><br><br><a href='http://www.naver.com/'><button></button></a>", true);
 
-		helper.setSubject("Mime Message Test");
-
-		String url = ServletUriComponentsBuilder
-				.fromCurrentContextPath()
-				.port(8080)
-				.path("/spring/")
-//				.queryParam("test", "love")
-				.toUriString();
-
-		helper.setText("<h1>환영합니다.</h1> <br><br> <p style='color: red;'>저희 사이트에 가입해주셔서 감사합니다.</p><br><br><a href=" + url
-				+ "><button>해당 페이지로 이동</button></a>", true);
-
-		// 전송
+		// 첨부 파일 추가
+		DataSource source = new FileDataSource("C:/Users/user1/Desktop/오구1.jpg");
+		helper.addAttachment(source.getName(), source);
+		
 		sender.send(message);
 	}
 }
