@@ -12,4 +12,19 @@
 	<select id="get" resultType="cert" parameterType="cert">
 		SELECT * FROM CERT WHERE SECRET = #{secret}
 	</select>
+	
+	<!-- 검사 -->
+	<!-- 
+		XML 에서는 사용하지 못하는 기호 존재 >< 
+		<![CDATA[
+		
+		]]>	
+	-->
+	<select id="check" resultType="cert" parameterType="cert">
+		SELECT * FROM CERT WHERE WHO = #{who} AND SECRET = #{secret} AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
+	</select>
+	
+	<select id="check2" resultType="cert" parameterType="cert">
+		SELECT * FROM CERT WHERE WHO = #{who} AND SECRET = #{secret} AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
+	</select>
 </mapper>
