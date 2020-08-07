@@ -2,10 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
+		Filter
+	 -->
 	<bean id="testFilter" class="com.d0.spring.filter.TestFilter"></bean>
 	
 	<!-- 
@@ -13,6 +18,16 @@
 		${이름}
 	 -->	
 	<context:property-placeholder location="classpath:/property/*.properties"/>
+	
+	<!-- 
+		Task
+		> 스케쥴러 사용 설정
+	 -->
+	<task:annotation-driven/>
+	<context:component-scan base-package="com.d0.spring" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
 		
 	<!-- 
 		데이터베이스 도구를 등록
