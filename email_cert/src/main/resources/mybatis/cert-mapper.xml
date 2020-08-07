@@ -28,4 +28,11 @@
 	<delete id="delete" parameterType="cert">
 		DELETE CERT WHERE WHO = #{who} AND SECRET = #{secret}
 	</delete>
+	
+	<!-- 쓰레기 정보 삭제 -->
+	<delete id="clear">
+		<![CDATA[
+			DELETE CERT WHERE WHEN < SYSDATE - 5/25/60
+		]]>	
+	</delete>
 </mapper>

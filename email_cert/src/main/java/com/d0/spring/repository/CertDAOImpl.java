@@ -31,4 +31,11 @@ public class CertDAOImpl implements CertDAO {
 		// 인증번호 삭제
 		return result != null;
 	}
+
+	@Override
+	public int clear() {
+		int result = sqlSession.delete("cert.clear");
+		
+		return result;
+	}
 }

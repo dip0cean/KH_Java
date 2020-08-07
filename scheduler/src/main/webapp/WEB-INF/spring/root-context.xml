@@ -31,7 +31,7 @@
 		
 	<!-- 
 		데이터베이스 도구를 등록
-		 - 연결 도구 : 
+		 - 연결 도구 :  
 		 	org.springframework.jdbc.datasource.DriverManagerDataSource
 		 	org.apache.commons.dbcp2.BasicDataSource
 		 - 명령 도구

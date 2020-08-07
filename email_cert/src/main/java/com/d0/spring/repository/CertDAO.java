@@ -9,4 +9,7 @@ public interface CertDAO {
 	
 	// 인증번호 전송
 	public boolean validate(CertDTO certDTO);
+	
+	// 쓰레기 인증번호 삭제
+	public int clear();
 }
