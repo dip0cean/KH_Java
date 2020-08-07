@@ -24,7 +24,7 @@ public class Test05 {
 
 	@Test
 	public void test() {
-		CertDTO test = CertDTO.builder().who("127.0.0.1").secret("359038").build();
+		CertDTO test = CertDTO.builder().who("127.0.0.1").secret("839202").build();
 		CertDTO certDto = sqlSession.selectOne("cert.check2", test);
 		if(certDto != null) {
 			log.debug("certDTO = {}", certDto.toString());
