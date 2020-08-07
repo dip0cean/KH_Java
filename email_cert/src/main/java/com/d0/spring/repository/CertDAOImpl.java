@@ -12,11 +12,23 @@ public class CertDAOImpl implements CertDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 인증 번호 삽입
+	// 인증 번호 발급
 	@Override
 	public void regist(CertDTO certDTO) {
 		
 		sqlSession.insert("cert.regist", certDTO);
 
+	}
+
+	// 인증번호 인증 후 삭제
+	@Override
+	public boolean validate(CertDTO certDTO) {
+		// 인증번호 인증
+		CertDTO result = sqlSession.selectOne("cert.validate", certDTO);
+		if(result != null) {
+			sqlSession.delete("cert.delete",result);
+		}
+		// 인증번호 삭제
+		return result != null;
 	}
 }

@@ -20,11 +20,12 @@
 		
 		]]>	
 	-->
-	<select id="check" resultType="cert" parameterType="cert">
-		SELECT * FROM CERT WHERE WHO = #{who} AND SECRET = #{secret} AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
+	<select id="validate" resultType="cert" parameterType="cert">
+		SELECT * FROM CERT WHERE WHO = #{who} AND SECRET = #{secret} AND WHEN BETWEEN SYSDATE - 5/24/60 AND SYSDATE
 	</select>
 	
-	<select id="check2" resultType="cert" parameterType="cert">
-		SELECT * FROM CERT WHERE WHO = #{who} AND SECRET = #{secret} AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
-	</select>
+	<!-- 인증 성공 시 삭제 -->
+	<delete id="delete" parameterType="cert">
+		DELETE CERT WHERE WHO = #{who} AND SECRET = #{secret}
+	</delete>
 </mapper>
