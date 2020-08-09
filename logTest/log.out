@@ -1,0 +1,4 @@
+DEBUG: com.d0.spring.test01 - debug (2020-08-04 13:58:12)
+INFO : com.d0.spring.test01 - info (2020-08-04 13:58:12)
+WARN : com.d0.spring.test01 - warn (2020-08-04 13:58:12)
+ERROR: com.d0.spring.test01 - error (2020-08-04 13:58:12)

@@ -1,0 +1,16 @@
+<log4j:event logger="com.d0.spring.test01" timestamp="1596517025236" level="DEBUG" thread="main">
+<log4j:message><![CDATA[debug]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.d0.spring.test01" timestamp="1596517025236" level="INFO" thread="main">
+<log4j:message><![CDATA[info]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.d0.spring.test01" timestamp="1596517025236" level="WARN" thread="main">
+<log4j:message><![CDATA[warn]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.d0.spring.test01" timestamp="1596517025236" level="ERROR" thread="main">
+<log4j:message><![CDATA[error]]></log4j:message>
+</log4j:event>
+
