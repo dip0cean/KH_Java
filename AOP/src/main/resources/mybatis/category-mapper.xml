@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<insert id="add" parameterType="category">
+		INSERT INTO CATEGORY VALUES(#{c_no}, #{c_name})
+	</insert>
+	
+	<select id="getList" resultType="category">
+		SELECT * FROM CATEGORY ORDER BY C_NO ASC
+	</select>
+</mapper>
