@@ -15,6 +15,10 @@
 	<button onclick="connect();">접속</button>
 	<br><br>
 	<button onclick="disconnect();">종료</button>
+	<hr>
+	<h2>채팅 테스트</h2>
+	<input type="text" id="chat-input">
+	<button onclick="send();">전송</button>
 	
 	<script>
 		// 웹소켓 접속 함수
@@ -40,6 +44,20 @@
 		// 웹소켓 접속 종료 함수
 		function disconnect() {
 			socket.close();
+		}
+		
+		// 메세지 전송 함수 > 입력된 글자를 불러와서 서버에 전송
+		function send() {
+			var text = document.querySelector("#chat-input").value;
+			
+			console.log("메세지가 전송되었습니다.");
+			
+			if(!text){
+				return;
+			}
+			
+			socket.send(text);
+			document.querySelector("#chat-input").value = "";
 		}
 	</script>
 </body>

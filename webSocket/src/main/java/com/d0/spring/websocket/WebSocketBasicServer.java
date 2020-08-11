@@ -20,12 +20,21 @@ public class WebSocketBasicServer extends TextWebSocketHandler {
 	 * 접속 시 실행되는 메소드
 	 * - session > 접속한 사용자의 웹소켓 정보 (HttpSession 과는 다르다.)
 	 */
-	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.info(" -----접속----");
 		log.info("접속 = {}", session);
 	}
+	
+	/*
+	 * 메세지 수신 시 실행될 메소드
+	 * - Set 저장소 > 중복 금지를 위해 (순서 X / 중복 X)
+	 * - session > 접속한 사용자의 웹소켓 정보 > sender
+	 * - message > 사용자가 전송한 메세지 정보
+	 * 	- payload = 내용 
+	 * 	- byteCount = 문자 크기
+	 * 	- last = 메세지의 종료 여부 > 분할의 마지막
+	 */
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
