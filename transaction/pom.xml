@@ -212,9 +212,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 	</dependencies>
-
-
-
+	
 	<!-- 실제 명령 수행 시 필요한 설정 -->
 	<build>
 		<plugins>
