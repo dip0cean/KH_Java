@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>학생 등록</h1>
-	<form>
+	<form action="insert" method="post">
 		<input type="text" name="name" placeholder="이름" onblur="checkName();"> <span id="check"></span>
 		<br><br>
 		<input type="text" name="age" placeholder="나이">
