@@ -9,6 +9,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.d0.spring.kakaopay.KakaoPayCancelVO;
 import com.d0.spring.kakaopay.KakaoPayFinishVO;
 import com.d0.spring.kakaopay.KakaoPayProductVO;
 import com.d0.spring.kakaopay.KakaoPayReqResultVO;
@@ -134,6 +135,25 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		// template 로 전송
 		KakaoPayResultVO resultVO = template.postForObject(uri, entity, KakaoPayResultVO.class);
 		return resultVO;
+	}
+
+	@Override
+	public KakaoPayCancelVO cancel(String tid, String cancel_amount, String cancel_tax_free_amount) throws Exception {
+		RestTemplate template = new RestTemplate();
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("cid", CID);
+		body.add("tid", tid);
+		body.add("cancel_amount", cancel_amount);
+		body.add("cancel_tax_free_amount", cancel_tax_free_amount);
+		
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String,String>>(body, this.headers());
+		
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/cancel");
+		
+		KakaoPayCancelVO cancelVO = template.postForObject(uri, entity, KakaoPayCancelVO.class);
+		
+		return cancelVO;
 	}
 
 }

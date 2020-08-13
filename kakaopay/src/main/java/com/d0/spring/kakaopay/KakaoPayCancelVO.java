@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class KakaoPayResultVO {
+public class KakaoPayCancelVO {
 
+	private String aid;
 	private String tid;
 	private String cid;
 	private String status;
@@ -18,17 +19,13 @@ public class KakaoPayResultVO {
 	private String partner_user_id;
 	private String payment_method_type;
 	private KakaoPayFinishAmountVO amount;
-	
-	private String item_name;
-	private String item_code;
-	private int quantity;
-	private String create_at;
-	private String approved_at;
-	private String canceled_at;
-	private KakaoPaySelectedCardInfo selected_card_info;
-	
-	private KakaoPayPaymentActionDetails[] payment_action_details;
-	
 	private KakaoPayFinishAmountVO canceled_amount;
 	private KakaoPayFinishAmountVO cancel_available_amount;
+	private String item_name;
+	private String item_code;
+	private String quantity;
+	private String created_At;
+	private String approved_at;
+	private String canceled_at;
+	private String payload;
 }

@@ -10,7 +10,11 @@
 </head>
 <body>
 	<h1>${not empty result.item_name}</h1>
-	<h2>${result.tid }</h2>
-	<h2>${result.item_name }</h2>
+	<h2>주문 번호 : ${result.tid }</h2>
+	<h2>제품 이름 : ${result.item_name }</h2>
+	<h2>제품 개수 : ${result.quantity } 개</h2>
+	<h2>제품 가격 : ${result.amount.total } 원</h2>
+	
+	<a href="cancel?tid=${result.tid}&cancel_amount=${result.amount.total}&cancel_tax_free_amount=${result.amount.tax_free}"><button>결제 취소하기</button></a>
 </body>
 </html>

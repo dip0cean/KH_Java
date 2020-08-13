@@ -6,12 +6,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.d0.spring.kakaopay.KakaoPayCancelVO;
 import com.d0.spring.kakaopay.KakaoPayFinishVO;
 import com.d0.spring.kakaopay.KakaoPayProductVO;
 import com.d0.spring.kakaopay.KakaoPayReqResultVO;
@@ -71,14 +74,14 @@ public class KakaoPayController {
 
 		// 승인 요청 발송
 		KakaoPayFinishVO finishVO = kakaoPayService.approve(partner_order_id, partner_user_id, pg_token, tid);
-		
-		log.info("finishVO = {}",finishVO);
-		
+
+		log.info("finishVO = {}", finishVO);
+
 		session.setAttribute("finishVO", finishVO);
 
 		return "redirect:succ";
 	}
-	
+
 	@GetMapping("/succ")
 	public String succ() {
 		return "pay/succ";
@@ -88,36 +91,42 @@ public class KakaoPayController {
 	public String fail() {
 		return "pay/fail";
 	}
-	
+
 	@GetMapping("/result_fail")
 	public String result_fail() {
 		return "redirect:fail";
 	}
-	
+
+	// 주문 조회 페이지를 구현
+	// - tid 를 파라미터로 받아 해당하는 tid의 주문정보를 조회하여 화면에 출력
+	@GetMapping("/history")
+	public String history(HttpSession session, Model model) throws Exception {
+
+		KakaoPayFinishVO finishVO = (KakaoPayFinishVO) session.getAttribute("finishVO");
+
+		KakaoPayResultVO resultVO = kakaoPayService.result(finishVO.getTid());
+
+		model.addAttribute("result", resultVO);
+
+		log.info("resultVO = {}", resultVO);
+
+		return "pay/history";
+	}
+
 	@GetMapping("/cancel")
-	public String cancel() {
+	public String cancel(@RequestParam String tid, @RequestParam String cancel_amount,
+			@RequestParam String cancel_tax_free_amount, Model model) throws Exception {
+
+		KakaoPayCancelVO cancelVO = kakaoPayService.cancel(tid, cancel_amount, cancel_tax_free_amount);
+		model.addAttribute("cancel",cancelVO);
+		
+		log.info("cancelVO = {}", cancelVO);
+
 		return "pay/cancel";
 	}
-	
+
 	@GetMapping("/result_cancel")
 	public String result_cancel() {
 		return "redirect:cancel";
 	}
-	
-	// 주문 조회 페이지를 구현
-	// - tid 를 파라미터로 받아 해당하는 tid의 주문정보를 조회하여 화면에 출력
-	@GetMapping("/history")
-	public String history(HttpSession session) throws Exception {
-		
-		KakaoPayFinishVO finishVO = (KakaoPayFinishVO) session.getAttribute("finishVO");		
-		
-		KakaoPayResultVO resultVO = kakaoPayService.result(finishVO.getTid());
-		
-		session.setAttribute("result", resultVO);
-		
-		log.info("resultVO = {}", resultVO);
-		
-		return "pay/history";
-	}
-
 }
