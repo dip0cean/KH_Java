@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.d0.spring.kakaopay.KakaoPayFinishVO;
 import com.d0.spring.kakaopay.KakaoPayProductVO;
 import com.d0.spring.kakaopay.KakaoPayReqResultVO;
+import com.d0.spring.kakaopay.KakaoPayResultVO;
 import com.d0.spring.service.KakaoPayService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,8 +58,8 @@ public class KakaoPayController {
 	// - 세션 > partnet_order_id, partner_user_id, tid
 	// - 파라미터 > pg_token
 	// - 고유값 > CID
-	@GetMapping("/succ")
-	public String succ(@RequestParam String pg_token, HttpSession session) throws Exception {
+	@GetMapping("/approve")
+	public String approve(@RequestParam String pg_token, HttpSession session) throws Exception {
 		String partner_order_id = (String) session.getAttribute("partner_order_id");
 		String partner_user_id = (String) session.getAttribute("partner_user_id");
 		String tid = (String) session.getAttribute("tid");
@@ -72,7 +73,14 @@ public class KakaoPayController {
 		KakaoPayFinishVO finishVO = kakaoPayService.approve(partner_order_id, partner_user_id, pg_token, tid);
 		
 		log.info("finishVO = {}",finishVO);
+		
+		session.setAttribute("finishVO", finishVO);
 
+		return "redirect:succ";
+	}
+	
+	@GetMapping("/succ")
+	public String succ() {
 		return "pay/succ";
 	}
 
@@ -80,10 +88,36 @@ public class KakaoPayController {
 	public String fail() {
 		return "pay/fail";
 	}
-
+	
+	@GetMapping("/result_fail")
+	public String result_fail() {
+		return "redirect:fail";
+	}
+	
 	@GetMapping("/cancel")
 	public String cancel() {
 		return "pay/cancel";
+	}
+	
+	@GetMapping("/result_cancel")
+	public String result_cancel() {
+		return "redirect:cancel";
+	}
+	
+	// 주문 조회 페이지를 구현
+	// - tid 를 파라미터로 받아 해당하는 tid의 주문정보를 조회하여 화면에 출력
+	@GetMapping("/history")
+	public String history(HttpSession session) throws Exception {
+		
+		KakaoPayFinishVO finishVO = (KakaoPayFinishVO) session.getAttribute("finishVO");		
+		
+		KakaoPayResultVO resultVO = kakaoPayService.result(finishVO.getTid());
+		
+		session.setAttribute("result", resultVO);
+		
+		log.info("resultVO = {}", resultVO);
+		
+		return "pay/history";
 	}
 
 }

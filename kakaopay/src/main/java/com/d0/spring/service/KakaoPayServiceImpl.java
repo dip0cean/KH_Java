@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.d0.spring.kakaopay.KakaoPayFinishVO;
 import com.d0.spring.kakaopay.KakaoPayProductVO;
 import com.d0.spring.kakaopay.KakaoPayReqResultVO;
+import com.d0.spring.kakaopay.KakaoPayResultVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class KakaoPayServiceImpl implements KakaoPayService {
 
 	public static final String CID = "TC0ONETIME";
-	
+
 	@Override
 	public HttpHeaders headers() {
 		HttpHeaders headers = new HttpHeaders();
@@ -28,7 +29,7 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		return headers;
 	}
-	
+
 	@Override
 	public KakaoPayReqResultVO paymentReq(KakaoPayProductVO payProductVO) throws Exception {
 		// 필요한 데이터를 미리 변수로 선언
@@ -53,12 +54,13 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		body.add("total_amount", String.valueOf(payProductVO.getTotal_amount()));
 		body.add("tax_free_amount", "20");
 		// 주의 : 주소는 반드시 API 에서 승인된 URL 을 사용해야 한다.
-		body.add("approval_url", "http://localhost:8080/spring/pay/succ");
+		body.add("approval_url", "http://localhost:8080/spring/pay/approve");
 		body.add("cancel_url", "http://localhost:8080/spring/pay/cancel");
 		body.add("fail_url", "http://localhost:8080/spring/pay/fail");
 
 		// 4. Header + Body
-		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(body, this.headers());
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(body,
+				this.headers());
 
 		// 5. 주소 정의
 		URI uri = new URI("https://kapi.kakao.com/v1/payment/ready");
@@ -72,23 +74,22 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		log.info("created_at = {}", reqResultVO.getCreated_at());
 
 		log.info("결제 테스트 - finish");
-		
+
 		return reqResultVO;
 	}
 
-	
 	@Override
 	public KakaoPayFinishVO approve(String partner_order_id, String partner_user_id, String pg_token, String tid)
 			throws Exception {
 		// 카카오 승인 서버에 승인 요청을 보낸다.
 		// - 준비물 : order_id / user_id / tid / pg_token/ cid
 		// - 결과물 : KakaoPayFinishVO.class
-		
+
 		// 1. Template 생성
 		RestTemplate template = new RestTemplate();
-		
+
 		// 2. Header 생성
-		
+
 		// 3. Body 생성
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
 		body.add("cid", CID);
@@ -96,19 +97,43 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		body.add("partner_user_id", partner_user_id);
 		body.add("pg_token", pg_token);
 		body.add("tid", tid);
-		
+
 		// 4. Header + Body
-		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(body, this.headers());
-		
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(body,
+				this.headers());
+
 		// 5. 주소 정의
 		URI uri = new URI("https://kapi.kakao.com/v1/payment/approve");
-		
+
 		// 6. 준비 완료 > template 이용해서 요청 전송
 		KakaoPayFinishVO finishVO = template.postForObject(uri, entity, KakaoPayFinishVO.class);
-		
+
 		return finishVO;
 	}
 
+	@Override
+	public KakaoPayResultVO result(String tid) throws Exception {
 
+		// RestTemplate
+		RestTemplate template = new RestTemplate();
+
+		// header
+
+		// body
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("cid", CID);
+		body.add("tid", tid);
+
+		// body + header
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(body,
+				this.headers());
+		
+		// 주소 정의
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/order");
+		
+		// template 로 전송
+		KakaoPayResultVO resultVO = template.postForObject(uri, entity, KakaoPayResultVO.class);
+		return resultVO;
+	}
 
 }
