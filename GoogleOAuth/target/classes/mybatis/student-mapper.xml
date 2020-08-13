@@ -6,4 +6,12 @@
 	<select id="getList" resultType="oauth">
 		SELECT * FROM OAUTH ORDER BY EMAIL ASC
 	</select>
+	
+	<select id="get" parameterType="oauth" resultType="oauth">
+		SELECT * FROM OAUTH WHERE EMAIL = #{email}
+	</select>
+	
+	<insert id="join" parameterType="oauth">
+		INSERT INTO OAUTH VALUES(#{email})
+	</insert>
 </mapper>

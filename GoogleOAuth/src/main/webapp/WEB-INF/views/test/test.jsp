@@ -74,13 +74,6 @@
 
 	// 구글 로그인
 	function login() {
-		axios({
-			url:"${pageContext.request.contextPath}/ajax/getList",
-			method:"get"
-		}).then(function (resp) {
-			console.log(resp)
-			console.log(resp.data)
-		}) 
 		
 		//인증서비스 제공업체설정
 		var provider = new firebase.auth.GoogleAuthProvider();
@@ -90,7 +83,26 @@
 		
 		//공식API 활용 예제
 		firebase.auth().signInWithPopup(provider).then(function(result) {
-		  
+
+			console.log(result.user.email)
+			
+			var loginEmail = result.user.email;
+			
+			axios({
+				url:"${pageContext.request.contextPath}/ajax/getList?email=" + loginEmail,
+				method:"get"
+				}).then(function (resp) {
+					console.log(resp)
+					if(!resp.data.email) {
+						// 소셜 로그인 > 로그아웃 
+						this.logout();
+						
+						// 회원가입 페이지로 이동 
+						window.location.href = "join?email=" + loginEmail;
+						}
+					
+					})
+			  
 		  var token = result.credential.accessToken;
 		  var user = result.user;
 
@@ -127,9 +139,9 @@
 		    // No user is signed in.
 		    console.log(user)
 		    var id = document.querySelector("#your_id");
-		    id.innerHTML = "";
+		    id.textContent = "";
 		    var nick = document.querySelector("#your_nick");
-		    nick.innerHTML = "";
+		    nick.textContent = "";
 		  }
 	});
 </script>
