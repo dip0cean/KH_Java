@@ -17,3 +17,4 @@ public class KakaoPayProductVO {
 	private int quantity;
 	private int total_amount;
 }
+
