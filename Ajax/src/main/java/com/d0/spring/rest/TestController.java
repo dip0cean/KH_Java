@@ -110,11 +110,7 @@ public class TestController {
 	@GetMapping("/test10")
 	public List<StudentDTO> test10(@RequestParam int start, @RequestParam int finish) {
 	
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("start", start);
-		map.put("finish", finish);
-		
-		List<StudentDTO> list = sqlSession.selectList("student.section", map);
+		List<StudentDTO> list = studentDAO.getScoreList(start, finish);
 		
 		return list;
 	}
