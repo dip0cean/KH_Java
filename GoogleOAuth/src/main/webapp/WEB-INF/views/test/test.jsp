@@ -72,11 +72,18 @@
 // 참고 사이트
 // > http://blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221206395970
 
-	// 구글 로그인
-	function login() {
+	// 로그인
+	function login(tag) {
+
+		var tag = tag.id;
+		var provider;
 		
+		if(tag == "google") {
+			provider = new firebase.auth.GoogleAuthProvider();
+		} else {
+			provider = new firebase.auth.GithubAuthProvider();
+		}
 		//인증서비스 제공업체설정
-		var provider = new firebase.auth.GoogleAuthProvider();
 		
 		//로그인창 호출
 		firebase.auth().signInWithPopup(provider);
@@ -84,6 +91,7 @@
 		//공식API 활용 예제
 		firebase.auth().signInWithPopup(provider).then(function(result) {
 
+			console.log(result.additionalUserInfo.providerId)
 			console.log(result.user.email)
 			
 			var loginEmail = result.user.email;
@@ -151,7 +159,8 @@
 	<div id="firebaseui-auth-container"></div>
 	<div id="loader"></div>
 	
-	<button onclick="login();">로그인 창 띄우기</button>
+	<button onclick="login(this);" id="google">로그인 창 띄우기</button>
+	<button onclick="login(this);" id="github">로그인 창 띄우기</button>
 	<br><br>
 	<button onclick="logout();">로그아웃</button>
 	
