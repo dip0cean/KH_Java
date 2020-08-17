@@ -46,4 +46,9 @@ public class TestController {
 		return "redirect:test01";
 				
 	}
+	
+	@RequestMapping("/toast")
+	public String toast() {
+		return "test/toast";
+	}
 }
