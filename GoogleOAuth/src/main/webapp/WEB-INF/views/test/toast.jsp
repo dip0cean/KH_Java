@@ -13,9 +13,15 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha512-VZ6m0F78+yo3sbu48gElK4irv2dzPoep8oo9LEjxviigcnnnNvnTOJRSrIhuFk68FMLOpiNz+T77nNY89rnWDg==" crossorigin="anonymous"></script>
 <script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+<!-- script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> -->
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
 <script>
+	var editor;
+	var viewer;
+	var content;
+
 	document.addEventListener("DOMContentLoaded", ()=>{
-		var editor = new tui.Editor({
+		editor = new tui.Editor({
 			el: document.querySelector("#editorSection"),
 			initialEditType: "markdown",
 			previewStyle: "vertical",
@@ -41,12 +47,32 @@
 			}
 		})
 	}, false);
+
+	function changeMarkdown() {
+		content = editor.getMarkdown();
+		viewer.setValue(content);
+		console.log(content);
+		console.log(editor.getHtml());
+	}
+
+	document.addEventListener("DOMContentLoaded", ()=>{
+			viewer = new tui.Editor.factory({
+		    el: document.querySelector('#viewerSection'),
+		    viewer: true,
+		    height: '500px',
+		    initialEditType: 'markdown'
+		})
+	}, false);
 </script>
 </head>
 <body>
 	<div>
 		<div id="editorSection"></div>
-		<button id="form-submit">OK</button>
+		<button id="form-submit" onclick="changeMarkdown();">OK</button>
+	</div>
+	<div>
+		<div id="viewerSection">
+		</div>
 	</div>
 </body>
 </html>
