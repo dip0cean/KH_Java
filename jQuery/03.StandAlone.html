@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script>
+        // 클릭 이벤트
+        // Vanila JS
+        function hello() {
+            alert("Good Job");
+        }
+
+        // Stand Alone 방식
+        // 로딩 이벤트
+        // 버튼에 이벤트 설정하는 부분부터 눌렀을 대 실행될 코드까지 모두 여기서 작성
+        // window.onload 형식은 단 한개의 이벤트만 등록할 수 있다. > window.onload + addEventListener
+        window.onload = function() {
+            var button = document.querySelectorAll("button");
+            console.log(button[0]);
+            console.log(button[1]);
+
+           
+            button[1].addEventListener("click",function(){
+                alert("!!Wellcome to the Digital World!!");
+            });
+
+        }
+
+        window.addEventListener("load",function(){
+            var input = document.querySelectorAll("input[type=text]");
+            console.log(input[0]);
+
+            input[0].addEventListener("blur",function(){
+                alert("당신은 어떤 문자를 입력했군요!");
+            });
+        });
+    </script>
+</head>
+<body>
+    <!--
+        과거에는 onclick, oninput 등 이벤트 관련된 내용을 태그에 직접 작성했다.
+        - HTML 태그에 JS 코드가 작성된다는 것이 문제 > 의존성이 높아지고, 결합도가 높다! > 독립성 약화되기 때문
+        - 모듈화가 불가능하다. (별도의 파일로 분리가 어려움)
+        - 복잡할 수록 구정이 어렵고 관리도 어렵고 확장도 어렵다.
+        - JS 에서 태그에 onclick 이벤트를 직접 설정해야 한다!
+    -->
+    <button onclick="hello();">Hello!</button>
+    <button>Wellcome!</button>
+    <input type="text" placeholder="맛보세용~">
+</body>
+</html>
