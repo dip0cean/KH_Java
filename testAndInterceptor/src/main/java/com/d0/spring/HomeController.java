@@ -36,12 +36,12 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "test", method = RequestMethod.GET)
-	public String test() {
-		
-		System.out.println("테스트 페이지 진입");
-		return "test";
-	}
+//	@RequestMapping(value = "test", method = RequestMethod.GET)
+//	public String test() {
+//		
+//		System.out.println("테스트 페이지 진입");
+//		return "test";
+//	}
 	
 	
 }

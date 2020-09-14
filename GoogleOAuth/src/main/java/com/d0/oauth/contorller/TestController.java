@@ -51,4 +51,9 @@ public class TestController {
 	public String toast() {
 		return "test/toast";
 	}
+	
+	@RequestMapping("/test02")
+	public String test02() {
+		return "test/test02";
+	}
 }

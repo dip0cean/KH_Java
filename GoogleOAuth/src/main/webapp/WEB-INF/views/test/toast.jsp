@@ -13,12 +13,26 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha512-VZ6m0F78+yo3sbu48gElK4irv2dzPoep8oo9LEjxviigcnnnNvnTOJRSrIhuFk68FMLOpiNz+T77nNY89rnWDg==" crossorigin="anonymous"></script>
 <script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
-<!-- script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> -->
-<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
+<!-- Editor's Dependecy Style -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"
+  />
+  <!-- Editor's Style -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<!-- <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script> -->
 <script>
-	var editor;
+var editor;
 	var viewer;
 	var content;
+
+/* 	const editor = new Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        height: '500px',
+        initialEditType: "markdown",
+        initialValue: "content"
+      }, true); */
 
 	document.addEventListener("DOMContentLoaded", ()=>{
 		editor = new tui.Editor({
@@ -30,7 +44,7 @@
 				'addImageBlobHook':function(blob, callback){
 					console.log(blob, callback);
 					//blob 업로드를 하고(axios 등)
-					var frm = new FormData();
+					const frm = new FormData();
 					frm.append("f", blob);
 					console.log(frm);
 					axios({
@@ -66,7 +80,9 @@
 </script>
 </head>
 <body>
+	<!-- <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> -->
 	<div>
+	<div id="editor"></div>
 		<div id="editorSection"></div>
 		<button id="form-submit" onclick="changeMarkdown();">OK</button>
 	</div>
