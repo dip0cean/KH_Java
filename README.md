@@ -1,7 +1,5 @@
-## KH
+# KH 정보 교육원
+### 2020.04 ~ 2020.09
+- 교육원 내 종합 성적 최우수상
 
----
-
-[Lesson](https://www.notion.so/affb784751504a3daf8083d35d10c866)
-
-[Test](https://www.notion.so/b166115f7d0445a89297ae4bc6e70ab5)
+--
